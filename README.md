@@ -6,7 +6,7 @@ Watchlist+ is a web-application that will help you keep track of movies and TV s
 
 ## Core Features
 - Watchlist
-- View
+- View & Browse
 - Reviews & Recommendations
 - Account Management
 - Can respond to 100 users with 1000 requests per minute, concurrently
@@ -25,8 +25,9 @@ Watchlist+ is a web-application that will help you keep track of movies and TV s
 - As a signed-in user, I want to be able to sort my watchlist based on various attributes (e.g., rating, release date, genre, etc.), so that I can organize my watchlist.
 - As a signed-in user, I want to be able to share my watchlist with others, so that I can share it with friends.
 
-### View
+### View & Browse
 - As a user, I want to be able to view a brief overview of a movie or TV show, so that I can figure out if it interests me.
+- As a user, I want to be able to browse movies and TV shows, so that I can view them or add them to my list.
 
 ### Reviews & Recommendations
 - As a user, I want to be able to see user reviews for movies and TV shows, so that I can see what other users thought of a movie or TV show.
