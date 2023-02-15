@@ -1,41 +1,44 @@
 .root {
-    height: 100%;
-    width: 100%;
-    background-color: #ffffff;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-  }
-  
-  .loginContainer {
-    background-color: #1877f2;
-    width: 400px;
-    height: auto;
-    border: 20px solid #1877f2;
-    display: flex;
-    align-self: center;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: column;
-  }
-  
-  .loginElement {
-    flex: 5;
-    display: flex;
-    align-items: stretch;
-    flex-direction: column;
-    color: #ffffff;
-    border: 5px solid #1877f2;
-    width: 100%;
-  }
-  
-  .loginInput {
-    display: flex;
-    flex: 5;
-    width: 100%;
-  }
-  
-  .loginButton {
-      margin: 5px;
-  }
-  
+  height: 100%;
+  width: 100%;
+  background-color: #ffffff;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.loginContainer {
+  background-color: #1877f2;
+  width: 400px;
+  height: auto;
+  border: 20px solid #1877f2;
+  display: flex;
+  align-self: center;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.loginElement {
+  flex: 5;
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  color: #ffffff;
+  border: 5px solid #1877f2;
+  width: 100%;
+}
+
+.loginInput {
+  display: flex;
+  flex: 5;
+  width: 100%;
+}
+
+.loginButton {
+  margin: 5px;
+}
+
+.loginError {
+  color: #fc0101;
+}
