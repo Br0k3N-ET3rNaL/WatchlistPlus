@@ -27,6 +27,8 @@ const connect = () => {
     db.sequelize = sequelize;
     // eslint-disable-next-line global-require
     db.user = require('../model/user.model')(sequelize, DataTypes, Model);
+    // eslint-disable-next-line global-require
+    db.title = require('../model/title.model')(sequelize, DataTypes, Model);
 
     return db;
 };
