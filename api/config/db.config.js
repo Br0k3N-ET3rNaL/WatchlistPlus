@@ -11,6 +11,9 @@ const connect = () => {
         host: hostName,
         dialect,
         operatorsAliases: false,
+        define: {
+            timestamps: false,
+        },
         pool: {
             max: 10,
             min: 0,
