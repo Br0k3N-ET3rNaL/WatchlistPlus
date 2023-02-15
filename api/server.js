@@ -1,11 +1,35 @@
-var express = require("express"),
-    app = express(),
-    port = 3070;
+/* eslint-disable linebreak-style */
+const express = require('express');
+const bodyParser = require('body-parser');
 
-app.get("/", function (req, res) {
-    res.send("App works!!");
-})
+const userController = require('./controller/user.controller');
 
-app.listen(port, function (err) {
-    console.log("running server on from port:::::::" + port);
+const app = express();
+const port = 3070;
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.get('/', (req, res) => {
+    res.send('App works!!');
+});
+
+app.listen(port, () => {
+    console.log(`running server on from port:::::::${port}`);
+});
+
+app.get('/api/users/exists/username/:username', (req, res) => {
+    userController.usernameExists(req.params.username).then((data) => res.json(data));
+});
+
+app.get('/api/users/exists/email/:email', (req, res) => {
+    userController.emailExists(req.params.email).then((data) => res.json(data));
+});
+
+app.get('/api/users/verify/:email/:password', (req, res) => {
+    userController.verifyUser(req.params.email, req.params.password).then((data) => res.json(data));
+});
+
+app.post('/api/users/', (req, res) => {
+    userController.createUser(req.body.user).then((data) => res.json(data));
 });
