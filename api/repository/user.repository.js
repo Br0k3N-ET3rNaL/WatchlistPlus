@@ -8,9 +8,9 @@ class UserRepository {
         this.db = connect();
 
         // Remove for production
-        this.db.sequelize.sync({ force: true }).then(() => {
-            console.log('Drop and re-sync db.');
-        });
+        // this.db.sequelize.sync({ force: true }).then(() => {
+        //     console.log('Drop and re-sync db.');
+        // });
     }
 
     async getUserByUsername(username) {
