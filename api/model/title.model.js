@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes, Model) => {
     Title.init({
         id: {
             type: DataTypes.STRING,
+            primaryKey: true,
             unique: true,
         },
         title: {
@@ -13,7 +14,7 @@ module.exports = (sequelize, DataTypes, Model) => {
             type: DataTypes.STRING,
         },
         description: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
         },
         releaseYear: {
             type: DataTypes.INTEGER,
@@ -28,7 +29,7 @@ module.exports = (sequelize, DataTypes, Model) => {
             type: DataTypes.ARRAY(DataTypes.STRING),
         },
         productionCountries: {
-            types: DataTypes.ARRAY(DataTypes.STRING),
+            type: DataTypes.ARRAY(DataTypes.STRING),
         },
         seasons: {
             type: DataTypes.INTEGER,
