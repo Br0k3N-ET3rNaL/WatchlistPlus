@@ -10,7 +10,6 @@ const connect = () => {
     const sequelize = new Sequelize(database, userName, password, {
         host: hostName,
         dialect,
-        operatorsAliases: false,
         define: {
             timestamps: false,
         },
