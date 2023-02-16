@@ -3,22 +3,22 @@ const logger = require('../logger/api.logger');
 
 class UserController {
     async usernameExists(username) {
-        logger.info('Controller: usernameExists', username);
+        logger.info('UserController: usernameExists', username);
         return userService.usernameExists(username);
     }
 
     async emailExists(email) {
-        logger.info('Controller: emailExists', email);
+        logger.info('UserController: emailExists', email);
         return userService.emailExists(email);
     }
 
     async verifyUser(email, password) {
-        logger.info('Controller: verifyUser', `${email} ${password}`);
+        logger.info('UserController: verifyUser', `${email} ${password}`);
         return userService.verifyUser(email, password);
     }
 
     async createUser(user) {
-        logger.info('Controller: createUser', user);
+        logger.info('UserController: createUser', user);
         return userService.createUser(user);
     }
 }
