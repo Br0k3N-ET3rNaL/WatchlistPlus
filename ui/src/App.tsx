@@ -40,7 +40,7 @@ class App extends React.Component<AppProps, AppState> {
             <div>
                 {(this.state.view === Views.Home) && <div>
                     <TopBar home={true} loggedIn={this.state.loggedIn} signup={this.signup} login={this.login} />
-                    <BrowseView />
+                    <BrowseView loggedIn={this.state.loggedIn} />
                 </div>}
                 {(this.state.view !== Views.Home) && <div>
                     <TopBar home={false} back={this.back}/>

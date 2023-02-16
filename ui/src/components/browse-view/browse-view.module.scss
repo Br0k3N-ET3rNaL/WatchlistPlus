@@ -1,8 +1,49 @@
 .root {
-    height: 100%;
-    width: 100%;
-    background-color: #ffffff;
-    align-items: center;
-    justify-content: center;
-    display: flex;
+  height: 100%;
+  width: 100%;
+  background-color: #ffffff;
+  align-items: start;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}
+.browseList {
+  display: flex;
+  flex-direction: column;
+}
+.listTitleBar {
+  display: grid;
+  width: 100%;
+  gap: 10px;
+  height: 50px;
+  align-items: center;
+  min-width: 500px;
+  flex-direction: row;
+  grid-template-columns: 10px 60% 10% 10% 10fr;
+  grid-auto-flow: column;
+  justify-items: start;
+  justify-content: start;
+}
+.listSortOptions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+.pageButtons {
+  display: flex;
+  grid-template-columns: 20% 20% 20% 20% 20%;
+  grid-auto-flow: column;
+  width: 120px;
+  justify-items: center;
+}
+.bottomBar {
+  display: flex;
+  justify-content: center;
+}
+.pageButton {
+  width: 25px;
+  align-self: end;
+  display: flex;
+  justify-content: space-around;
 }
