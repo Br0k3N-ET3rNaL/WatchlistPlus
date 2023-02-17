@@ -22,6 +22,7 @@ module.exports = {
         'no-empty-function': 1,
         'class-methods-use-this': 0,
         'linebreak-style': 0,
+        'max-len': 0,
         indent: ['error', 4],
     },
 };
