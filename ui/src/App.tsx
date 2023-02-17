@@ -3,6 +3,7 @@ import BrowseView from "./components/browse-view/browse-view";
 import SignUp from "./components/sign-up/sign-up";
 import LogIn from "./components/log-in/log-in";
 import React from "react";
+import './colors.scss'
 
 enum Views {
     Home,

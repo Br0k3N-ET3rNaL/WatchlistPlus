@@ -1,17 +1,17 @@
 .root {
   height: 100%;
   width: 100%;
-  background-color: #ffffff;
+  background-color: var(--secondary-color);
   align-items: center;
   justify-content: center;
   display: flex;
 }
 
 .signupContainer {
-  background-color: #1877f2;
+  background-color: var(--primary-color);
   width: 400px;
   height: auto;
-  border: 20px solid #1877f2;
+  border: 20px solid var(--primary-color);
   display: flex;
   align-self: center;
   align-items: center;
@@ -24,8 +24,8 @@
   display: flex;
   align-items: stretch;
   flex-direction: column;
-  color: #ffffff;
-  border: 5px solid #1877f2;
+  color: var(--secondary-color);
+  border: 5px solid var(--primary-color);
   width: 100%;
 }
 

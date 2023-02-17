@@ -6,13 +6,14 @@
   align-items: center;
   min-width: 600px;
   flex-direction: row;
-  border: 1px solid #1877f2;
+  border: 1px solid var(--primary-color);
   grid-template-columns: 10% 60% 10% 10% 10%;
   grid-auto-flow: column;
   justify-items: start;
   justify-content: start;
 }
 .title {
+  cursor: pointer;
 }
 .year {
 }
