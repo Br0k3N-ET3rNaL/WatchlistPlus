@@ -8,13 +8,22 @@ class UserService {
     }
 
     async emailExists(email) {
-        const userResult = await userRepository.getUserByEmail(email);
+        let userResult = null;
+
+        if (this.#validEmail(email)) {
+            userResult = await userRepository.getUserByEmail(email);
+        }
 
         return { emailExists: userResult !== null };
     }
 
     async verifyUser(email, password) {
-        const userResult = await userRepository.getUserByEmail(email);
+        let userResult = null;
+
+        if (this.#validEmail(email)) {
+            userResult = await userRepository.getUserByEmail(email);
+        }
+
         const userExists = (userResult !== null);
         let passwordsMatch = true;
 
@@ -27,6 +36,10 @@ class UserService {
 
     async createUser(user) {
         return userRepository.createUser(user);
+    }
+
+    #validEmail(email) {
+        return email.match('(^[^@]*@[^.]*\\..*)');
     }
 }
 
