@@ -24,6 +24,7 @@
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "@wixc3/react-board": "^2.1.3",
+    "jest": "^27.5.1",
     "react-scripts": "^5.0.1",
     "sass": "^1.58.0",
     "typescript": "^4.9.5"
