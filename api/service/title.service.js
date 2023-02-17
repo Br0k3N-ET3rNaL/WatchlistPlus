@@ -1,8 +1,8 @@
 const titleRepository = require('../repository/title.repository');
 
 class TitleService {
-    async getPageOfTitles(pageLength, pageNum, sortColumn) {
-        const results = await titleRepository.getPageOfTitles(pageLength, pageNum, sortColumn);
+    async getPageOfTitles(pageLength, pageNum, sortColumn, search) {
+        const results = await titleRepository.getPageOfTitles(pageLength, pageNum, sortColumn, search);
         let titles;
         if (Array.isArray(results)) {
             titles = results.map((t) => (

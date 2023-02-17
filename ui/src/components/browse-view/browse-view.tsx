@@ -12,8 +12,10 @@ type BrowseViewProps = {
 type BrowseViewState = {
     listItems: any;
     sortOptions: any;
+    searchInput: string;
     sortColumn: string;
     page: number;
+    timeout?: any;
 };
 
 /**
@@ -24,6 +26,7 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
     state: BrowseViewState = {
         listItems: undefined,
         sortOptions: undefined,
+        searchInput: ' ',
         sortColumn: 'tmdbPopularity',
         page: 1,
     };
@@ -35,13 +38,16 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
             { key: 'Release Year', column: 'releaseYear' },
         ];
 
-        this.setState({
-            sortOptions: sortColumns.map(({ key, column }) => (
-                <option key={key} value={column}>
-                    {key}
-                </option>
-            )),
-        }, this.getCurrentPage);
+        this.setState(
+            {
+                sortOptions: sortColumns.map(({ key, column }) => (
+                    <option key={key} value={column}>
+                        {key}
+                    </option>
+                )),
+            },
+            this.getCurrentPage
+        );
     }
 
     handleDropdownChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
@@ -70,18 +76,38 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
         this.setState({ page: 1 }, this.getCurrentPage);
     };
 
+    handleSearchUpdate: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+        e.preventDefault();
+
+        if (this.state.timeout) {
+            clearTimeout(this.state.timeout);
+        }
+
+        const search = e.currentTarget.value
+
+        this.setState({
+            timeout: setTimeout(() => {
+                this.setState({ searchInput: search }, this.getCurrentPage);
+            }, 1000)
+        })
+    }
+
     getCurrentPage() {
         var items = 0;
         const requestOptions = {
             method: 'GET',
         };
-        fetch('/api/titles/50/' + this.state.page + '/' + this.state.sortColumn, requestOptions)
+        fetch('/api/titles/50/' + this.state.page + '/' + this.state.sortColumn + '/' + this.state.searchInput, requestOptions)
             .then((response) => response.json())
             .then((data) => {
                 this.setState({
                     listItems: data.map(
                         (title: { title: string; releaseYear: number; rating: number }) => (
-                            <TitleListElement key={items++} title={title} loggedIn={this.props.loggedIn} />
+                            <TitleListElement
+                                key={items++}
+                                title={title}
+                                loggedIn={this.props.loggedIn}
+                            />
                         )
                     ),
                 });
@@ -90,51 +116,57 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
         window.scrollTo(0, 0);
     }
 
-    // pass in logged in to toggle check button
     render() {
         return (
             <div className={classNames(styles.root, this.props.className)}>
-                <div className={styles.browseList}>
-                    <ul>
-                        <div className={styles.listTitleBar}>
-                            <div />
-                            <div>Title</div>
-                            <div>Year</div>
-                            <div>Rating</div>
-                            {this.props.loggedIn && <div>Add To List</div>}
-                        </div>
-                        {this.state.listItems}
-                    </ul>
-                    <div className={styles.bottomBar}>
-                        <div className={styles.pageButtons}>
-                            <button
-                                onClick={this.handleFirstPage}
-                                className={styles.pageButton}
-                                disabled={this.state.page <= 2}
-                            >
-                                &lt;&lt;
-                            </button>
-                            <button
-                                onClick={this.handlePrevPage}
-                                className={styles.pageButton}
-                                disabled={this.state.page === 1}
-                            >
-                                &lt;
-                            </button>
-                            <div className={styles.pageButton}>{this.state.page}</div>
-                            <button
-                                onClick={this.handleNextPage}
-                                className={styles.pageButton}
-                                disabled={false}
-                            >
-                                &gt;
-                            </button>
+                <div className={styles.searchBar}>
+                    <input className={styles.searchInput} onChange={this.handleSearchUpdate} />
+                </div>
+                <div className={styles.browse}>
+                    <div className={styles.browseList}>
+                        <ul className={styles.unorderedList}>
+                            <div className={styles.listTitleBar}>
+                                <div />
+                                <div>Title</div>
+                                <div>Year</div>
+                                <div>Rating</div>
+                                {this.props.loggedIn && <div>Add To List</div>}
+                            </div>
+                            {this.state.listItems}
+                        </ul>
+                        <div className={styles.bottomBar}>
+                            <div className={styles.pageButtons}>
+                                <button
+                                    onClick={this.handleFirstPage}
+                                    className={styles.pageButton}
+                                    disabled={this.state.page <= 2}
+                                >
+                                    &lt;&lt;
+                                </button>
+                                <button
+                                    onClick={this.handlePrevPage}
+                                    className={styles.pageButton}
+                                    disabled={this.state.page === 1}
+                                >
+                                    &lt;
+                                </button>
+                                <div className={styles.pageButton}>{this.state.page}</div>
+                                <button
+                                    onClick={this.handleNextPage}
+                                    className={styles.pageButton}
+                                    disabled={false}
+                                >
+                                    &gt;
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className={styles.listSortOptions}>
-                    Sort By
-                    <select onChange={this.handleDropdownChange}>{this.state.sortOptions}</select>
+                    <div className={styles.listSortOptions}>
+                        Sort By
+                        <select onChange={this.handleDropdownChange}>
+                            {this.state.sortOptions}
+                        </select>
+                    </div>
                 </div>
             </div>
         );

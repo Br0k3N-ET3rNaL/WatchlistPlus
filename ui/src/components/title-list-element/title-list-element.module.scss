@@ -4,10 +4,10 @@
   gap: 10px;
   height: 50px;
   align-items: center;
-  min-width: 500px;
+  min-width: 600px;
   flex-direction: row;
   border: 1px solid #1877f2;
-  grid-template-columns: 10px 60% 10% 10% 10fr;
+  grid-template-columns: 10% 60% 10% 10% 10%;
   grid-auto-flow: column;
   justify-items: start;
   justify-content: start;
