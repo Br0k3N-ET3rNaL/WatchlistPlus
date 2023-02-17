@@ -2,6 +2,7 @@ import styles from './browse-view.module.scss';
 import classNames from 'classnames';
 import React from 'react';
 import TitleListElement from '../title-list-element/title-list-element';
+import TitleView from '../title-view/title-view';
 
 type BrowseViewProps = {
     className?: string;
@@ -16,6 +17,7 @@ type BrowseViewState = {
     sortColumn: string;
     page: number;
     timeout?: any;
+    titleView?: any;
 };
 
 /**
@@ -102,11 +104,12 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
             .then((data) => {
                 this.setState({
                     listItems: data.map(
-                        (title: { title: string; releaseYear: number; rating: number }) => (
+                        (title: { title: string, type: string, description: string, releaseYear: number, ageGuidance: string, runtime: number, rating: number, genres: string[] }) => (
                             <TitleListElement
                                 key={items++}
                                 title={title}
                                 loggedIn={this.props.loggedIn}
+                                displayTitle={this.displayTitle}
                             />
                         )
                     ),
@@ -116,9 +119,22 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
         window.scrollTo(0, 0);
     }
 
+    displayTitle = (title: { title: string, type: string, description: string, releaseYear: number, ageGuidance: string, runtime: number, rating: number, genres: string[] }) => {
+        this.setState({
+            titleView: <TitleView title={title} closeTitle={this.closeTitle}/>
+        });
+    }
+
+    closeTitle = () => {
+        this.setState({
+            titleView: undefined,
+        })
+    }
+
     render() {
         return (
             <div className={classNames(styles.root, this.props.className)}>
+                {this.state.titleView}
                 <div className={styles.searchBar}>
                     <input className={styles.searchInput} onChange={this.handleSearchUpdate} />
                 </div>

@@ -6,7 +6,9 @@ class TitleService {
         let titles;
         if (Array.isArray(results)) {
             titles = results.map((t) => (
-                { title: t.title, releaseYear: t.releaseYear, rating: t.imdbScore }));
+                {
+                    title: t.title, type: t.type, description: t.description, releaseYear: t.releaseYear, ageGuidance: t.ageGuidance, runtime: t.runtime, rating: t.imdbScore, genres: t.genres,
+                }));
         }
         return titles;
     }

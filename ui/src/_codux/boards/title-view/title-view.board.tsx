@@ -1,9 +1,13 @@
 import { createBoard } from '@wixc3/react-board';
-import TitleListElement from '../../../components/title-list-element/title-list-element';
+import TitleView from '../../../components/title-view/title-view';
 
 const testTitle = {title: 'Title', type: 'Movie', description: 'Description', releaseYear: 2023, ageGuidance: 'R', runtime: 120, rating: 8.5, genres: ['drama', 'thriller']};
 
 export default createBoard({
-    name: 'TitleListElement',
-    Board: () => <TitleListElement key={0} title={testTitle} loggedIn={true}/>
+    name: 'TitleView',
+    Board: () => <TitleView title={testTitle}/>,
+    environmentProps: {
+        canvasHeight: 887,
+        canvasWidth: 1508,
+    },
 });
