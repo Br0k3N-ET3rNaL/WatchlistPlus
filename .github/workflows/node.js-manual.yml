@@ -5,7 +5,7 @@ name: Node.js Manual
 
 defaults:
   run:
-    working-directory: api
+    working-directory: ./api
 
 on:
   workflow_dispatch:
