@@ -3,6 +3,10 @@
 
 name: Node.js Manual
 
+defaults:
+  run:
+    working-directory: api
+
 on:
   workflow_dispatch:
     branches: [ $default-branch ]
@@ -21,6 +25,5 @@ jobs:
       with:
         node-version: '18.14'
         cache: 'npm'
-        cache-dependency-path: api/package-lock.json
     - run: npm install
     - run: npm jest
