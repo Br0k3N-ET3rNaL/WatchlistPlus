@@ -51,7 +51,7 @@ state: TitleViewState = {
                         <div className={styles.infoBarElement}> {this.props.title.type} </div>
                         <div className={styles.infoBarElement}>{this.props.title.releaseYear}</div>
                         <div className={styles.infoBarElement}>{this.props.title.ageGuidance}</div>
-                        <div className={styles.infoBarElement}> {this.props.title.runtime} </div>
+                        <div className={styles.infoBarElement}> {this.props.title.runtime}mins </div>
                     </div>
                     <div className={styles.infoBar}>
                         <ul className={styles.genreList}>

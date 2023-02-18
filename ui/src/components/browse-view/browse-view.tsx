@@ -155,6 +155,7 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
                                 <button
                                     onClick={this.handleFirstPage}
                                     className={styles.pageButton}
+                                    aria-label={'first'}
                                     disabled={this.state.page <= 2}
                                 >
                                     &lt;&lt;
@@ -162,6 +163,7 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
                                 <button
                                     onClick={this.handlePrevPage}
                                     className={styles.pageButton}
+                                    aria-label={'prev'}
                                     disabled={this.state.page === 1}
                                 >
                                     &lt;
@@ -170,6 +172,7 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
                                 <button
                                     onClick={this.handleNextPage}
                                     className={styles.pageButton}
+                                    aria-label={'next'}
                                     disabled={false}
                                 >
                                     &gt;

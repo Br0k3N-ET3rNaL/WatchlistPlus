@@ -38,11 +38,14 @@ class LogIn extends React.Component<LogInProps, LogInState> {
             fetch('/api/users/verify/' + email + '/' + password, requestOptions)
                 .then((response) => response.json())
                 .then((data) => {
-                    this.setState({
-                        userExists: data.userExists,
-                        passwordsMatch: data.passwordsMatch,
-                        checked: true,
-                    }, this.checkLogin);
+                    this.setState(
+                        {
+                            userExists: data.userExists,
+                            passwordsMatch: data.passwordsMatch,
+                            checked: true,
+                        },
+                        this.checkLogin
+                    );
                 });
         }
     };
@@ -58,36 +61,42 @@ class LogIn extends React.Component<LogInProps, LogInState> {
     render() {
         return (
             <div className={classNames(styles.root, this.props.className)}>
-                <div className={classNames('loginContainer', styles.loginContainer)}>
+                <div className={styles.loginContainer}>
                     <form onSubmit={this.handleLogIn} className={styles.loginContainer}>
                         <div className={classNames('email', styles.loginElement)}>
                             <div>
                                 <label> Email: </label>
-                                {!this.state.userExists && <label className={classNames('loginError', styles.loginError)}> * No user with given email </label>}
+                                <label className={styles.loginError} aria-label={'no user'} hidden={this.state.userExists}>
+                                    * No user with given email
+                                </label>
                             </div>
                             <input
                                 name="email"
                                 type="email"
-                                className={classNames('loginInput', styles.loginInput)}
+                                className={styles.loginInput}
+                                aria-label={'email'}
                             />
                         </div>
                         <div className={classNames('password', styles.loginElement)}>
                             <div>
                                 <label> Password: </label>
-                                {!this.state.passwordsMatch && <label className={classNames('loginError', styles.loginError)}> * Incorrect Password </label>}
+                                <label className={styles.loginError} aria-label={'do not match'} hidden={this.state.passwordsMatch}>
+                                    * Incorrect Password
+                                </label>
                             </div>
                             <input
                                 name="password"
                                 type="password"
-                                className={classNames('loginInput', styles.loginInput)}
+                                className={styles.loginInput}
+                                aria-label={'password'}
                             />
                         </div>
-                        <button className={classNames('loginButton', styles.loginButton)}>
+                        <button className={styles.loginButton} aria-label={'log in'}>
                             Log In
                         </button>
                     </form>
-                </div >
-            </div >
+                </div>
+            </div>
         );
     }
 }

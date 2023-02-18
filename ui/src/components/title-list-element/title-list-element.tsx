@@ -6,7 +6,6 @@ type TitleListElementProps = {
     className?: string;
     children?: React.ReactNode;
     key: number;
-    // title: { title: string; releaseYear: number; rating: number };
     title: { title: string, type: string, description: string, releaseYear: number, ageGuidance: string, runtime: number, rating: number, genres: string[] };
     loggedIn: boolean;
     onList?: boolean;

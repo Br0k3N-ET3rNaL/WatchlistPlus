@@ -31,7 +31,7 @@ class SignUp extends React.Component<SignUpProps, SignUpState> {
         password: undefined,
         passwordRepeat: undefined,
         passwordsMatch: false,
-    }
+    };
 
     handleSubmitUsername: React.FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
@@ -42,8 +42,8 @@ class SignUp extends React.Component<SignUpProps, SignUpState> {
                 method: 'GET',
             };
             fetch('/api/users/exists/username/' + username, requestOptions)
-                .then(response => response.json())
-                .then(data => {
+                .then((response) => response.json())
+                .then((data) => {
                     const exists = data.usernameExists;
 
                     if (!exists) {
@@ -66,8 +66,8 @@ class SignUp extends React.Component<SignUpProps, SignUpState> {
                 method: 'GET',
             };
             fetch('/api/users/exists/email/' + email, requestOptions)
-                .then(response => response.json())
-                .then(data => {
+                .then((response) => response.json())
+                .then((data) => {
                     const exists = data.emailExists;
 
                     if (!exists) {
@@ -102,8 +102,11 @@ class SignUp extends React.Component<SignUpProps, SignUpState> {
     };
 
     passwordsMatch() {
-        if (this.state.password === this.state.passwordRepeat && this.state.password !== undefined && this.state.passwordRepeat !== undefined) {
-            console.log('match');
+        if (
+            this.state.password === this.state.passwordRepeat &&
+            this.state.password !== undefined &&
+            this.state.passwordRepeat !== undefined
+        ) {
             this.setState({ passwordsMatch: true });
         } else if (this.state.password !== this.state.passwordRepeat) {
             this.setState({ passwordsMatch: false });
@@ -138,50 +141,80 @@ class SignUp extends React.Component<SignUpProps, SignUpState> {
             <div className={classNames(styles.root, this.props.className)}>
                 <div className={classNames('signupContainer', styles.signupContainer)}>
                     <div className={classNames('username', styles.signupElement)}>
-                        <form onSubmitCapture={this.handleSubmitUsername} onBlurCapture={this.handleSubmitUsername}>
+                        <form
+                            onSubmitCapture={this.handleSubmitUsername}
+                            onBlurCapture={this.handleSubmitUsername}
+                        >
                             <label> Username: </label>
-                            {(!this.state.validUsername && this.state.username !== undefined) && <label className={classNames('signupError', styles.signupError)}> * Username already exists </label>}
+                            <label className={styles.signupError} hidden={this.state.validUsername || this.state.username === undefined}>
+                                * Username already exists
+                            </label>
                             <input
-                                name='username'
-                                className={classNames('signupInput', styles.signupInput)}
+                                name="username"
+                                className={styles.signupInput}
+                                aria-label={'username'}
                             />
                         </form>
                     </div>
                     <div className={classNames('email', styles.signupElement)}>
-                        <form onSubmitCapture={this.handleSubmitEmail} onBlurCapture={this.handleSubmitEmail}>
+                        <form
+                            onSubmitCapture={this.handleSubmitEmail}
+                            onBlurCapture={this.handleSubmitEmail}
+                        >
                             <label> Email: </label>
-                            {(!this.state.validEmail && this.state.email !== undefined) && <label className={classNames('signupError', styles.signupError)}> * Email already exists </label>}
+                            <label className={styles.signupError} hidden={this.state.validEmail || this.state.email === undefined}>* Email already exists</label>
                             <input
-                                name='email'
-                                type='email'
-                                className={classNames('signupInput', styles.signupInput)}
+                                name="email"
+                                type="email"
+                                className={styles.signupInput}
+                                aria-label={'email'}
                             />
                         </form>
                     </div>
                     <div className={classNames('password', styles.signupElement)}>
-                        <form onSubmitCapture={this.handleSubmitPassword} onBlurCapture={this.handleSubmitPassword}>
+                        <form
+                            onSubmitCapture={this.handleSubmitPassword}
+                            onBlurCapture={this.handleSubmitPassword}
+                        >
                             <label> Password: </label>
-                            {(!this.state.passwordsMatch && this.state.password !== undefined && this.state.passwordRepeat !== undefined) && <label className={classNames('signupError', styles.signupError)}> * Passwords don't match </label>}
+                            <label
+                                className={styles.signupError}
+                                aria-label={'error'}
+                                hidden={
+                                    this.state.passwordsMatch ||
+                                    this.state.password === undefined ||
+                                    this.state.passwordRepeat === undefined
+                                }
+                            >
+                                * Passwords don't match
+                            </label>
                             <input
-                                name='password'
-                                type='password'
-                                className={classNames('signupInput', styles.signupInput)}
+                                name="password"
+                                type="password"
+                                className={styles.signupInput}
+                                aria-label={'password'}
+                                title={'password'}
                             />
                         </form>
                     </div>
                     <div className={classNames('passwordRepeat', styles.signupElement)}>
-                        <form onSubmitCapture={this.handleSubmitPasswordRepeat} onBlurCapture={this.handleSubmitPasswordRepeat}>
+                        <form
+                            onSubmitCapture={this.handleSubmitPasswordRepeat}
+                            onBlurCapture={this.handleSubmitPasswordRepeat}
+                        >
                             <label> Repeat Password: </label>
                             <input
-                                name='passwordRepeat'
-                                type='password'
-                                className={classNames('signupInput', styles.signupInput)}
+                                name="passwordRepeat"
+                                type="password"
+                                className={styles.signupInput}
+                                aria-label={'repeat'}
                             />
                         </form>
                     </div>
                     <button
                         onClick={this.handleSignUp}
-                        className={classNames('signupButton', styles.signupButton)}
+                        className={styles.signupButton}
+                        aria-label={'sign up'}
                     >
                         Sign Up
                     </button>
