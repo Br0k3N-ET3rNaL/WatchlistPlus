@@ -21,6 +21,6 @@ jobs:
       with:
         node-version: '18.14'
         cache: 'npm'
-    - name: Install dependencies
-      run: npm install
+        cache-dependecy=path: api/package-lock.json
+    - run: npm install
     - run: npm jest
