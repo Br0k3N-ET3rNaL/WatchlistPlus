@@ -3,10 +3,6 @@
 
 name: Node.js Manual
 
-defaults:
-  run:
-    working-directory: ./api
-
 on:
   workflow_dispatch:
     branches: [ $default-branch ]
@@ -17,7 +13,9 @@ jobs:
   build:
 
     runs-on: windows-latest
-
+    defaults:
+      run:
+        working-directory: ./api
     steps:
     - uses: actions/checkout@v3
     - name: Use Node.js 
