@@ -1,0 +1,25 @@
+name: React JS Manual
+
+on:
+  workflow_dispatch:    
+    branches: [ $default-branch ]
+  pull_request:
+    branches: [ $default-branch ]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: ./api
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js 
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.14'
+        cache: 'npm'
+        cache-dependency-path: ./ui/package-lock.json
+    - run: npm ci
+    - run: npm run test
