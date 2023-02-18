@@ -12,7 +12,6 @@ class TitleRepository {
         // Prevent injection
         if (this.db.title.rawAttributes[sortColumn]) {
             try {
-                logger.info(sortColumn);
                 const titles = await this.db.sequelize.query(
                     `SELECT * FROM titles WHERE title ILIKE :search AND "${sortColumn}" IS NOT NULL ORDER BY "${sortColumn}" DESC OFFSET :offset FETCH FIRST :pageLength ROWS ONLY`,
                     {
