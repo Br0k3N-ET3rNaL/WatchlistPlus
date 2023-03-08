@@ -2,9 +2,8 @@ name: React JS CI
 
 on:
   push:    
-    branches: [ $default-branch ]
-  pull_request:
-    branches: [ $default-branch ]
+    paths:
+      - UI
 
 jobs:
   build:
