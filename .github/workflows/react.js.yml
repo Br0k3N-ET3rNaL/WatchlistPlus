@@ -3,7 +3,7 @@ name: React JS CI
 on:
   push:    
     paths:
-      - UI
+      - ui
 
 jobs:
   build:
