@@ -1,8 +1,11 @@
 const titleRepository = require('../repository/title.repository');
 const logger = require('../logger/api.logger');
+require('../config/db.config');
 
 // eslint-disable-next-line no-unused-vars
-const db = jest.mock('../config/db.config');
+const db = jest.mock('../config/db.config', () => ({
+    connect: jest.fn(),
+}));
 
 logger.error = jest.fn();
 
