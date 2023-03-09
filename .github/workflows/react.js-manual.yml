@@ -1,10 +1,6 @@
 name: React JS Manual
 
-on:
-  workflow_dispatch:    
-    branches: [ $default-branch ]
-  pull_request:
-    branches: [ $default-branch ]
+on: [workflow_dispatch]
 
 jobs:
   build:
