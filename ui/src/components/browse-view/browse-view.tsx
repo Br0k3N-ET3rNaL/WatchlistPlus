@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import React from 'react';
 import TitleListElement from '../title-list-element/title-list-element';
 import TitleView from '../title-view/title-view';
+import PageController from '../page-controller/page-controller';
 
 type BrowseViewProps = {
     className?: string;
@@ -151,33 +152,7 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
                             {this.state.listItems}
                         </ul>
                         <div className={styles.bottomBar}>
-                            <div className={styles.pageButtons}>
-                                <button
-                                    onClick={this.handleFirstPage}
-                                    className={styles.pageButton}
-                                    aria-label={'first'}
-                                    disabled={this.state.page <= 2}
-                                >
-                                    &lt;&lt;
-                                </button>
-                                <button
-                                    onClick={this.handlePrevPage}
-                                    className={styles.pageButton}
-                                    aria-label={'prev'}
-                                    disabled={this.state.page === 1}
-                                >
-                                    &lt;
-                                </button>
-                                <div className={styles.pageButton}>{this.state.page}</div>
-                                <button
-                                    onClick={this.handleNextPage}
-                                    className={styles.pageButton}
-                                    aria-label={'next'}
-                                    disabled={false}
-                                >
-                                    &gt;
-                                </button>
-                            </div>
+                            <PageController page={this.state.page} onNextPage={this.handleNextPage} onPrevPage={this.handlePrevPage} onFirstPage={this.handleFirstPage}/>
                         </div>
                     </div>
                     <div className={styles.listSortOptions}>

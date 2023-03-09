@@ -7,10 +7,12 @@
   display: flex;
   flex-direction: column;
 }
+
 .browseList {
   display: flex;
   flex-direction: column;
 }
+
 .listTitleBar {
   display: grid;
   width: 100%;
@@ -23,44 +25,37 @@
   justify-items: start;
   align-items: center;
 }
+
 .listSortOptions {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 20px;
 }
-.pageButtons {
-  display: flex;
-  grid-template-columns: 20% 20% 20% 20% 20%;
-  grid-auto-flow: column;
-  width: 120px;
-  justify-items: center;
-}
+
 .bottomBar {
   display: flex;
   justify-content: center;
 }
-.pageButton {
-  width: 25px;
-  align-self: end;
-  display: flex;
-  justify-content: space-around;
-}
+
 .searchBar {
   display: flex;
   width: 600px;
   align-self: center;
   justify-content: center;
 }
+
 .browse {
   display: flex;
   align-content: center;
 }
+
 .searchInput {
   display: flex;
   align-items: center;
   width: 100%;
 }
+
 .unorderedList {
   display: flex;
   justify-content: space-around;
