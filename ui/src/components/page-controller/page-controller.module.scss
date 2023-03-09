@@ -1,0 +1,14 @@
+.pageButtons {
+  display: flex;
+  grid-template-columns: 20% 20% 20% 20% 20%;
+  grid-auto-flow: column;
+  width: 120px;
+  justify-items: center;
+}
+
+.pageButton {
+  width: 25px;
+  align-self: end;
+  display: flex;
+  justify-content: space-around;
+}
