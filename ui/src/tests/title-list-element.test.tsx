@@ -2,7 +2,7 @@ import TitleListElement from '../components/title-list-element/title-list-elemen
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-const stubTitle = { title: 'Title', type: 'MOVIE', description: 'Description', releaseYear: 2023, ageGuidance: 'R', runtime: 120, rating: 8.5, genres: ['drama', 'thriller'] };
+const stubTitle = { id: '', title: 'Title', type: 'MOVIE', description: 'Description', releaseYear: 2023, ageGuidance: 'R', runtime: 120, rating: 8.5, genres: ['drama', 'thriller'] };
 
 test('list element display title', async () => {
     render(<TitleListElement key={1} title={stubTitle} loggedIn={false} />);
