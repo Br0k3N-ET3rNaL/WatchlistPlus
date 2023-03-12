@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 const { Sequelize, Model, DataTypes } = require('sequelize');
 
 const connect = () => {
@@ -24,10 +25,9 @@ const connect = () => {
     const db = {};
     db.Sequelize = Sequelize;
     db.sequelize = sequelize;
-    // eslint-disable-next-line global-require
     db.user = require('../model/user.model')(sequelize, DataTypes, Model);
-    // eslint-disable-next-line global-require
     db.title = require('../model/title.model')(sequelize, DataTypes, Model);
+    db.watched = require('../model/watchlist.model')(sequelize, DataTypes, Model);
 
     return db;
 };
