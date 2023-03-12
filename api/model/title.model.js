@@ -52,6 +52,7 @@ module.exports = (sequelize, DataTypes, Model) => {
     }, {
         sequelize,
         modelName: 'title',
+        sync: false,
     });
 
     return Title;
