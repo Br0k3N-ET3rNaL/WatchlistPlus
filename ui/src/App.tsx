@@ -4,11 +4,15 @@ import SignUp from "./components/sign-up/sign-up";
 import LogIn from "./components/log-in/log-in";
 import React from "react";
 import './colors.scss'
+import Watchlist from "./components/watchlist/watchlist";
+
+const UserContext = React.createContext<number | undefined>(undefined);
 
 enum Views {
     Home,
     SignUp,
-    LogIn
+    LogIn,
+    Watchlist
 }
 
 type AppProps = {};
@@ -16,6 +20,7 @@ type AppProps = {};
 type AppState = {
     view: Views;
     loggedIn: boolean;
+    userID?: number;
 };
 
 class App extends React.Component<AppProps, AppState> {
@@ -32,27 +37,34 @@ class App extends React.Component<AppProps, AppState> {
         this.setState({ view: Views.LogIn });
     }
 
-    back = (loggedIn: boolean): void => {
-        this.setState({ view: Views.Home, loggedIn });
+    back = (userID?: number): void => {
+        if (userID) {
+            this.setState({ view: Views.Home, loggedIn: true, userID });
+        }
+    }
+
+    watchlist = (): void => {
+        this.setState({ view: Views.Watchlist });
     }
 
     render() {
         return (
-            <div>
-                {(this.state.view === Views.Home) && <div>
-                    <TopBar home={true} loggedIn={this.state.loggedIn} signup={this.signup} login={this.login} />
-                    <BrowseView loggedIn={this.state.loggedIn} />
-                </div>}
-                {(this.state.view !== Views.Home) && <div>
-                    <TopBar home={false} back={this.back}/>
-                </div>}
-                {(this.state.view === Views.SignUp) && <SignUp login={this.login} />}
-                {(this.state.view === Views.LogIn) && <LogIn home={this.back} />}
-            </div>
-
-
+            <UserContext.Provider value={this.state.userID}>
+                <div>
+                    {(this.state.view === Views.Home) && <div>
+                        <TopBar home={true} loggedIn={this.state.loggedIn} signup={this.signup} login={this.login} watchlist={this.watchlist} />
+                        <BrowseView loggedIn={this.state.loggedIn} />
+                    </div>}
+                    {(this.state.view !== Views.Home) && <div>
+                        <TopBar home={false} back={this.back} />
+                    </div>}
+                    {(this.state.view === Views.SignUp) && <SignUp login={this.login} />}
+                    {(this.state.view === Views.LogIn) && <LogIn home={this.back} />}
+                    {(this.state.view === Views.Watchlist) && <Watchlist />}
+                </div>
+            </UserContext.Provider>
         );
     }
 }
 
-export default App;
+export { App, UserContext };

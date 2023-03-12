@@ -9,7 +9,8 @@ type TopBarProps = {
     children?: React.ReactNode;
     signup?: () => void;
     login?: () => void;
-    back?: (loggedIn: boolean) => void;
+    back?: () => void;
+    watchlist?: () => void;
     home: boolean;
     loggedIn?: boolean;
 }
@@ -44,13 +45,15 @@ class TopBar extends React.Component<TopBarProps> {
                     </div>}
                     {(!this.props.home && !this.props.loggedIn) && <span
                         className={classNames('topbarLink', styles.topbarLink)}
-                        onClick={() => {
-                            if (this.props.back !== undefined) {
-                                this.props.back(false)
-                            }
-                        }}
+                        onClick={this.props.back}
                     >
                         Go Back
+                    </span>}
+                    {this.props.loggedIn && <span
+                        className={classNames('topbarLink', styles.topbarLink)}
+                        onClick={this.props.watchlist}
+                    >
+                        Watchlist
                     </span>}
                 </div>
             </div>
