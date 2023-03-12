@@ -5,13 +5,14 @@ import React from 'react';
 type LogInProps = {
     className?: string;
     children?: React.ReactNode;
-    home?: (loggedIn: boolean) => void;
+    home?: (userID?: number) => void;
 };
 
 type LogInState = {
     userExists: boolean;
     passwordsMatch: boolean;
     checked: boolean;
+    userID?: number,
 };
 
 /**
@@ -43,7 +44,9 @@ class LogIn extends React.Component<LogInProps, LogInState> {
                             userExists: data.userExists,
                             passwordsMatch: data.passwordsMatch,
                             checked: true,
+                            userID: data.userID,
                         },
+
                         this.checkLogin
                     );
                 });
@@ -53,7 +56,7 @@ class LogIn extends React.Component<LogInProps, LogInState> {
     checkLogin() {
         if (this.state.checked && this.state.userExists && this.state.passwordsMatch) {
             if (this.props.home !== undefined) {
-                this.props.home(true);
+                this.props.home(this.state.userID);
             }
         }
     }

@@ -31,7 +31,12 @@ class UserService {
             passwordsMatch = (userResult.password === password);
         }
 
-        return { userExists, passwordsMatch };
+        let userID = null;
+        if (userExists && passwordsMatch) {
+            userID = userResult.id;
+        }
+
+        return { userExists, passwordsMatch, userID };
     }
 
     async createUser(user) {
