@@ -6,6 +6,7 @@ type TitleViewProps = {
     className?: string;
     children?: React.ReactNode;
     title: {
+        id: string,
         title: string;
         type: string;
         description: string;

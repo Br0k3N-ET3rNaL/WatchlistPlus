@@ -105,7 +105,7 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
             .then((data) => {
                 this.setState({
                     listItems: data.map(
-                        (title: { title: string, type: string, description: string, releaseYear: number, ageGuidance: string, runtime: number, rating: number, genres: string[] }) => (
+                        (title: { id: string, title: string, type: string, description: string, releaseYear: number, ageGuidance: string, runtime: number, rating: number, genres: string[] }) => (
                             <TitleListElement
                                 key={items++}
                                 title={title}
@@ -120,7 +120,7 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
         window.scrollTo(0, 0);
     }
 
-    displayTitle = (title: { title: string, type: string, description: string, releaseYear: number, ageGuidance: string, runtime: number, rating: number, genres: string[] }) => {
+    displayTitle = (title: { id: string, title: string, type: string, description: string, releaseYear: number, ageGuidance: string, runtime: number, rating: number, genres: string[] }) => {
         this.setState({
             titleView: <TitleView title={title} closeTitle={this.closeTitle}/>
         });
