@@ -6,8 +6,8 @@ type WatchlistListElementProps = {
     className?: string;
     children?: React.ReactNode;
     key: number;
-    watched: {rating: number, status: string, title: { title: string, type: string, description: string, releaseYear: number, ageGuidance: string, runtime: number, rating: number, genres: string[] }};
-    displayTitle?: (title: { title: string, type: string, description: string, releaseYear: number, ageGuidance: string, runtime: number, rating: number, genres: string[] }) => void;
+    watched: {rating: number, status: string, title: { id: string, title: string, type: string, description: string, releaseYear: number, ageGuidance: string, runtime: number, rating: number, genres: string[] }};
+    displayTitle?: (title: { id: string, title: string, type: string, description: string, releaseYear: number, ageGuidance: string, runtime: number, rating: number, genres: string[] }) => void;
 }
 
 class WatchlistListElement extends React.Component<WatchlistListElementProps> {

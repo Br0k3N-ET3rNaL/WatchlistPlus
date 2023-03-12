@@ -53,7 +53,7 @@ class Watchlist extends React.Component<WatchlistProps, WatchlistState> {
             .then((data) => {
                 this.setState({
                     listItems: data.map(
-                        (watched: { rating: number, status: string, title: { title: string, type: string, description: string, releaseYear: number, ageGuidance: string, runtime: number, rating: number, genres: string[] } }) => (
+                        (watched: { rating: number, status: string, title: { id: string, title: string, type: string, description: string, releaseYear: number, ageGuidance: string, runtime: number, rating: number, genres: string[] } }) => (
                             <WatchlistListElement
                                 key={items++}
                                 watched={watched}
@@ -67,7 +67,7 @@ class Watchlist extends React.Component<WatchlistProps, WatchlistState> {
         window.scrollTo(0, 0);
     };
 
-    displayTitle = (title: { title: string, type: string, description: string, releaseYear: number, ageGuidance: string, runtime: number, rating: number, genres: string[] }) => {
+    displayTitle = (title: { id: string, title: string, type: string, description: string, releaseYear: number, ageGuidance: string, runtime: number, rating: number, genres: string[] }) => {
         this.setState({
             titleView: <TitleView title={title} closeTitle={this.closeTitle} />
         });

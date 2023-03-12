@@ -9,6 +9,7 @@ class WatchlistService {
                 rating: w.rating,
                 status: w.status,
                 title: {
+                    id: w.title.id,
                     title: w.title.title,
                     type: w.title.type,
                     description: w.title.description,
