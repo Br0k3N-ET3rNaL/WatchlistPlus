@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 
 const userController = require('./controller/user.controller');
 const titleController = require('./controller/title.controller');
+const watchlistController = require('./controller/watchlist.controller');
 
 const app = express();
 const port = 3070;
@@ -44,5 +45,11 @@ app.get('/api/titles/:pageLength/:pageNum/:sortColumn/:search', (req, res) => {
 app.get('/api/titles/:pageLength/:pageNum/:sortColumn/', (req, res) => {
     titleController
         .getPageOfTitles(req.params.pageLength, req.params.pageNum, req.params.sortColumn, '')
+        .then((data) => res.json(data));
+});
+
+app.get('/api/watchlist/:userID/:pageLength/:pageNum/', (req, res) => {
+    watchlistController
+        .getPageOfWatched(req.params.userID, req.params.pageLength, req.params.pageNum, 'title')
         .then((data) => res.json(data));
 });
