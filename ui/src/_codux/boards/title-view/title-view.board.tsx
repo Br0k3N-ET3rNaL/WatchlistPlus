@@ -1,7 +1,7 @@
 import { createBoard } from '@wixc3/react-board';
 import TitleView from '../../../components/title-view/title-view';
 
-const testTitle = {title: 'Title', type: 'Movie', description: 'Description', releaseYear: 2023, ageGuidance: 'R', runtime: 120, rating: 8.5, genres: ['drama', 'thriller']};
+const testTitle = {id: '', title: 'Title', type: 'Movie', description: 'Description', releaseYear: 2023, ageGuidance: 'R', runtime: 120, rating: 8.5, genres: ['drama', 'thriller']};
 
 export default createBoard({
     name: 'TitleView',
