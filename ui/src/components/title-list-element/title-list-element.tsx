@@ -1,15 +1,16 @@
 import styles from './title-list-element.module.scss';
 import classNames from 'classnames';
 import React from 'react';
+import { Title } from '../../App';
 
 type TitleListElementProps = {
     className?: string;
     children?: React.ReactNode;
     key: number;
-    title: { id: string, title: string, type: string, description: string, releaseYear: number, ageGuidance: string, runtime: number, rating: number, genres: string[] };
+    title: Title;
     loggedIn: boolean;
     onList?: boolean;
-    displayTitle?: (title: { id: string, title: string, type: string, description: string, releaseYear: number, ageGuidance: string, runtime: number, rating: number, genres: string[] }) => void;
+    displayTitle?: (title: Title) => void;
     addToList?: () => void;
     removeFromList?: () => void;
 };

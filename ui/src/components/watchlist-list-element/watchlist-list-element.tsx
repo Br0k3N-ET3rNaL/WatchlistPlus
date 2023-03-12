@@ -1,13 +1,14 @@
 import styles from './watchlist-list-element.module.scss';
 import classNames from 'classnames';
 import React from 'react';
+import { Title, Watched } from '../../App';
 
 type WatchlistListElementProps = {
     className?: string;
     children?: React.ReactNode;
     key: number;
-    watched: {rating: number, status: string, title: { id: string, title: string, type: string, description: string, releaseYear: number, ageGuidance: string, runtime: number, rating: number, genres: string[] }};
-    displayTitle?: (title: { id: string, title: string, type: string, description: string, releaseYear: number, ageGuidance: string, runtime: number, rating: number, genres: string[] }) => void;
+    watched: Watched;
+    displayTitle?: (title: Title) => void;
 }
 
 class WatchlistListElement extends React.Component<WatchlistListElementProps> {

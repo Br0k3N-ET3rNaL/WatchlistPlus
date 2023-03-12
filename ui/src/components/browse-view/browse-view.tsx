@@ -4,6 +4,7 @@ import React from 'react';
 import TitleListElement from '../title-list-element/title-list-element';
 import TitleView from '../title-view/title-view';
 import PageController from '../page-controller/page-controller';
+import { Title } from '../../App';
 
 type BrowseViewProps = {
     className?: string;
@@ -105,7 +106,7 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
             .then((data) => {
                 this.setState({
                     listItems: data.map(
-                        (title: { id: string, title: string, type: string, description: string, releaseYear: number, ageGuidance: string, runtime: number, rating: number, genres: string[] }) => (
+                        (title: Title) => (
                             <TitleListElement
                                 key={items++}
                                 title={title}
@@ -120,7 +121,7 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
         window.scrollTo(0, 0);
     }
 
-    displayTitle = (title: { id: string, title: string, type: string, description: string, releaseYear: number, ageGuidance: string, runtime: number, rating: number, genres: string[] }) => {
+    displayTitle = (title: Title) => {
         this.setState({
             titleView: <TitleView title={title} closeTitle={this.closeTitle}/>
         });

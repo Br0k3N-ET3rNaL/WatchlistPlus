@@ -4,7 +4,7 @@ import React from 'react';
 import WatchlistListElement from '../watchlist-list-element/watchlist-list-element';
 import PageController from '../page-controller/page-controller';
 import TitleView from '../title-view/title-view';
-import { UserContext } from '../../App';
+import { Title, UserContext, Watched } from '../../App';
 
 type WatchlistProps = {
     className?: string;
@@ -53,7 +53,7 @@ class Watchlist extends React.Component<WatchlistProps, WatchlistState> {
             .then((data) => {
                 this.setState({
                     listItems: data.map(
-                        (watched: { rating: number, status: string, title: { id: string, title: string, type: string, description: string, releaseYear: number, ageGuidance: string, runtime: number, rating: number, genres: string[] } }) => (
+                        (watched: Watched) => (
                             <WatchlistListElement
                                 key={items++}
                                 watched={watched}
@@ -67,7 +67,7 @@ class Watchlist extends React.Component<WatchlistProps, WatchlistState> {
         window.scrollTo(0, 0);
     };
 
-    displayTitle = (title: { id: string, title: string, type: string, description: string, releaseYear: number, ageGuidance: string, runtime: number, rating: number, genres: string[] }) => {
+    displayTitle = (title: Title) => {
         this.setState({
             titleView: <TitleView title={title} closeTitle={this.closeTitle} />
         });

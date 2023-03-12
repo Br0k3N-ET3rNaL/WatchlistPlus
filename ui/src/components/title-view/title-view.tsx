@@ -1,21 +1,12 @@
 import styles from './title-view.module.scss';
 import classNames from 'classnames';
 import React from 'react';
+import { Title } from '../../App';
 
 type TitleViewProps = {
     className?: string;
     children?: React.ReactNode;
-    title: {
-        id: string,
-        title: string;
-        type: string;
-        description: string;
-        releaseYear: number;
-        ageGuidance: string;
-        runtime: number;
-        rating: number;
-        genres: string[];
-    };
+    title: Title,
     closeTitle?: () => void;
 };
 

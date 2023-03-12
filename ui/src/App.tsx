@@ -8,6 +8,24 @@ import Watchlist from "./components/watchlist/watchlist";
 
 const UserContext = React.createContext<number | undefined>(undefined);
 
+interface Title {
+    id: string,
+    title: string,
+    type: string,
+    description: string,
+    releaseYear: number,
+    ageGuidance: string,
+    runtime: number,
+    rating: number,
+    genres: string[],
+}
+
+interface Watched {
+    rating: number,
+    status: string,
+    title: Title,
+}
+
 enum Views {
     Home,
     SignUp,
@@ -68,3 +86,4 @@ class App extends React.Component<AppProps, AppState> {
 }
 
 export { App, UserContext };
+export type { Title, Watched };
