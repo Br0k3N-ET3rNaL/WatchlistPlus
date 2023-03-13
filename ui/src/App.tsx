@@ -5,8 +5,7 @@ import LogIn from "./components/log-in/log-in";
 import React from "react";
 import './colors.scss'
 import Watchlist from "./components/watchlist/watchlist";
-
-const UserContext = React.createContext<number | undefined>(undefined);
+import UserContext from "./context";
 
 interface Title {
     id: string,
@@ -56,8 +55,9 @@ class App extends React.Component<AppProps, AppState> {
     }
 
     back = (userID?: number): void => {
-        if (userID) {
-            this.setState({ view: Views.Home, loggedIn: true, userID });
+        this.setState({ view: Views.Home, loggedIn: true});
+        if (typeof userID === 'number') {
+            this.setState({ userID });
         }
     }
 
@@ -85,5 +85,5 @@ class App extends React.Component<AppProps, AppState> {
     }
 }
 
-export { App, UserContext };
+export { App };
 export type { Title, Watched };
