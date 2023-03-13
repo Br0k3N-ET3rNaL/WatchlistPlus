@@ -11,7 +11,7 @@ type TitleListElementProps = {
     loggedIn: boolean;
     onList?: boolean;
     displayTitle?: (title: Title) => void;
-    addToList?: () => void;
+    displayEdit?: (title: Title) => void;
     removeFromList?: () => void;
 };
 
@@ -37,12 +37,15 @@ class TitleListElement extends React.Component<TitleListElementProps, TitleListE
                 <div />
                 <div className={styles.title} onClick={() => {
                     if (this.props.displayTitle !== undefined)
-                        this.props.displayTitle(this.props.title)
+                        this.props.displayTitle(this.props.title);
                 }}> {this.props.title.title} </div>
                 <div className={styles.year}> {this.props.title.releaseYear} </div>
                 <div className={styles.rating}> {this.props.title.rating} </div>
                 {this.props.loggedIn && <div className={styles.add}>
-                    <input type="checkbox" defaultChecked={this.props.onList} />
+                    <button onClick={() => {
+                        if (this.props.displayEdit)
+                            this.props.displayEdit(this.props.title);
+                    }}> add </button>
                 </div>}
             </div>
         );

@@ -5,6 +5,7 @@ import TitleListElement from '../title-list-element/title-list-element';
 import TitleView from '../title-view/title-view';
 import PageController from '../page-controller/page-controller';
 import { Title } from '../../App';
+import EditWatchlist from '../edit-watchlist/edit-watchlist';
 
 type BrowseViewProps = {
     className?: string;
@@ -20,6 +21,7 @@ type BrowseViewState = {
     page: number;
     timeout?: any;
     titleView?: any;
+    editView?: any;
 };
 
 /**
@@ -112,6 +114,7 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
                                 title={title}
                                 loggedIn={this.props.loggedIn}
                                 displayTitle={this.displayTitle}
+                                displayEdit={this.displayEdit}
                             />
                         )
                     ),
@@ -127,9 +130,21 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
         });
     }
 
+    displayEdit = (title: Title) => {
+        this.setState({
+            editView: <EditWatchlist title={title} closeEdit={this.closeEdit}/>
+        })
+    }
+
     closeTitle = () => {
         this.setState({
             titleView: undefined,
+        })
+    }
+
+    closeEdit = () => {
+        this.setState({
+            editView: undefined,
         })
     }
 
@@ -137,6 +152,7 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
         return (
             <div className={classNames(styles.root, this.props.className)}>
                 {this.state.titleView}
+                {this.state.editView}
                 <div className={styles.searchBar}>
                     <input className={styles.searchInput} onChange={this.handleSearchUpdate} />
                 </div>
