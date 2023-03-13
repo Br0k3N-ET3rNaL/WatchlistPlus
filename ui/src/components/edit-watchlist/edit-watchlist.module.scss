@@ -1,0 +1,36 @@
+.root {
+  width: 100%;
+  display: block;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  justify-items: stretch;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+}
+
+.editView {
+  background-color: var(--secondary-color);
+  display: flex;
+  width: 50%;
+  height: 50%;
+  align-self: center;
+  position: fixed;
+  top: 25%;
+  left: 25%;
+  flex-direction: column;
+}
+
+.editElement {
+  display: grid;
+  grid-template-columns: 15% 30%;
+  justify-content: center;
+}
+
+.bottomBar {
+  display: flex;
+  justify-content: center;
+}
