@@ -31,6 +31,8 @@ class EditWatchlist extends React.Component<EditWatchlistProps, EditWatchlistSta
 
         if (this.props.watched) {
             this.setState({ status: this.props.watched.status, rating: this.props.watched.rating });
+        } else if (this.props.title?.watched?.status) {
+            this.setState({ status: this.props.title.watched.status, rating: this.props.title.watched.rating });
         }
     }
 
@@ -132,26 +134,26 @@ class EditWatchlist extends React.Component<EditWatchlistProps, EditWatchlistSta
                     </span>
                     <span className={styles.editElement}>
                         <label> Status: </label>
-                        <select onChange={this.handleStatusDropdownChange}>
+                        <select value={this.state.status} onChange={this.handleStatusDropdownChange}>
                             <option> Plan To Watch </option>
-                            <option selected={this.state.status === 'Watching'}> Watching </option>
-                            <option selected={this.state.status === 'Completed'}> Completed </option>
+                            <option> Watching </option>
+                            <option> Completed </option>
                         </select>
                     </span>
                     <span className={styles.editElement}>
                         <label> Rating: </label>
-                        <select onChange={this.handleRatingDropdownChange}>
+                        <select value={String(this.state.rating)} onChange={this.handleRatingDropdownChange}>
                             <option> Select Rating </option>
-                            <option selected={this.state.rating === 1}> 1 </option>
-                            <option selected={this.state.rating === 2}> 2 </option>
-                            <option selected={this.state.rating === 3}> 3 </option>
-                            <option selected={this.state.rating === 4}> 4 </option>
-                            <option selected={this.state.rating === 5}> 5 </option>
-                            <option selected={this.state.rating === 6}> 6 </option>
-                            <option selected={this.state.rating === 7}> 7 </option>
-                            <option selected={this.state.rating === 8}> 8 </option>
-                            <option selected={this.state.rating === 9}> 9 </option>
-                            <option selected={this.state.rating === 10}> 10 </option>
+                            <option> 1 </option>
+                            <option> 2 </option>
+                            <option> 3 </option>
+                            <option> 4 </option>
+                            <option> 5 </option>
+                            <option> 6 </option>
+                            <option> 7 </option>
+                            <option> 8 </option>
+                            <option> 9 </option>
+                            <option> 10 </option>
                         </select>
                     </span>
                     <div className={styles.bottomBar}>
