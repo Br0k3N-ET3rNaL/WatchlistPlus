@@ -5,6 +5,10 @@ class WatchlistService {
         return watchlistRepository.createWatched(watched);
     }
 
+    async updateWatched(watched) {
+        return watchlistRepository.updateWatched(watched);
+    }
+
     async getPageOfWatched(userID, pageLength, pageNum, sortColumn) {
         const results = await watchlistRepository.getPageOfWatched(userID, pageLength, pageNum, sortColumn);
         let watched;

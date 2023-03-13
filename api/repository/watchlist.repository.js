@@ -20,6 +20,18 @@ class WatchlistRepository {
         return data;
     }
 
+    async updateWatched(watched) {
+        let data = {};
+
+        try {
+            data = await this.db.watched.update(watched, { where: { titleId: watched.titleId, userId: watched.userId } });
+        } catch (err) {
+            logger.error(`Error::${err}`);
+        }
+
+        return data;
+    }
+
     async getPageOfWatched(userID, pageLength, pageNum, sortColumn) {
         if (this.db.title.rawAttributes[sortColumn]) {
             try {
