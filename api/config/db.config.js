@@ -11,6 +11,7 @@ const connect = () => {
     const sequelize = new Sequelize(database, userName, password, {
         host: hostName,
         dialect,
+        logging: false,
         define: {
             timestamps: false,
         },

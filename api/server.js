@@ -48,6 +48,10 @@ app.get('/api/titles/:pageLength/:pageNum/:sortColumn/', (req, res) => {
         .then((data) => res.json(data));
 });
 
+app.post('/api/watchlist/', (req, res) => {
+    watchlistController.createWatched(req.body.watched).then((data) => res.json(data));
+});
+
 app.get('/api/watchlist/:userID/:pageLength/:pageNum/', (req, res) => {
     watchlistController
         .getPageOfWatched(req.params.userID, req.params.pageLength, req.params.pageNum, 'title')

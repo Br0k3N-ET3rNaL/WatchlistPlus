@@ -1,6 +1,10 @@
 const watchlistRepository = require('../repository/watchlist.repository');
 
 class WatchlistService {
+    async createWatched(watched) {
+        return watchlistRepository.createWatched(watched);
+    }
+
     async getPageOfWatched(userID, pageLength, pageNum, sortColumn) {
         const results = await watchlistRepository.getPageOfWatched(userID, pageLength, pageNum, sortColumn);
         let watched;
