@@ -23,7 +23,6 @@ Watchlist+ is a web-application that will help you keep track of movies and TV s
 - As a signed-in user, I want to be able to distinguish between TV shows and movies that I've watched, are watching, or are planning to watch, so that I can keep my watchlist organized.
 - As a signed-in user, I want to be able to rate movies and TV shows from my watchlist, so that I can keep track of how much I enjoyed a movie or TV show
 - As a signed-in user, I want to be able to sort my watchlist based on various attributes (e.g., rating, release date, genre, etc.), so that I can organize my watchlist.
-- As a signed-in user, I want to be able to share my watchlist with others, so that I can share it with friends.
 
 ### View & Browse
 - As a user, I want to be able to view a brief overview of a movie or TV show, so that I can figure out if it interests me.
