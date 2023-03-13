@@ -9,6 +9,7 @@ type WatchlistListElementProps = {
     key: number;
     watched: Watched;
     displayTitle?: (title: Title) => void;
+    displayEdit?: (watched: Watched) => void;
 }
 
 class WatchlistListElement extends React.Component<WatchlistListElementProps> {
@@ -23,6 +24,10 @@ class WatchlistListElement extends React.Component<WatchlistListElementProps> {
                 <div> {this.props.watched.status} </div>
                 <div> {this.props.watched.title.releaseYear} </div>
                 <div> {this.props.watched.rating} </div>
+                <button onClick={() => {
+                    if (this.props.displayEdit)
+                        this.props.displayEdit(this.props.watched);
+                }}> edit </button>
             </div>
         );
     }

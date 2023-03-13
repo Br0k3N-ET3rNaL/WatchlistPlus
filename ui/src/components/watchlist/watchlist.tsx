@@ -6,6 +6,7 @@ import PageController from '../page-controller/page-controller';
 import TitleView from '../title-view/title-view';
 import { Title, Watched } from '../../App';
 import UserContext from '../../context';
+import EditWatchlist from '../edit-watchlist/edit-watchlist';
 
 type WatchlistProps = {
     className?: string;
@@ -16,6 +17,7 @@ type WatchlistState = {
     listItems: any;
     page: number;
     titleView?: any;
+    editView?: any;
     userID?: number;
 }
 
@@ -26,11 +28,11 @@ class Watchlist extends React.Component<WatchlistProps, WatchlistState> {
     state: WatchlistState = {
         listItems: undefined,
         page: 1,
-    }
+    };
 
     componentDidMount(): void {
-        this.setState({ userID: this.context }, () => {this.getCurrentPage()});
-    }
+        this.setState({ userID: this.context }, () => { this.getCurrentPage() });
+    };
 
     handleNextPage: React.MouseEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault();
@@ -65,6 +67,7 @@ class Watchlist extends React.Component<WatchlistProps, WatchlistState> {
                                 key={items++}
                                 watched={watched}
                                 displayTitle={this.displayTitle}
+                                displayEdit={this.displayEdit}
                             />
                         )
                     ),
@@ -78,18 +81,31 @@ class Watchlist extends React.Component<WatchlistProps, WatchlistState> {
         this.setState({
             titleView: <TitleView title={title} closeTitle={this.closeTitle} />
         });
-    }
+    };
+
+    displayEdit = (watched: Watched) => {
+        this.setState({
+            editView: <EditWatchlist watched={watched} closeEdit={this.closeEdit} />
+        });
+    };
 
     closeTitle = () => {
         this.setState({
             titleView: undefined,
-        })
-    }
+        });
+    };
+
+    closeEdit = () => {
+        this.setState({
+            editView: undefined,
+        }, () => this.getCurrentPage());
+    };
 
     render() {
         return (
             <div className={classNames(styles.root, this.props.className)}>{this.props.children}
                 {this.state.titleView}
+                {this.state.editView}
                 <div className={styles.watchlist}>
                     <div className={styles.watchlistList}>
                         <ul className={styles.unorderedList}>
@@ -99,6 +115,7 @@ class Watchlist extends React.Component<WatchlistProps, WatchlistState> {
                                 <div>Status</div>
                                 <div>Year</div>
                                 <div>Rating</div>
+                                <div>Edit</div>
                             </div>
                             {this.state.listItems}
                         </ul>
@@ -109,7 +126,7 @@ class Watchlist extends React.Component<WatchlistProps, WatchlistState> {
                 </div>
             </div>
         );
-    }
+    };
 
 };
 

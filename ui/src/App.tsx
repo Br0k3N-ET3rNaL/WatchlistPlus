@@ -55,9 +55,9 @@ class App extends React.Component<AppProps, AppState> {
     }
 
     back = (userID?: number): void => {
-        this.setState({ view: Views.Home, loggedIn: true});
+        this.setState({ view: Views.Home});
         if (typeof userID === 'number') {
-            this.setState({ userID });
+            this.setState({ userID, loggedIn: true });
         }
     }
 
