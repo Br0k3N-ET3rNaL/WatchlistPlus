@@ -30,7 +30,7 @@ class EditWatchlist extends React.Component<EditWatchlistProps, EditWatchlistSta
         this.setState({ userID: this.context });
 
         if (this.props.watched) {
-            this.setState({status: this.props.watched.status, rating: this.props.watched.rating});
+            this.setState({ status: this.props.watched.status, rating: this.props.watched.rating });
         }
     }
 
@@ -55,7 +55,33 @@ class EditWatchlist extends React.Component<EditWatchlistProps, EditWatchlistSta
     handleSubmit: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
         e.preventDefault();
 
-        if (this.props.title) {
+        if (this.props.watched || this.props.title?.watched?.status) {
+            let titleId;
+
+            if (this.props.watched) {
+                titleId = this.props.watched.title!.id;
+            } else {
+                titleId = this.props.title!.id;
+            }
+
+            const requestOptions = {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    watched: {
+                        rating: this.state.rating,
+                        status: this.state.status,
+                        titleId,
+                        userId: this.state.userID,
+                    }
+                }),
+            };
+            await fetch('/api/watchlist/', requestOptions).then(() => {
+                this.props.closeEdit?.();
+            }
+            );
+        }
+        else if (this.props.title) {
             const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -73,25 +99,26 @@ class EditWatchlist extends React.Component<EditWatchlistProps, EditWatchlistSta
             }
             );
         }
-        else if (this.props.watched) {
-            const requestOptions = {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    watched: {
-                        rating: this.state.rating,
-                        status: this.state.status,
-                        titleId: this.props.watched.title!.id,
-                        userId: this.state.userID,
-                    }
-                }),
-            };
-            await fetch('/api/watchlist/', requestOptions).then(() => {
-                this.props.closeEdit?.();
-            }
-            );
+
+    }
+
+    handleDelete: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
+        e.preventDefault();
+
+        let titleId;
+
+        if (this.props.watched) {
+            titleId = this.props.watched.title!.id;
+        } else {
+            titleId = this.props.title!.id;
         }
 
+        const requestOptions = {
+            method: 'DELETE',
+        };
+        await fetch('/api/watchlist/' + this.state.userID + '/' + titleId + '/', requestOptions).then(() => {
+            this.props.closeEdit?.();
+        })
     }
 
     render() {
@@ -129,6 +156,7 @@ class EditWatchlist extends React.Component<EditWatchlistProps, EditWatchlistSta
                     </span>
                     <div className={styles.bottomBar}>
                         <button onClick={this.handleSubmit}> Submit </button>
+                        {(this.props.watched || this.props.title?.watched?.status) && <button onClick={this.handleDelete}> Delete </button>}
                         <button onClick={this.props.closeEdit}> Cancel </button>
                     </div>
                 </div>
