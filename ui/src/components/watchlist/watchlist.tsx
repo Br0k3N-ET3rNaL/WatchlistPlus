@@ -4,7 +4,8 @@ import React from 'react';
 import WatchlistListElement from '../watchlist-list-element/watchlist-list-element';
 import PageController from '../page-controller/page-controller';
 import TitleView from '../title-view/title-view';
-import { Title, UserContext, Watched } from '../../App';
+import { Title, Watched } from '../../App';
+import UserContext from '../../context';
 
 type WatchlistProps = {
     className?: string;
@@ -15,14 +16,20 @@ type WatchlistState = {
     listItems: any;
     page: number;
     titleView?: any;
+    userID?: number;
 }
 
 class Watchlist extends React.Component<WatchlistProps, WatchlistState> {
-    static contextType: typeof UserContext;
+    static contextType = UserContext;
+    context!: React.ContextType<typeof UserContext>;
 
     state: WatchlistState = {
         listItems: undefined,
         page: 1,
+    }
+
+    componentDidMount(): void {
+        this.setState({ userID: this.context }, () => {this.getCurrentPage()});
     }
 
     handleNextPage: React.MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -48,7 +55,7 @@ class Watchlist extends React.Component<WatchlistProps, WatchlistState> {
         const requestOptions = {
             method: 'GET',
         };
-        fetch('/api/watchlist/' + this.context + '/50/' + this.state.page + '/', requestOptions)
+        fetch('/api/watchlist/' + this.state.userID + '/50/' + this.state.page + '/', requestOptions)
             .then((response) => response.json())
             .then((data) => {
                 this.setState({
