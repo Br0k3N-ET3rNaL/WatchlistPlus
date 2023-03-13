@@ -21,6 +21,8 @@ type WatchlistState = {
     titleView?: any;
     editView?: any;
     userID?: number;
+    statusOptions: any;
+    statusFilter: string;
 }
 
 class Watchlist extends React.Component<WatchlistProps, WatchlistState> {
@@ -31,13 +33,21 @@ class Watchlist extends React.Component<WatchlistProps, WatchlistState> {
         listItems: undefined,
         sortOptions: undefined,
         sortColumn: 'status',
+        statusOptions: undefined,
+        statusFilter: 'All',
         page: 1,
     };
 
     componentDidMount(): void {
         const sortColumns = [
-            { key: 'Status', column: 'status'},
+            { key: 'Status', column: 'status' },
             { key: 'Rating', column: 'rating' },
+        ];
+        const options = [
+            { status: 'All'},
+            { status: 'Plan To Watch' },
+            { status: 'Watching' },
+            { status: 'Completed' },
         ];
 
         this.setState({
@@ -47,15 +57,28 @@ class Watchlist extends React.Component<WatchlistProps, WatchlistState> {
                     {key}
                 </option>
             )),
+            statusOptions: options.map(({status}) => (
+                <option key={status} value={status}>
+                    {status}
+                </option>
+            ))
         }, () => { this.getCurrentPage() });
     };
 
-    handleDropdownChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
+    handleSortChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
         e.preventDefault();
 
         const column = e.currentTarget.value;
 
         this.setState({ sortColumn: column }, this.getCurrentPage);
+    };
+
+    handleFilterChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
+        e.preventDefault();
+
+        const filter = e.currentTarget.value;
+
+        this.setState({ statusFilter: filter }, this.getCurrentPage);
     };
 
     handleNextPage: React.MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -81,7 +104,7 @@ class Watchlist extends React.Component<WatchlistProps, WatchlistState> {
         const requestOptions = {
             method: 'GET',
         };
-        fetch('/api/watchlist/' + this.state.userID + '/50/' + this.state.page + '/' + this.state.sortColumn, requestOptions)
+        fetch('/api/watchlist/' + this.state.userID + '/50/' + this.state.page + '/' + this.state.sortColumn + '/' + this.state.statusFilter + '/', requestOptions)
             .then((response) => response.json())
             .then((data) => {
                 this.setState({
@@ -149,8 +172,14 @@ class Watchlist extends React.Component<WatchlistProps, WatchlistState> {
                     </div>
                     <div className={styles.listSortOptions}>
                         Sort By
-                        <select onChange={this.handleDropdownChange}>
+                        <select onChange={this.handleSortChange}>
                             {this.state.sortOptions}
+                        </select>
+                    </div>
+                    <div className={styles.listSortOptions}>
+                        Status
+                        <select onChange={this.handleFilterChange}>
+                            {this.state.statusOptions}
                         </select>
                     </div>
                 </div>

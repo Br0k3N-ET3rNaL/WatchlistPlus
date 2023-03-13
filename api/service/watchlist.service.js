@@ -13,8 +13,8 @@ class WatchlistService {
         await watchlistRepository.deleteWatched(userId, titleId);
     }
 
-    async getPageOfWatched(userId, pageLength, pageNum, sortColumn) {
-        const results = await watchlistRepository.getPageOfWatched(userId, pageLength, pageNum, sortColumn);
+    async getPageOfWatched(userId, pageLength, pageNum, sortColumn, filter) {
+        const results = await watchlistRepository.getPageOfWatched(userId, pageLength, pageNum, sortColumn, filter);
         let watched;
         if (Array.isArray(results)) {
             watched = results.map((w) => ({

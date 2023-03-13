@@ -40,8 +40,14 @@ class WatchlistRepository {
         }
     }
 
-    async getPageOfWatched(userId, pageLength, pageNum, sortColumn) {
+    async getPageOfWatched(userId, pageLength, pageNum, sortColumn, filter) {
         if (this.db.watched.rawAttributes[sortColumn]) {
+            let statusFilter = '';
+
+            if (filter === 'Plan To Watch' || filter === 'Watching' || filter === 'Completed') {
+                statusFilter = filter;
+            }
+
             try {
                 const watchlist = await this.db.sequelize.query(
                     `SELECT w.*,
@@ -61,10 +67,12 @@ class WatchlistRepository {
                     titles."tmdbPopularity" as "title.tmdbPopularity", 
                     titles."tmdbScore" as "title.tmdbScore"  
                     FROM watched as w LEFT OUTER JOIN titles ON w."titleId" = titles.id
-                    WHERE w."userId" = :userId AND w."${sortColumn}" IS NOT NULL 
+                    WHERE w."userId" = :userId AND w."${sortColumn}" IS NOT NULL AND w.status ILIKE :statusFilter
                     ORDER BY w."${sortColumn}" DESC OFFSET :offset FETCH FIRST :pageLength ROWS ONLY`,
                     {
-                        replacements: { userId, offset: pageLength * (pageNum - 1), pageLength },
+                        replacements: {
+                            userId, offset: pageLength * (pageNum - 1), pageLength, statusFilter: `${statusFilter}%`,
+                        },
                         model: this.db.watched.Watched,
                         nest: true,
                         type: this.db.sequelize.QueryTypes.SELECT,

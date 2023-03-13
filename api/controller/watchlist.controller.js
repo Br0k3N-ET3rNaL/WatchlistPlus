@@ -17,9 +17,9 @@ class WatchlistController {
         await watchlistService.deleteWatched(userId, titleId);
     }
 
-    async getPageOfWatched(userId, pageLength, pageNum, sortColumn) {
-        logger.info('WatchlistController: getPageOfTitles', `${userId} ${pageLength} ${pageNum} ${sortColumn}`);
-        return watchlistService.getPageOfWatched(userId, pageLength, pageNum, sortColumn);
+    async getPageOfWatched(userId, pageLength, pageNum, sortColumn, filter) {
+        logger.info('WatchlistController: getPageOfTitles', `${userId} ${pageLength} ${pageNum} ${sortColumn} ${filter}`);
+        return watchlistService.getPageOfWatched(userId, pageLength, pageNum, sortColumn, filter);
     }
 }
 

@@ -68,9 +68,9 @@ app.put('/api/watchlist/', (req, res) => {
     watchlistController.updateWatched(req.body.watched).then((data) => res.json(data));
 });
 
-app.get('/api/watchlist/:userId/:pageLength/:pageNum/:sortColumn/', (req, res) => {
+app.get('/api/watchlist/:userId/:pageLength/:pageNum/:sortColumn/:filter/', (req, res) => {
     watchlistController
-        .getPageOfWatched(req.params.userId, req.params.pageLength, req.params.pageNum, req.params.sortColumn)
+        .getPageOfWatched(req.params.userId, req.params.pageLength, req.params.pageNum, req.params.sortColumn, req.params.filter)
         .then((data) => res.json(data));
 });
 
