@@ -81,7 +81,7 @@ class EditWatchlist extends React.Component<EditWatchlistProps, EditWatchlistSta
                     watched: {
                         rating: this.state.rating,
                         status: this.state.status,
-                        titleId: this.props.watched.title.id,
+                        titleId: this.props.watched.title!.id,
                         userId: this.state.userID,
                     }
                 }),

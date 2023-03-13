@@ -48,6 +48,18 @@ app.get('/api/titles/:pageLength/:pageNum/:sortColumn/', (req, res) => {
         .then((data) => res.json(data));
 });
 
+app.get('/api/titles/withWatched/:userId/:pageLength/:pageNum/:sortColumn/:search', (req, res) => {
+    titleController
+        .getPageOfTitlesWithWatched(req.params.userId, req.params.pageLength, req.params.pageNum, req.params.sortColumn, req.params.search)
+        .then((data) => res.json(data));
+});
+
+app.get('/api/titles/withWatched/:userId/:pageLength/:pageNum/:sortColumn/', (req, res) => {
+    titleController
+        .getPageOfTitlesWithWatched(req.params.userId, req.params.pageLength, req.params.pageNum, req.params.sortColumn, '')
+        .then((data) => res.json(data));
+});
+
 app.post('/api/watchlist/', (req, res) => {
     watchlistController.createWatched(req.body.watched).then((data) => res.json(data));
 });

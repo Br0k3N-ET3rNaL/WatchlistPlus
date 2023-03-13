@@ -19,10 +19,10 @@ class WatchlistListElement extends React.Component<WatchlistListElementProps> {
                 <div />
                 <div className={styles.title} onClick={() => {
                     if (this.props.displayTitle !== undefined)
-                        this.props.displayTitle(this.props.watched.title)
-                }}> {this.props.watched.title.title} </div>
+                        this.props.displayTitle(this.props.watched.title!)
+                }}> {this.props.watched.title!.title} </div>
                 <div> {this.props.watched.status} </div>
-                <div> {this.props.watched.title.releaseYear} </div>
+                <div> {this.props.watched.title!.releaseYear} </div>
                 <div> {this.props.watched.rating} </div>
                 <button onClick={() => {
                     if (this.props.displayEdit)

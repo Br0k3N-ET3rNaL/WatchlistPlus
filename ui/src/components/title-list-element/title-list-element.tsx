@@ -9,24 +9,16 @@ type TitleListElementProps = {
     key: number;
     title: Title;
     loggedIn: boolean;
-    onList?: boolean;
     displayTitle?: (title: Title) => void;
     displayEdit?: (title: Title) => void;
     removeFromList?: () => void;
 };
 
-// TODO Remove if empty later
 type TitleListElementState = {};
 
-/**
- * This component was generated using Codux's built-in Default new component template.
- * For details on how to create custom new component templates, see https://help.codux.com/kb/en/article/configuration-for-title-list-elements-and-templates
- */
 class TitleListElement extends React.Component<TitleListElementProps, TitleListElementState> {
     displayTitle() {
-
         if (this.props.displayTitle !== undefined) {
-            console.log('clicked');
             this.props.displayTitle(this.props.title);
         }
     }
@@ -41,11 +33,17 @@ class TitleListElement extends React.Component<TitleListElementProps, TitleListE
                 }}> {this.props.title.title} </div>
                 <div className={styles.year}> {this.props.title.releaseYear} </div>
                 <div className={styles.rating}> {this.props.title.rating} </div>
-                {this.props.loggedIn && <div className={styles.add}>
+                {(this.props.loggedIn && !this.props.title.watched?.status) && <div className={styles.add}>
                     <button onClick={() => {
                         if (this.props.displayEdit)
                             this.props.displayEdit(this.props.title);
                     }}> add </button>
+                </div>}
+                {(this.props.loggedIn && this.props.title.watched?.status) && <div className={styles.add}>
+                    <button onClick={() => {
+                        if (this.props.displayEdit)
+                            this.props.displayEdit(this.props.title);
+                    }}> edit </button>
                 </div>}
             </div>
         );

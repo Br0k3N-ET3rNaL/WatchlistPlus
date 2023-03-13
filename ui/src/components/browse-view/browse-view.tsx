@@ -6,6 +6,7 @@ import TitleView from '../title-view/title-view';
 import PageController from '../page-controller/page-controller';
 import { Title } from '../../App';
 import EditWatchlist from '../edit-watchlist/edit-watchlist';
+import UserContext from '../../context';
 
 type BrowseViewProps = {
     className?: string;
@@ -22,13 +23,13 @@ type BrowseViewState = {
     timeout?: any;
     titleView?: any;
     editView?: any;
+    userId?: number;
 };
 
-/**
- * This component was generated using Codux's built-in Default new component template.
- * For details on how to create custom new component templates, see https://help.codux.com/kb/en/article/configuration-for-browse-views-and-templates
- */
 class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
+    static contextType = UserContext;
+    context!: React.ContextType<typeof UserContext>;
+
     state: BrowseViewState = {
         listItems: undefined,
         sortOptions: undefined,
@@ -46,6 +47,7 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
 
         this.setState(
             {
+                userId: this.context,
                 sortOptions: sortColumns.map(({ key, column }) => (
                     <option key={key} value={column}>
                         {key}
@@ -54,7 +56,7 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
             },
             this.getCurrentPage
         );
-    }
+    };
 
     handleDropdownChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
         e.preventDefault();
@@ -96,14 +98,22 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
                 this.setState({ searchInput: search }, this.getCurrentPage);
             }, 1000)
         })
-    }
+    };
 
     getCurrentPage() {
-        var items = 0;
+        let items = 0;
         const requestOptions = {
             method: 'GET',
         };
-        fetch('/api/titles/50/' + this.state.page + '/' + this.state.sortColumn + '/' + this.state.searchInput, requestOptions)
+        let path: string;
+
+        if (this.props.loggedIn) {
+            path = '/api/titles/withWatched/' + this.state.userId +  '/50/' + this.state.page + '/' + this.state.sortColumn + '/' + this.state.searchInput;
+        } else {
+            path = '/api/titles/50/' + this.state.page + '/' + this.state.sortColumn + '/' + this.state.searchInput;
+        }
+
+        fetch(path, requestOptions)
             .then((response) => response.json())
             .then((data) => {
                 this.setState({
@@ -122,31 +132,31 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
             });
 
         window.scrollTo(0, 0);
-    }
+    };
 
     displayTitle = (title: Title) => {
         this.setState({
             titleView: <TitleView title={title} closeTitle={this.closeTitle}/>
         });
-    }
+    };
 
     displayEdit = (title: Title) => {
         this.setState({
             editView: <EditWatchlist title={title} closeEdit={this.closeEdit}/>
-        })
-    }
+        });
+    };
 
     closeTitle = () => {
         this.setState({
             titleView: undefined,
-        })
-    }
+        });
+    };
 
     closeEdit = () => {
         this.setState({
             editView: undefined,
-        })
-    }
+        }, () => this.getCurrentPage());
+    };
 
     render() {
         return (
@@ -181,7 +191,7 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
                 </div>
             </div>
         );
-    }
+    };
 }
 
 export default BrowseView;

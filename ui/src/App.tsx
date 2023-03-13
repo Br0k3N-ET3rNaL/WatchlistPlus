@@ -17,12 +17,13 @@ interface Title {
     runtime: number,
     rating: number,
     genres: string[],
+    watched?: Watched,
 }
 
 interface Watched {
     rating: number,
     status: string,
-    title: Title,
+    title?: Title,
 }
 
 enum Views {
