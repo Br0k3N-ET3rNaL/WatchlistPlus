@@ -15,6 +15,8 @@ type WatchlistProps = {
 
 type WatchlistState = {
     listItems: any;
+    sortOptions: any;
+    sortColumn: string;
     page: number;
     titleView?: any;
     editView?: any;
@@ -27,11 +29,33 @@ class Watchlist extends React.Component<WatchlistProps, WatchlistState> {
 
     state: WatchlistState = {
         listItems: undefined,
+        sortOptions: undefined,
+        sortColumn: 'status',
         page: 1,
     };
 
     componentDidMount(): void {
-        this.setState({ userID: this.context }, () => { this.getCurrentPage() });
+        const sortColumns = [
+            { key: 'Status', column: 'status'},
+            { key: 'Rating', column: 'rating' },
+        ];
+
+        this.setState({
+            userID: this.context,
+            sortOptions: sortColumns.map(({ key, column }) => (
+                <option key={key} value={column}>
+                    {key}
+                </option>
+            )),
+        }, () => { this.getCurrentPage() });
+    };
+
+    handleDropdownChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
+        e.preventDefault();
+
+        const column = e.currentTarget.value;
+
+        this.setState({ sortColumn: column }, this.getCurrentPage);
     };
 
     handleNextPage: React.MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -57,7 +81,7 @@ class Watchlist extends React.Component<WatchlistProps, WatchlistState> {
         const requestOptions = {
             method: 'GET',
         };
-        fetch('/api/watchlist/' + this.state.userID + '/50/' + this.state.page + '/', requestOptions)
+        fetch('/api/watchlist/' + this.state.userID + '/50/' + this.state.page + '/' + this.state.sortColumn, requestOptions)
             .then((response) => response.json())
             .then((data) => {
                 this.setState({
@@ -122,6 +146,12 @@ class Watchlist extends React.Component<WatchlistProps, WatchlistState> {
                         <div className={styles.bottomBar}>
                             <PageController page={this.state.page} onNextPage={this.handleNextPage} onPrevPage={this.handlePrevPage} onFirstPage={this.handleFirstPage} />
                         </div>
+                    </div>
+                    <div className={styles.listSortOptions}>
+                        Sort By
+                        <select onChange={this.handleDropdownChange}>
+                            {this.state.sortOptions}
+                        </select>
                     </div>
                 </div>
             </div>

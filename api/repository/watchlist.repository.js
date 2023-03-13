@@ -41,7 +41,7 @@ class WatchlistRepository {
     }
 
     async getPageOfWatched(userId, pageLength, pageNum, sortColumn) {
-        if (this.db.title.rawAttributes[sortColumn]) {
+        if (this.db.watched.rawAttributes[sortColumn]) {
             try {
                 const watchlist = await this.db.sequelize.query(
                     `SELECT w.*,
@@ -61,8 +61,8 @@ class WatchlistRepository {
                     titles."tmdbPopularity" as "title.tmdbPopularity", 
                     titles."tmdbScore" as "title.tmdbScore"  
                     FROM watched as w LEFT OUTER JOIN titles ON w."titleId" = titles.id
-                    WHERE "userId" = :userId AND "${sortColumn}" IS NOT NULL 
-                    ORDER BY "${sortColumn}" DESC OFFSET :offset FETCH FIRST :pageLength ROWS ONLY`,
+                    WHERE w."userId" = :userId AND w."${sortColumn}" IS NOT NULL 
+                    ORDER BY w."${sortColumn}" DESC OFFSET :offset FETCH FIRST :pageLength ROWS ONLY`,
                     {
                         replacements: { userId, offset: pageLength * (pageNum - 1), pageLength },
                         model: this.db.watched.Watched,
