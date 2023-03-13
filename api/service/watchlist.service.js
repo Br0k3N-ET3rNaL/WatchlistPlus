@@ -9,8 +9,12 @@ class WatchlistService {
         return watchlistRepository.updateWatched(watched);
     }
 
-    async getPageOfWatched(userID, pageLength, pageNum, sortColumn) {
-        const results = await watchlistRepository.getPageOfWatched(userID, pageLength, pageNum, sortColumn);
+    async deleteWatched(userId, titleId) {
+        await watchlistRepository.deleteWatched(userId, titleId);
+    }
+
+    async getPageOfWatched(userId, pageLength, pageNum, sortColumn) {
+        const results = await watchlistRepository.getPageOfWatched(userId, pageLength, pageNum, sortColumn);
         let watched;
         if (Array.isArray(results)) {
             watched = results.map((w) => ({

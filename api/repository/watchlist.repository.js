@@ -32,7 +32,15 @@ class WatchlistRepository {
         return data;
     }
 
-    async getPageOfWatched(userID, pageLength, pageNum, sortColumn) {
+    async deleteWatched(userId, titleId) {
+        try {
+            await this.db.watched.destroy({ where: { titleId, userId } });
+        } catch (err) {
+            logger.error(`Error::${err}`);
+        }
+    }
+
+    async getPageOfWatched(userId, pageLength, pageNum, sortColumn) {
         if (this.db.title.rawAttributes[sortColumn]) {
             try {
                 const watchlist = await this.db.sequelize.query(
@@ -53,10 +61,10 @@ class WatchlistRepository {
                     titles."tmdbPopularity" as "title.tmdbPopularity", 
                     titles."tmdbScore" as "title.tmdbScore"  
                     FROM watched as w LEFT OUTER JOIN titles ON w."titleId" = titles.id
-                    WHERE "userId" = :userID AND "${sortColumn}" IS NOT NULL 
+                    WHERE "userId" = :userId AND "${sortColumn}" IS NOT NULL 
                     ORDER BY "${sortColumn}" DESC OFFSET :offset FETCH FIRST :pageLength ROWS ONLY`,
                     {
-                        replacements: { userID, offset: pageLength * (pageNum - 1), pageLength },
+                        replacements: { userId, offset: pageLength * (pageNum - 1), pageLength },
                         model: this.db.watched.Watched,
                         nest: true,
                         type: this.db.sequelize.QueryTypes.SELECT,

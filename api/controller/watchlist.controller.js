@@ -12,9 +12,14 @@ class WatchlistController {
         return watchlistService.updateWatched(watched);
     }
 
-    async getPageOfWatched(userID, pageLength, pageNum, sortColumn) {
-        logger.info('WatchlistController: getPageOfTitles', `${userID} ${pageLength} ${pageNum} ${sortColumn}`);
-        return watchlistService.getPageOfWatched(userID, pageLength, pageNum, sortColumn);
+    async deleteWatched(userId, titleId) {
+        logger.info('WatchlistController: deleteWatched', `${userId} ${titleId}`);
+        await watchlistService.deleteWatched(userId, titleId);
+    }
+
+    async getPageOfWatched(userId, pageLength, pageNum, sortColumn) {
+        logger.info('WatchlistController: getPageOfTitles', `${userId} ${pageLength} ${pageNum} ${sortColumn}`);
+        return watchlistService.getPageOfWatched(userId, pageLength, pageNum, sortColumn);
     }
 }
 

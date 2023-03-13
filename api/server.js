@@ -68,8 +68,12 @@ app.put('/api/watchlist/', (req, res) => {
     watchlistController.updateWatched(req.body.watched).then((data) => res.json(data));
 });
 
-app.get('/api/watchlist/:userID/:pageLength/:pageNum/', (req, res) => {
+app.get('/api/watchlist/:userId/:pageLength/:pageNum/', (req, res) => {
     watchlistController
-        .getPageOfWatched(req.params.userID, req.params.pageLength, req.params.pageNum, 'title')
+        .getPageOfWatched(req.params.userId, req.params.pageLength, req.params.pageNum, 'title')
         .then((data) => res.json(data));
+});
+
+app.delete('/api/watchlist/:userId/:titleId/', (req, res) => {
+    watchlistController.deleteWatched(req.params.userId, req.params.titleId).then((data) => res.json(data));
 });
