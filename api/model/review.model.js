@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes, Model) => {
         username: {
             type: DataTypes.STRING,
             references: {
-                model: 'user',
+                model: 'users',
                 key: 'username',
             },
         },
