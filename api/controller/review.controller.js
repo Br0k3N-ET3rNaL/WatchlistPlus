@@ -8,7 +8,7 @@ class ReviewController {
     }
 
     async getPageOfReviews(titleId, pageLength, pageNum) {
-        logger.info('ReviewController: getPageOfReview', `${titleId} ${pageLength} ${pageNum}`);
+        logger.info('ReviewController: getPageOfReviews', `${titleId} ${pageLength} ${pageNum}`);
         return reviewService.getPageOfReviews(titleId, pageLength, pageNum);
     }
 }
