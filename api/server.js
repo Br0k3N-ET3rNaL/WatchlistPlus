@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const userController = require('./controller/user.controller');
 const titleController = require('./controller/title.controller');
 const watchlistController = require('./controller/watchlist.controller');
+const reviewController = require('./controller/review.controller');
 
 const app = express();
 const port = 3070;
@@ -76,4 +77,12 @@ app.get('/api/watchlist/:userId/:pageLength/:pageNum/:sortColumn/:filter/', (req
 
 app.delete('/api/watchlist/:userId/:titleId/', (req, res) => {
     watchlistController.deleteWatched(req.params.userId, req.params.titleId).then((data) => res.json(data));
+});
+
+app.post('/api/reviews/', (req, res) => {
+    reviewController.createReview(req.body.review).then((data) => res.json(data));
+});
+
+app.get('/api/reviews/:titleId/:pageLength/:pageNum/', (req, res) => {
+    reviewController.getPageOfReviews(req.params.titleId, req.params.pageLength, req.params.pageNum).then((data) => res.json(data));
 });
