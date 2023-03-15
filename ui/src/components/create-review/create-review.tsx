@@ -13,7 +13,7 @@ type CreateReviewProps = {
 
 type CreateReviewState = {
     user?: User;
-    review: string;
+    review?: string;
 };
 
 class CreateReview extends React.Component<CreateReviewProps, CreateReviewState> {
