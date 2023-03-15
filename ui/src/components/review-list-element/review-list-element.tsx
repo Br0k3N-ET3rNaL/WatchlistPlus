@@ -14,10 +14,10 @@ class ReviewListElement extends React.Component<ReviewListElementProps> {
         return (
             <div className={classNames(styles.root, this.props.className)}>
                 {this.props.children}
-                <span>
-                    <h2>{this.props.review.username}</h2>
+                <span className={styles.titleBar}>
+                    <h2 className={styles.username}>{this.props.review.username}</h2>
                 </span>
-                <p> {this.props.review.review} </p>
+                <p className={styles.review}> {this.props.review.review} </p>
             </div>
         );
     }
