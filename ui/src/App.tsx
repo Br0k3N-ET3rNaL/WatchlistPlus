@@ -26,6 +26,11 @@ interface Watched {
     title?: Title,
 }
 
+interface Review {
+    username: string,
+    review: string,
+}
+
 enum Views {
     Home,
     SignUp,
@@ -87,4 +92,4 @@ class App extends React.Component<AppProps, AppState> {
 }
 
 export { App };
-export type { Title, Watched };
+export type { Title, Watched, Review };

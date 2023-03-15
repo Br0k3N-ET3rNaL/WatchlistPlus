@@ -1,0 +1,12 @@
+.root {
+  background-color: var(--secondary-color);
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 50%;
+  position: relative;
+  top: 25%;
+  left: 25%;
+  padding: 15px;
+  border: 1px solid var(--primary-color);
+}
