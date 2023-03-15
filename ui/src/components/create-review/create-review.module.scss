@@ -1,0 +1,66 @@
+.root {
+  width: 100%;
+  display: block;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  justify-items: stretch;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+}
+
+.review {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 50%;
+  height: 50%;
+  background-color: var(--secondary-color);
+  position: relative;
+  top: 25%;
+  left: 25%;
+}
+
+.input {
+  display: flex;
+  height: 95%;
+  border-style: none;
+  border-color: Transparent;
+  width: 98%;
+}
+
+.inputArea {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: var(--secondary-color);
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.bottomBar {
+  position: relative;
+  left: 40%;
+  top: 10px;
+  padding-bottom: 25px;
+}
+
+.closeButton {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.titleBar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background-color: var(--primary-color);
+}
+.title {
+  padding-left: 15px;
+}
