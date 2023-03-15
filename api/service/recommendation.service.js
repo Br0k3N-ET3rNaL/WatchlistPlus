@@ -11,8 +11,11 @@ class RecommendationService {
         let recommendations;
         if (Array.isArray(results)) {
             recommendations = results.map((r) => ({
-                username: r.username,
-                recommendation: r.recommendation,
+                title1Id: r.title1Id,
+                title1Title: r.title1Title,
+                title2Id: r.title2Id,
+                title2Title: r.title2Title,
+                count: r.count,
             }));
         }
 
