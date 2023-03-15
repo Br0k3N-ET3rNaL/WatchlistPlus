@@ -21,7 +21,7 @@ test('close view', async () => {
     const close = jest.fn();
     render(<TitleView title={stubTitle} loggedIn={false} closeTitle={close}/>);
 
-    await userEvent.click(screen.getByRole('button'));
+    await userEvent.click(screen.getByRole('button', {name: /close/i}));
 
     expect(close.mock.calls).toHaveLength(1);
 });

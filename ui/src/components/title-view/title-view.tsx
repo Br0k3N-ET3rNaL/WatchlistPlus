@@ -66,7 +66,7 @@ class TitleView extends React.Component<TitleViewProps, TitleViewState> {
                 {(this.state.reviewView === undefined && this.state.createReview === undefined) && <div className={styles.mainView}>
                     <div className={styles.title}>
                         {this.props.title.title}
-                        <button className={styles.closeButton} onClick={this.props.closeTitle}>
+                        <button aria-label={'close'} className={styles.closeButton} onClick={this.props.closeTitle}>
                             X
                         </button>
                     </div>
