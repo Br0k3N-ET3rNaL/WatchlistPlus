@@ -63,10 +63,10 @@ class App extends React.Component<AppProps, AppState> {
     }
 
     back = (user?: User): void => {
-        this.setState({ view: Views.Home});
         if (user?.id && user?.username) {
             this.setState({ user, loggedIn: true });
         }
+        this.setState({ view: Views.Home});
     }
 
     watchlist = (): void => {

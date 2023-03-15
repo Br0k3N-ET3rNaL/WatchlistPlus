@@ -2,37 +2,68 @@ import styles from './title-view.module.scss';
 import classNames from 'classnames';
 import React from 'react';
 import { Title } from '../../App';
+import ReviewView from '../review-view/review-view';
+import CreateReview from '../create-review/create-review';
 
 type TitleViewProps = {
     className?: string;
     children?: React.ReactNode;
-    title: Title,
+    title: Title;
+    loggedIn: boolean;
     closeTitle?: () => void;
 };
 
 type TitleViewState = {
     genres: any;
+    reviewView?: any;
+    createReview?: any;
 }
 
-/**
- * This component was generated using Codux's built-in Default new component template.
- * For details on how to create custom new component templates, see https://help.codux.com/kb/en/article/configuration-for-title-views-and-templates
- */
 class TitleView extends React.Component<TitleViewProps, TitleViewState> {
-state: TitleViewState = {
-    genres: undefined,
-}
+    state: TitleViewState = {
+        genres: undefined,
+    }
 
     componentDidMount(): void {
         this.setState({
             genres: this.props.title.genres.map((genre: string) => <li key={genre} className={styles.genres}> {genre.replace(/'/g, '')} </li>),
-        })
+        });
+    }
+
+    handleViewReviews: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
+        e.preventDefault();
+
+        this.setState({
+            reviewView: <ReviewView titleId={this.props.title.id} closeReviews={this.closeReviewView}/>
+        });
+    }
+
+    handleCreateReviews: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
+        e.preventDefault();
+
+        this.setState({
+            createReview: <CreateReview titleId={this.props.title.id} title={this.props.title.title} closeCreate={this.closeCreateReview} />
+        });
+    }
+
+    closeReviewView = () => {
+        this.setState({
+            reviewView: undefined,
+        });
+    }
+
+    closeCreateReview = () => {
+        this.setState({
+            createReview: undefined,
+        });
     }
 
     render() {
         return (
             <div className={classNames(styles.root, this.props.className)}>
-                <div className={styles.mainView}>
+                {this.state.reviewView}
+                {this.state.createReview}
+                {(this.state.reviewView === undefined && this.state.createReview === undefined) && <div className={styles.mainView}>
                     <div className={styles.title}>
                         {this.props.title.title}
                         <button className={styles.closeButton} onClick={this.props.closeTitle}>
@@ -51,7 +82,15 @@ state: TitleViewState = {
                         </ul>
                     </div>
                     <div className={styles.description}>{this.props.title.description}</div>
-                </div>
+                    <div className={styles.bottomBar}>
+                        <span>
+                            <button onClick={this.handleViewReviews}> View Reviews </button>
+                        </span>
+                        {this.props.loggedIn && <span>
+                            <button onClick={this.handleCreateReviews}> Leave a Review </button>
+                        </span>}
+                    </div>
+                </div>}
             </div>
         );
     }

@@ -126,7 +126,7 @@ class Watchlist extends React.Component<WatchlistProps, WatchlistState> {
 
     displayTitle = (title: Title) => {
         this.setState({
-            titleView: <TitleView title={title} closeTitle={this.closeTitle} />
+            titleView: <TitleView title={title} loggedIn={this.state.user?.id !== undefined} closeTitle={this.closeTitle} />
         });
     };
 

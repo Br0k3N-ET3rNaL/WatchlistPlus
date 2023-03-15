@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 const stubTitle = { id: '', title: 'Title', type: 'MOVIE', description: 'Description', releaseYear: 2023, ageGuidance: 'R', runtime: 120, rating: 8.5, genres: ['drama', 'thriller'] };
 
 test('display title', async () => {
-    render(<TitleView title={stubTitle}/>);
+    render(<TitleView title={stubTitle} loggedIn={false}/>);
 
     expect(screen.getByText('Title')).toBeDefined();
     expect(screen.getByText('MOVIE')).toBeDefined();
@@ -19,7 +19,7 @@ test('display title', async () => {
 
 test('close view', async () => {
     const close = jest.fn();
-    render(<TitleView title={stubTitle} closeTitle={close}/>);
+    render(<TitleView title={stubTitle} loggedIn={false} closeTitle={close}/>);
 
     await userEvent.click(screen.getByRole('button'));
 

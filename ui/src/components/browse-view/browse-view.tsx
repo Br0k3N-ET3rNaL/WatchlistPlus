@@ -135,24 +135,28 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
     };
 
     displayTitle = (title: Title) => {
+        document.body.style.overflow = 'hidden';
         this.setState({
-            titleView: <TitleView title={title} closeTitle={this.closeTitle}/>
+            titleView: <TitleView title={title} loggedIn={this.props.loggedIn} closeTitle={this.closeTitle}/>
         });
     };
 
     displayEdit = (title: Title) => {
+        document.body.style.overflow = 'hidden';
         this.setState({
             editView: <EditWatchlist title={title} closeEdit={this.closeEdit}/>
         });
     };
 
     closeTitle = () => {
+        document.body.style.overflow = 'unset';
         this.setState({
             titleView: undefined,
         });
     };
 
     closeEdit = () => {
+        document.body.style.overflow = 'unset';
         this.setState({
             editView: undefined,
         }, () => this.getCurrentPage());

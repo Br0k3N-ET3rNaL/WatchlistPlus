@@ -5,7 +5,7 @@ const testTitle = {id: '', title: 'Title', type: 'Movie', description: 'Descript
 
 export default createBoard({
     name: 'TitleView',
-    Board: () => <TitleView title={testTitle}/>,
+    Board: () => <TitleView title={testTitle} loggedIn={true}/>,
     environmentProps: {
         canvasHeight: 887,
         canvasWidth: 1508,
