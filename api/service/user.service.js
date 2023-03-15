@@ -31,12 +31,12 @@ class UserService {
             passwordsMatch = (userResult.password === password);
         }
 
-        let userID = null;
+        let user = null;
         if (userExists && passwordsMatch) {
-            userID = userResult.id;
+            user = { id: userResult.id, username: userResult.username };
         }
 
-        return { userExists, passwordsMatch, userID };
+        return { userExists, passwordsMatch, user };
     }
 
     async createUser(user) {

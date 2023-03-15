@@ -2,7 +2,7 @@ import styles from './edit-watchlist.module.scss';
 import classNames from 'classnames';
 import React from 'react';
 import { Title, Watched } from '../../App';
-import UserContext from '../../context';
+import UserContext, { User } from '../../context';
 
 type EditWatchlistProps = {
     className?: string;
@@ -15,7 +15,7 @@ type EditWatchlistProps = {
 type EditWatchlistState = {
     status: string;
     rating?: number;
-    userID?: number;
+    user?: User;
 }
 
 class EditWatchlist extends React.Component<EditWatchlistProps, EditWatchlistState> {
@@ -27,7 +27,7 @@ class EditWatchlist extends React.Component<EditWatchlistProps, EditWatchlistSta
     };
 
     componentDidMount(): void {
-        this.setState({ userID: this.context });
+        this.setState({ user: this.context });
 
         if (this.props.watched) {
             this.setState({ status: this.props.watched.status, rating: this.props.watched.rating });
@@ -74,7 +74,7 @@ class EditWatchlist extends React.Component<EditWatchlistProps, EditWatchlistSta
                         rating: this.state.rating,
                         status: this.state.status,
                         titleId,
-                        userId: this.state.userID,
+                        userId: this.state.user!.id,
                     }
                 }),
             };
@@ -92,7 +92,7 @@ class EditWatchlist extends React.Component<EditWatchlistProps, EditWatchlistSta
                         rating: this.state.rating,
                         status: this.state.status,
                         titleId: this.props.title.id,
-                        userId: this.state.userID,
+                        userId: this.state.user!.id,
                     }
                 }),
             };
@@ -118,7 +118,7 @@ class EditWatchlist extends React.Component<EditWatchlistProps, EditWatchlistSta
         const requestOptions = {
             method: 'DELETE',
         };
-        await fetch('/api/watchlist/' + this.state.userID + '/' + titleId + '/', requestOptions).then(() => {
+        await fetch('/api/watchlist/' + this.state.user!.id + '/' + titleId + '/', requestOptions).then(() => {
             this.props.closeEdit?.();
         })
     }

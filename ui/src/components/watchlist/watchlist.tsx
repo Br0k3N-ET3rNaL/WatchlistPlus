@@ -5,7 +5,7 @@ import WatchlistListElement from '../watchlist-list-element/watchlist-list-eleme
 import PageController from '../page-controller/page-controller';
 import TitleView from '../title-view/title-view';
 import { Title, Watched } from '../../App';
-import UserContext from '../../context';
+import UserContext, { User } from '../../context';
 import EditWatchlist from '../edit-watchlist/edit-watchlist';
 
 type WatchlistProps = {
@@ -20,7 +20,7 @@ type WatchlistState = {
     page: number;
     titleView?: any;
     editView?: any;
-    userID?: number;
+    user?: User;
     statusOptions: any;
     statusFilter: string;
 }
@@ -51,7 +51,7 @@ class Watchlist extends React.Component<WatchlistProps, WatchlistState> {
         ];
 
         this.setState({
-            userID: this.context,
+            user: this.context,
             sortOptions: sortColumns.map(({ key, column }) => (
                 <option key={key} value={column}>
                     {key}
@@ -104,7 +104,7 @@ class Watchlist extends React.Component<WatchlistProps, WatchlistState> {
         const requestOptions = {
             method: 'GET',
         };
-        fetch('/api/watchlist/' + this.state.userID + '/50/' + this.state.page + '/' + this.state.sortColumn + '/' + this.state.statusFilter + '/', requestOptions)
+        fetch('/api/watchlist/' + this.state.user!.id + '/50/' + this.state.page + '/' + this.state.sortColumn + '/' + this.state.statusFilter + '/', requestOptions)
             .then((response) => response.json())
             .then((data) => {
                 this.setState({

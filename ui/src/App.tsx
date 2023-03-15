@@ -5,7 +5,7 @@ import LogIn from "./components/log-in/log-in";
 import React from "react";
 import './colors.scss'
 import Watchlist from "./components/watchlist/watchlist";
-import UserContext from "./context";
+import UserContext, { User } from "./context";
 
 interface Title {
     id: string,
@@ -29,6 +29,8 @@ interface Watched {
 interface Review {
     username: string,
     review: string,
+    titleId: string,
+    userId: number,
 }
 
 enum Views {
@@ -43,7 +45,7 @@ type AppProps = {};
 type AppState = {
     view: Views;
     loggedIn: boolean;
-    userID?: number;
+    user?: User;
 };
 
 class App extends React.Component<AppProps, AppState> {
@@ -60,10 +62,10 @@ class App extends React.Component<AppProps, AppState> {
         this.setState({ view: Views.LogIn });
     }
 
-    back = (userID?: number): void => {
+    back = (user?: User): void => {
         this.setState({ view: Views.Home});
-        if (typeof userID === 'number') {
-            this.setState({ userID, loggedIn: true });
+        if (user?.id && user?.username) {
+            this.setState({ user, loggedIn: true });
         }
     }
 
@@ -73,7 +75,7 @@ class App extends React.Component<AppProps, AppState> {
 
     render() {
         return (
-            <UserContext.Provider value={this.state.userID}>
+            <UserContext.Provider value={this.state.user}>
                 <div>
                     {(this.state.view === Views.Home) && <div>
                         <TopBar home={true} loggedIn={this.state.loggedIn} signup={this.signup} login={this.login} watchlist={this.watchlist} />

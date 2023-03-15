@@ -1,5 +1,11 @@
 import React from "react";
 
-const UserContext = React.createContext<number | undefined>(undefined);
+interface User {
+    id: number,
+    username: string,
+}
+
+const UserContext = React.createContext<User | undefined>(undefined);
 
 export default UserContext;
+export type { User };

@@ -6,7 +6,7 @@ import TitleView from '../title-view/title-view';
 import PageController from '../page-controller/page-controller';
 import { Title } from '../../App';
 import EditWatchlist from '../edit-watchlist/edit-watchlist';
-import UserContext from '../../context';
+import UserContext, { User } from '../../context';
 
 type BrowseViewProps = {
     className?: string;
@@ -23,7 +23,7 @@ type BrowseViewState = {
     timeout?: any;
     titleView?: any;
     editView?: any;
-    userId?: number;
+    user?: User;
 };
 
 class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
@@ -47,7 +47,7 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
 
         this.setState(
             {
-                userId: this.context,
+                user: this.context,
                 sortOptions: sortColumns.map(({ key, column }) => (
                     <option key={key} value={column}>
                         {key}
@@ -108,7 +108,7 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
         let path: string;
 
         if (this.props.loggedIn) {
-            path = '/api/titles/withWatched/' + this.state.userId +  '/50/' + this.state.page + '/' + this.state.sortColumn + '/' + this.state.searchInput;
+            path = '/api/titles/withWatched/' + this.state.user!.id +  '/50/' + this.state.page + '/' + this.state.sortColumn + '/' + this.state.searchInput;
         } else {
             path = '/api/titles/50/' + this.state.page + '/' + this.state.sortColumn + '/' + this.state.searchInput;
         }
