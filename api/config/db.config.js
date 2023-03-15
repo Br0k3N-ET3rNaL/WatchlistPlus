@@ -30,6 +30,7 @@ const connect = () => {
     db.title = require('../model/title.model')(sequelize, DataTypes, Model);
     db.watched = require('../model/watchlist.model')(sequelize, DataTypes, Model);
     db.review = require('../model/review.model')(sequelize, DataTypes, Model);
+    db.recommendation = require('../model/recommendation.model')(sequelize, DataTypes, Model);
 
     return db;
 };
