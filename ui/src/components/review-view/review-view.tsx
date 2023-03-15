@@ -83,7 +83,6 @@ class ReviewView extends React.Component<ReviewViewProps, ReviewViewState> {
                             Go Back
                         </button>
                     </div>
-
                 </div>
             </div>
         );
