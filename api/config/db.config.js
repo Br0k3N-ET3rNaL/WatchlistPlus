@@ -1,5 +1,7 @@
 /* eslint-disable global-require */
-const { Sequelize, Model, DataTypes } = require('sequelize');
+const {
+    Sequelize, Model, DataTypes,
+} = require('sequelize');
 
 const connect = () => {
     const hostName = 'localhost';
@@ -26,6 +28,7 @@ const connect = () => {
     const db = {};
     db.Sequelize = Sequelize;
     db.sequelize = sequelize;
+    db.Op = Sequelize.Op;
     db.user = require('../model/user.model')(sequelize, DataTypes, Model);
     db.title = require('../model/title.model')(sequelize, DataTypes, Model);
     db.watched = require('../model/watchlist.model')(sequelize, DataTypes, Model);

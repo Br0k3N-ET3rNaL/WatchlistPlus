@@ -8,6 +8,32 @@ class TitleRepository {
         this.db = connect();
     }
 
+    async getTitlesByTitle(title) {
+        try {
+            const titles = await this.db.title.findAll({ where: { title: { [this.db.Op.iLike]: title } } });
+            return titles;
+        } catch (err) {
+            logger.error(`Error::${err}`);
+            return undefined;
+        }
+    }
+
+    async getTitle(title, titleType, releaseYear) {
+        try {
+            const result = await this.db.title.findOne({
+                where: {
+                    title: { [this.db.Op.iLike]: title },
+                    type: { [this.db.Op.iLike]: titleType },
+                    releaseYear,
+                },
+            });
+            return [result];
+        } catch (err) {
+            logger.error(`Error::${err}`);
+            return undefined;
+        }
+    }
+
     async getPageOfTitles(pageLength, pageNum, sortColumn, search) {
         // Prevent injection
         if (this.db.title.rawAttributes[sortColumn]) {
@@ -15,7 +41,7 @@ class TitleRepository {
                 const titles = await this.db.sequelize.query(
                     `SELECT * FROM titles WHERE title ILIKE :search AND "${sortColumn}" IS NOT NULL ORDER BY "${sortColumn}" DESC OFFSET :offset FETCH FIRST :pageLength ROWS ONLY`,
                     {
-                        replacements: { search: `%${search}%`, offset: pageLength * (pageNum - 1), pageLength },
+                        replacements: { search: `%${search.trim()}%`, offset: pageLength * (pageNum - 1), pageLength },
                         model: this.db.title,
                     },
                 );
@@ -40,7 +66,7 @@ class TitleRepository {
                     LEFT OUTER JOIN (SELECT * FROM watched WHERE watched."userId" = :userId) AS w ON t.id = w."titleId" ORDER BY t."${sortColumn}" DESC`,
                     {
                         replacements: {
-                            userId, search: `%${search}%`, offset: pageLength * (pageNum - 1), pageLength,
+                            userId, search: `%${search.trim()}%`, offset: pageLength * (pageNum - 1), pageLength,
                         },
                         model: this.db.title.Title,
                         nest: true,

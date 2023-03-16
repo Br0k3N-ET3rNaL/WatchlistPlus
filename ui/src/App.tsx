@@ -33,6 +33,20 @@ interface Review {
     userId: number,
 }
 
+interface Recommendation {
+    title1Id: string,
+    title2Id: string,
+    userId: number,
+}
+
+interface Recommendations {
+    title1Id: string,
+    title1Title: string,
+    title2Id: string,
+    title2Title: string,
+    count: number,
+}
+
 enum Views {
     Home,
     SignUp,
@@ -94,4 +108,4 @@ class App extends React.Component<AppProps, AppState> {
 }
 
 export { App };
-export type { Title, Watched, Review };
+export type { Title, Watched, Review, Recommendation, Recommendations };

@@ -50,6 +50,14 @@ app.get('/api/titles/page/withWatched/:userId/:pageLength/:pageNum/:sortColumn/:
         .then((data) => res.json(data));
 });
 
+app.get('/api/titles/verify/:title/', (req, res) => {
+    titleController.verifyTitle(req.params.title).then((data) => res.json(data));
+});
+
+app.get('/api/titles/verify/:title/:type/:releaseYear/', (req, res) => {
+    titleController.verifyTitle(req.params.title, req.params.type, req.params.releaseYear).then((data) => res.json(data));
+});
+
 app.post('/api/watchlist/', (req, res) => {
     watchlistController.createWatched(req.body.watched).then((data) => res.json(data));
 });
