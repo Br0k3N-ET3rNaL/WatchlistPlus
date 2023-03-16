@@ -108,9 +108,9 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
         let path: string;
 
         if (this.props.loggedIn) {
-            path = '/api/titles/withWatched/' + this.state.user!.id +  '/50/' + this.state.page + '/' + this.state.sortColumn + '/' + this.state.searchInput;
+            path = '/api/titles/page/withWatched/' + this.state.user!.id +  '/50/' + this.state.page + '/' + this.state.sortColumn + '/' + this.state.searchInput + '/';
         } else {
-            path = '/api/titles/50/' + this.state.page + '/' + this.state.sortColumn + '/' + this.state.searchInput;
+            path = '/api/titles/page/50/' + this.state.page + '/' + this.state.sortColumn + '/' + this.state.searchInput + '/';
         }
 
         fetch(path, requestOptions)
