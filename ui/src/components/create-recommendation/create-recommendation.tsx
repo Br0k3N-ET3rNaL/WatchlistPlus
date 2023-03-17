@@ -42,7 +42,7 @@ class CreateRecommendation extends React.Component<CreateRecommendationProps, Cr
         const data = new FormData(e.currentTarget);
         const title = data.get('title')?.toString();
 
-        if (title) {
+        if (title && (!this.state.checked || !this.state.exists)) {
             this.setState({ otherTitle: title });
             const requestOptions = {
                 method: 'GET',
@@ -68,7 +68,7 @@ class CreateRecommendation extends React.Component<CreateRecommendationProps, Cr
         const releaseYear = Number(data.get('year')?.toString());
 
         if (type && releaseYear) {
-            
+
             const requestOptions = {
                 method: 'GET',
             };
@@ -91,7 +91,7 @@ class CreateRecommendation extends React.Component<CreateRecommendationProps, Cr
         await this.createIfValid();
     };
 
-    async createIfValid () {
+    async createIfValid() {
         if (this.state.checked && this.state.exists && !this.state.duplicates) {
             const requestOptions = {
                 method: 'POST',
@@ -119,19 +119,20 @@ class CreateRecommendation extends React.Component<CreateRecommendationProps, Cr
                 </span>
                 <div className={styles.bottomBar}>
                     <form className={styles.form} onSubmit={this.handleSubmitText} onBlur={this.handleSubmitText}>
-                        {(!this.state.exists && !this.state.checkedDuplicate) && <label className={styles.error}> * Title does not exists </label>}
-                        <input name={'title'} className={styles.input} />
+                        {(!this.state.exists && !this.state.checkedDuplicate) && <label className={styles.error}> * Title does not exist </label>}
+                        <input name={'title'} className={styles.input} aria-label={'title'} />
                     </form>
-                    {(this.state.duplicates || (this.state.checkedDuplicate && !this.state.exists)) && <div className={styles.extra}>
+                    <div className={styles.extra} hidden={!this.state.duplicates && (!this.state.checkedDuplicate || this.state.exists)}>
                         <label> Duplicate titles, please enter extra info </label>
                         {(this.state.checkedDuplicate && (!this.state.exists || this.state.duplicates)) && <label className={styles.error}> * Incorrect info </label>}
                         <form onSubmit={this.handleSubmitExtra} onBlur={this.handleSubmitExtra} className={styles.form}>
                             <label> Movie/Show </label>
-                            <input name={'type'} />
+                            <input name={'type'} aria-label={'type'} />
                             <label> Release Year </label>
-                            <input name={'year'} />
+                            <input name={'year'} aria-label={'year'} />
+                            <input type="submit" hidden />
                         </form>
-                    </div>}
+                    </div>
                     <span>
                         <button onClick={this.handleSubmit}> Submit </button>
                         <button onClick={this.props.closeCreate}> Cancel </button>
