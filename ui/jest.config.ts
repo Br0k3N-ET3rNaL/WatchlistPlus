@@ -178,7 +178,7 @@ export default {
 
   // A map from regular expressions to paths to transformers
   transform: {
-    "^.+\\.(t|j)sx?$": ["ts-jest", { tsConfig: '<rootDir>/tsconfig.json' }],
+    "^.+\\.(t|j)sx?$": ["ts-jest", { tsconfig: '<rootDir>/tsconfig.json' }],
     ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub",
   },
 
