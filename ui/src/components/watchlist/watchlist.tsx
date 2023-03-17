@@ -172,13 +172,13 @@ class Watchlist extends React.Component<WatchlistProps, WatchlistState> {
                     </div>
                     <div className={styles.listSortOptions}>
                         Sort By
-                        <select onChange={this.handleSortChange}>
+                        <select onChange={this.handleSortChange} aria-label={'sort'}>
                             {this.state.sortOptions}
                         </select>
                     </div>
                     <div className={styles.listSortOptions}>
                         Status
-                        <select onChange={this.handleFilterChange}>
+                        <select onChange={this.handleFilterChange} aria-label={'status'}>
                             {this.state.statusOptions}
                         </select>
                     </div>

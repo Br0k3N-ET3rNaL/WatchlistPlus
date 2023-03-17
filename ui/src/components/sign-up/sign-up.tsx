@@ -11,6 +11,7 @@ type SignUpProps = {
 type SignUpState = {
     username: string | undefined;
     validUsername: boolean;
+    checkedUsername: boolean;
     email: string | undefined;
     validEmail: boolean;
     password: string | undefined;
@@ -26,6 +27,7 @@ class SignUp extends React.Component<SignUpProps, SignUpState> {
     state: SignUpState = {
         username: undefined,
         validUsername: false,
+        checkedUsername: false,
         email: undefined,
         validEmail: false,
         password: undefined,
@@ -37,6 +39,7 @@ class SignUp extends React.Component<SignUpProps, SignUpState> {
         e.preventDefault();
         const data = new FormData(e.currentTarget);
         const username = data.get('username')?.toString();
+
         if (username !== undefined) {
             const requestOptions = {
                 method: 'GET',
@@ -47,9 +50,9 @@ class SignUp extends React.Component<SignUpProps, SignUpState> {
                     const exists = data.usernameExists;
 
                     if (!exists) {
-                        this.setState({ username: username, validUsername: true });
+                        this.setState({ username: username, validUsername: true, checkedUsername: true });
                     } else {
-                        this.setState({ validUsername: false });
+                        this.setState({ validUsername: false, checkedUsername: true });
                     }
                 });
         } else {
@@ -146,7 +149,7 @@ class SignUp extends React.Component<SignUpProps, SignUpState> {
                             onBlurCapture={this.handleSubmitUsername}
                         >
                             <label> Username: </label>
-                            <label className={styles.signupError} hidden={this.state.validUsername || this.state.username === undefined}>
+                            <label className={styles.signupError} hidden={this.state.validUsername || !this.state.checkedUsername}>
                                 * Username already exists
                             </label>
                             <input

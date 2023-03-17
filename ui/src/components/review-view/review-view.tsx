@@ -69,7 +69,7 @@ class ReviewView extends React.Component<ReviewViewProps, ReviewViewState> {
                 {this.props.children}
                 <div className={styles.view}>
                     <ul className={styles.unorderedList}>
-                        {this.state.listItems?.length === 0 && <span> No reviews yet </span>}
+                        <span hidden={this.state.listItems?.length > 0}> No reviews yet </span>
                         {this.state.listItems}
                     </ul>
                     <div className={styles.bottomBar}>

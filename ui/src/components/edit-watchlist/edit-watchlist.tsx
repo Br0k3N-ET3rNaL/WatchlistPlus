@@ -134,7 +134,7 @@ class EditWatchlist extends React.Component<EditWatchlistProps, EditWatchlistSta
                     </span>
                     <span className={styles.editElement}>
                         <label> Status: </label>
-                        <select value={this.state.status} onChange={this.handleStatusDropdownChange}>
+                        <select value={this.state.status} onChange={this.handleStatusDropdownChange} aria-label={'status'}>
                             <option> Plan To Watch </option>
                             <option> Watching </option>
                             <option> Completed </option>
@@ -142,8 +142,9 @@ class EditWatchlist extends React.Component<EditWatchlistProps, EditWatchlistSta
                     </span>
                     <span className={styles.editElement}>
                         <label> Rating: </label>
-                        <select value={String(this.state.rating)} onChange={this.handleRatingDropdownChange}>
+                        <select value={String(this.state.rating)} onChange={this.handleRatingDropdownChange} aria-label={'rating'}>
                             <option> Select Rating </option>
+                            <option> 0 </option>
                             <option> 1 </option>
                             <option> 2 </option>
                             <option> 3 </option>
@@ -157,9 +158,9 @@ class EditWatchlist extends React.Component<EditWatchlistProps, EditWatchlistSta
                         </select>
                     </span>
                     <div className={styles.bottomBar}>
-                        <button onClick={this.handleSubmit}> Submit </button>
+                        <button onClick={this.handleSubmit} aria-label={'submit'}> Submit </button>
                         {(this.props.watched || this.props.title?.watched?.status) && <button onClick={this.handleDelete}> Delete </button>}
-                        <button onClick={this.props.closeEdit}> Cancel </button>
+                        <button onClick={this.props.closeEdit} aria-label={'cancel'}> Cancel </button>
                     </div>
                 </div>
             </div>
