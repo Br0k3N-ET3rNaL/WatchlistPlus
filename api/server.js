@@ -9,17 +9,12 @@ const reviewController = require('./controller/review.controller');
 const recommendationController = require('./controller/recommendation.controller');
 
 const app = express();
-const port = 3070;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
     res.send('App works!!');
-});
-
-app.listen(port, () => {
-    console.log(`running server on from port:::::::${port}`);
 });
 
 app.get('/api/users/exists/username/:username', (req, res) => {
@@ -91,3 +86,5 @@ app.post('/api/recommendations/', (req, res) => {
 app.get('/api/recommendations/:titleId/:pageLength/:pageNum/', (req, res) => {
     recommendationController.getPageOfRecommendations(req.params.titleId, req.params.pageLength, req.params.pageNum).then((data) => res.json(data));
 });
+
+module.exports = app;
