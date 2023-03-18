@@ -26,9 +26,9 @@ class RecommendationRepository {
                 `SELECT "title1Id", "title1Title", "title2Id", title AS "title2Title", count FROM
                     (SELECT "title1Id", title as "title1Title", "title2Id", count FROM   
                         (SELECT a."title1Id", a."title2Id", sum(a.count) AS count FROM
-                            (SELECT "title1Id", "title2Id", count("userId") FROM recommendations WHERE "title1Id" = 'tm1143265' GROUP BY "title1Id", "title2Id"
+                            (SELECT "title1Id", "title2Id", count("userId") FROM recommendations WHERE "title1Id" = :titleId GROUP BY "title1Id", "title2Id"
                             UNION ALL
-                            SELECT "title2Id" AS "title1Id", "title1Id" AS "title2Id", count("userId") FROM recommendations WHERE "title2Id" = 'tm1143265' GROUP BY "title1Id", "title2Id") AS a
+                            SELECT "title2Id" AS "title1Id", "title1Id" AS "title2Id", count("userId") FROM recommendations WHERE "title2Id" = :titleId GROUP BY "title1Id", "title2Id") AS a
                         GROUP BY "title1Id", "title2Id") AS b
                     LEFT OUTER JOIN titles ON b."title1Id" = titles.id) AS c
                 LEFT OUTER JOIN titles ON c."title2Id" = titles.id
