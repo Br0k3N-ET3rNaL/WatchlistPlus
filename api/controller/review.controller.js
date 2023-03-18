@@ -3,7 +3,7 @@ const logger = require('../logger/api.logger');
 
 class ReviewController {
     async createReview(review) {
-        logger.info('ReviewController: createReview', `${review.review} ${review.username} ${review.titleId}`);
+        logger.info('ReviewController: createReview', `${review.review} ${review.username} ${review.titleId} ${review.userId}`);
         return reviewService.createReview(review);
     }
 
