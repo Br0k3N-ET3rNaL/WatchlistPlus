@@ -1,0 +1,17 @@
+name: Integration Tests CI
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Tests
+      uses: cloudposse/github-action-docker-compose-test-run@main
+      with:
+        file: docker-compose.yml
+        service: watchlistapi
+        command: npm test:integration
