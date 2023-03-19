@@ -13,7 +13,7 @@ jobs:
     - name: Start containers
       run: docker build ./db -t watchlistplus-db:latest
 
-    - run: docker run watchlistplus-db -p 5432:5432
+    - run: docker run -e POSTGRES_PASSWORD=password watchlistplus-db -p 5432:5432
 
     - name: Use Node.js 
       uses: actions/setup-node@v3
