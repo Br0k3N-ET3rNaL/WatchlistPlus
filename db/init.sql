@@ -1,4 +1,32 @@
+\c watchlist;
 GRANT ALL PRIVILEGES ON DATABASE watchlist TO postgres;
+CREATE TABLE public.users (
+	id serial4 NOT NULL,
+	email varchar(255) NULL,
+	username varchar(255) NULL,
+	"password" varchar(255) NULL,
+	CONSTRAINT users_email_key UNIQUE (email),
+	CONSTRAINT users_pkey PRIMARY KEY (id),
+	CONSTRAINT users_username_key UNIQUE (username)
+);
+CREATE TABLE public.titles (
+	id varchar(255) NOT NULL,
+	title varchar(255) NULL,
+	"type" varchar(255) NULL,
+	description text NULL,
+	"releaseYear" int4 NULL,
+	"ageCertification" varchar(255) NULL,
+	runtime int4 NULL,
+	genres _varchar NULL,
+	"productionCountries" _varchar NULL,
+	seasons int4 NULL,
+	"imdbId" varchar(255) NULL,
+	"imdbScore" numeric(2, 1) NULL,
+	"imdbVotes" int4 NULL,
+	"tmdbPopularity" numeric(7, 3) NULL,
+	"tmdbScore" numeric(5, 3) NULL,
+	CONSTRAINT titles_pkey PRIMARY KEY (id)
+);
 CREATE TABLE public.recommendations (
 	id serial4 NOT NULL,
 	"title1Id" varchar(255) NULL,
@@ -20,15 +48,6 @@ CREATE TABLE public.reviews (
 	CONSTRAINT "reviews_userId_fkey" FOREIGN KEY ("userId") REFERENCES public.users(id) ON DELETE SET NULL ON UPDATE CASCADE,
 	CONSTRAINT reviews_username_fkey FOREIGN KEY (username) REFERENCES public.users(username)
 );
-CREATE TABLE public.users (
-	id serial4 NOT NULL,
-	email varchar(255) NULL,
-	username varchar(255) NULL,
-	"password" varchar(255) NULL,
-	CONSTRAINT users_email_key UNIQUE (email),
-	CONSTRAINT users_pkey PRIMARY KEY (id),
-	CONSTRAINT users_username_key UNIQUE (username)
-);
 CREATE TABLE public.watched (
 	id serial4 NOT NULL,
 	rating int4 NULL,
@@ -37,24 +56,6 @@ CREATE TABLE public.watched (
 	"userId" int4 NULL,
 	CONSTRAINT watched_pkey PRIMARY KEY (id),
 	CONSTRAINT "watched_titleId_fkey" FOREIGN KEY ("titleId") REFERENCES public.titles(id) ON DELETE SET NULL ON UPDATE CASCADE
-);
-CREATE TABLE public.titles (
-	id varchar(255) NOT NULL,
-	title varchar(255) NULL,
-	"type" varchar(255) NULL,
-	description text NULL,
-	"releaseYear" int4 NULL,
-	"ageCertification" varchar(255) NULL,
-	runtime int4 NULL,
-	genres _varchar NULL,
-	"productionCountries" _varchar NULL,
-	seasons int4 NULL,
-	"imdbId" varchar(255) NULL,
-	"imdbScore" numeric(2, 1) NULL,
-	"imdbVotes" int4 NULL,
-	"tmdbPopularity" numeric(7, 3) NULL,
-	"tmdbScore" numeric(5, 3) NULL,
-	CONSTRAINT titles_pkey PRIMARY KEY (id)
 );
 INSERT INTO public.titles (id,title,"type",description,"releaseYear","ageCertification",runtime,genres,"productionCountries",seasons,"imdbId","imdbScore","imdbVotes","tmdbPopularity","tmdbScore") VALUES
 	 ('ts300399','Five Came Back: The Reference Films','SHOW','This collection includes 12 World War II-era propaganda films — many of which are graphic and offensive — discussed in the docuseries "Five Came Back."',1945,'TV-MA',51,'{''documentation''}','{''US''}',1,'',NULL,NULL,0.600,NULL),
