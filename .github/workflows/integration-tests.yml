@@ -13,17 +13,8 @@ jobs:
     - name: Start containers
       run: docker-compose -f "docker-compose.yml" up -d --build
 
-    - name: Install node
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18.14'
-
-    - name: Install dependencies
-      run: npm install
-      working-directory: ./api
-
     - name: Run tests
-      run: npm run test:integration
+      run: docker container exec watchlistapi npm run test:integration
       working-directory: ./api
 
     - name: Stop containers
