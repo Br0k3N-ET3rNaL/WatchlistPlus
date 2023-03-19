@@ -1,0 +1,10 @@
+on:
+  workflow_dispatch:
+
+jobs:
+  dockerize-ui:
+    uses: ./.github/workflows/dockerize-ui.yml
+  dockerize-api:
+    uses: ./.github/workflows/dockerize-api.yml
+  dockerize-db:
+    uses: ./.github/workflows/dockerize-db.yml

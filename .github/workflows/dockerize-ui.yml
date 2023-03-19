@@ -1,6 +1,7 @@
 name: Dockerize UI
 
 on:
+  workflow_call:
   workflow_dispatch:
   release:
     types: [published]
