@@ -13,7 +13,7 @@ jobs:
     - name: Start containers
       run: docker build ./db
 
-      run: docker run watchlistdb -p 5432:5432
+    - run: docker run watchlistdb -p 5432:5432
 
     - name: Use Node.js 
       uses: actions/setup-node@v3
@@ -22,7 +22,7 @@ jobs:
         node-version: '18.14'
         cache: 'npm'
         cache-dependency-path: ./api/package-lock.json
-        
+
     - name: ci
       run: npm ci
       working-directory: ./api
