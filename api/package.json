@@ -4,8 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "start:dev": "nodemon server.js",
+    "start": "node index.js",
+    "start:dev": "nodemon index.js",
     "test": "jest",
     "test:unit": "jest unit",
     "test:integration": "jest integration --runInBand",
