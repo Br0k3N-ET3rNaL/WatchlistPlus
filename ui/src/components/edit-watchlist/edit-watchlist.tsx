@@ -14,7 +14,7 @@ type EditWatchlistProps = {
 
 type EditWatchlistState = {
     status: string;
-    rating?: number;
+    rating: number;
     user?: User;
 }
 
@@ -24,6 +24,7 @@ class EditWatchlist extends React.Component<EditWatchlistProps, EditWatchlistSta
 
     state: EditWatchlistState = {
         status: 'Plan To Watch',
+        rating: 0,
     };
 
     componentDidMount(): void {
