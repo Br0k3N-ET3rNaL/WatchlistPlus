@@ -6,7 +6,10 @@ on:
 jobs:
   dockerize-ui:
     uses: ./.github/workflows/dockerize-ui.yml
+    secrets: inherit
   dockerize-api:
     uses: ./.github/workflows/dockerize-api.yml
+    secrets: inherit
   dockerize-db:
     uses: ./.github/workflows/dockerize-db.yml
+    secrets: inherit
