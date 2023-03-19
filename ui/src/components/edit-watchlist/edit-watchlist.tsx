@@ -14,7 +14,7 @@ type EditWatchlistProps = {
 
 type EditWatchlistState = {
     status: string;
-    rating: number;
+    rating?: number;
     user?: User;
 }
 
@@ -24,7 +24,6 @@ class EditWatchlist extends React.Component<EditWatchlistProps, EditWatchlistSta
 
     state: EditWatchlistState = {
         status: 'Plan To Watch',
-        rating: 0,
     };
 
     componentDidMount(): void {
@@ -48,17 +47,11 @@ class EditWatchlist extends React.Component<EditWatchlistProps, EditWatchlistSta
     handleRatingDropdownChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
         e.preventDefault();
 
-        const value = e.currentTarget.value;
-        let rating;
+        let rating = Number(e.currentTarget.value);
 
-        if (value === 'Select Rating') {
-            rating = 0;
+        if (typeof rating === 'number') {
+            this.setState({ rating });
         }
-        else {
-            rating = Number(value);
-        }
-
-        this.setState({ rating });
     }
 
     handleSubmit: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
