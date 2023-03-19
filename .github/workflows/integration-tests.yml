@@ -9,9 +9,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Tests
-      uses: cloudposse/github-action-docker-compose-test-run@main
+
+    - name: Start containers
+      run: docker-compose -f "docker-compose.yml" up -d --build
+
+    - name: Install node
+      uses: actions/setup-node@v3
       with:
-        file: docker-compose.yml
-        service: watchlistapi
-        command: npm test:integration
+        node-version: '18.14'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run tests
+      run: npm run test
+
+    - name: Stop containers
+      if: always()
+      run: docker-compose -f "docker-compose.yml" down
