@@ -47,11 +47,17 @@ class EditWatchlist extends React.Component<EditWatchlistProps, EditWatchlistSta
     handleRatingDropdownChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
         e.preventDefault();
 
-        const rating = Number(e.currentTarget.value);
+        const value = e.currentTarget.value;
+        let rating;
 
-        if (typeof rating === 'number') {
-            this.setState({ rating });
+        if (value === 'Select Rating') {
+            rating = 0;
         }
+        else {
+            rating = Number(value);
+        }
+
+        this.setState({ rating });
     }
 
     handleSubmit: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
