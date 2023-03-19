@@ -20,9 +20,11 @@ jobs:
 
     - name: Install dependencies
       run: npm install
+      working-directory: ./api
 
     - name: Run tests
-      run: npm run test
+      run: npm run test:integration
+      working-directory: ./api
 
     - name: Stop containers
       if: always()
