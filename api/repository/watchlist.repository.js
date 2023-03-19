@@ -67,8 +67,8 @@ class WatchlistRepository {
                     titles."tmdbPopularity" as "title.tmdbPopularity", 
                     titles."tmdbScore" as "title.tmdbScore"  
                     FROM watched as w LEFT OUTER JOIN titles ON w."titleId" = titles.id
-                    WHERE w."userId" = :userId AND w."${sortColumn}" IS NOT NULL AND w.status ILIKE :statusFilter
-                    ORDER BY w."${sortColumn}" DESC OFFSET :offset FETCH FIRST :pageLength ROWS ONLY`,
+                    WHERE w."userId" = :userId AND w.status ILIKE :statusFilter
+                    ORDER BY w."${sortColumn}" DESC NULLS LAST OFFSET :offset FETCH FIRST :pageLength ROWS ONLY`,
                     {
                         replacements: {
                             userId, offset: pageLength * (pageNum - 1), pageLength, statusFilter: `${statusFilter}%`,
