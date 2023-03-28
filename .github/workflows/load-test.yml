@@ -4,34 +4,24 @@ on:
   workflow_dispatch:
 
 jobs:
-  docker-compose-up:
-    name: Start docker images
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Start containers
-        run: docker compose up -d --build
-        working-directory: ./
-
   artillery:
-    name: Load test
-    needs: docker-compose-up
+    name: Load Test
     runs-on: ubuntu-latest
-    container: artilleryio/artillery:latest
     steps:
       - uses: actions/checkout@v3
+
+      - name: Start database
+        run: |
+        docker build ./db -t watchlistplus-db:latest
+        docker run -d -e POSTGRES_PASSWORD=password -e POSTGRES_DB=watchlist -p 5432:5432 watchlistplus-db
+
+      - name: Start api server
+        run: |
+        docker build ./api -t watchlistplus-api:latest
+        docker run -d -p 3070:3070 watchlistplus-api
 
       - name: Execute load test
-        run: /home/node/artillery/bin/run run "./api/load test/script.yml"
-
-  docker-compose-down:
-    name: Stop docker images
-    needs: [docker-compose-up, artillery]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Stop containers
-        run: docker compose down --volumes
-        working-directory: ./
+        uses: addnab/docker-run-action@v3
+        with:
+          image: artilleryio/artillery:latest
+          run: /home/node/artillery/bin/run run "./api/load test/script.yml"
