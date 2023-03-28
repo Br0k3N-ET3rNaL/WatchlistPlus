@@ -4,14 +4,8 @@ on:
   push:
   workflow_dispatch:
 
-permissions:
-  contents: read
-
 jobs:
   njsscan:
-    permissions:
-      contents: read
-      security-events: write
     runs-on: ubuntu-latest
     name: njsscan code scanning
     steps:
@@ -25,6 +19,6 @@ jobs:
         args: '. --sarif --output results.sarif || true'
 
     - name: Upload njsscan report
-      uses: github/codeql-action/upload-sarif@v2
+      uses: github/codeql-action/upload-sarif@v1
       with:
         sarif_file: results.sarif
