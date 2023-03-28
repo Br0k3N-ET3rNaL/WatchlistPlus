@@ -24,7 +24,7 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: artilleryio/artillery:latest
-          options: -v ${{ github.workspace }}/api/loadtest:/loadtest
+          options: -v ${{ github.workspace }}/api:/api
           run: |
             npm install --save-dev @faker-js/faker
-            /home/node/artillery/bin/run run /loadtest/script.yml
+            /home/node/artillery/bin/run run /api/loadtest/script.yml
