@@ -1,7 +1,6 @@
 /* eslint-disable linebreak-style */
 const express = require('express');
 const bodyParser = require('body-parser');
-require('dotenv').config();
 
 const userController = require('./controller/user.controller');
 const titleController = require('./controller/title.controller');
