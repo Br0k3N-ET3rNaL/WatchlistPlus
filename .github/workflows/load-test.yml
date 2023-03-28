@@ -26,5 +26,5 @@ jobs:
           image: artilleryio/artillery:latest
           options: -v ${{ github.workspace }}/api:/api
           run: |
-            npm install --save-dev @faker-js/faker
+            npm install @faker-js/faker
             /home/node/artillery/bin/run run /api/loadtest/script.yml
