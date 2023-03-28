@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Start containers
-        run: docker compose up -d --build ./docker-compose.yml
+        run: docker compose up -d --build -f ./docker-compose.yml
 
   artillery:
     name: Load test
