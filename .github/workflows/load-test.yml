@@ -4,18 +4,32 @@ on:
   workflow_dispatch:
 
 jobs:
+  docker-compose-up:
+    name: Start docker images
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Start containers
+        run: docker compose up -d --build ./docker-compose.yml
+
   artillery:
     name: Load test
+    needs: docker-compose-up
     runs-on: ubuntu-latest
     container: artilleryio/artillery:latest
     steps:
       - uses: actions/checkout@v3
 
-      - name: Start containers
-        run: docker-compose up -d --build ./docker-compose.yml
-
       - name: Execute load test
         run: /home/node/artillery/bin/run run ./api/load test/script.yml
 
+  docker-compose-down:
+    name: Stop docker images
+    needs: [docker-compose-up, artillery]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
       - name: Stop containers
-        run: docker-compose down --volumes
+        run: docker compose down --volumes
