@@ -23,7 +23,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Execute load test
-        run: /home/node/artillery/bin/run run ./api/load test/script.yml
+        run: /home/node/artillery/bin/run run "./api/load test/script.yml"
 
   docker-compose-down:
     name: Stop docker images
