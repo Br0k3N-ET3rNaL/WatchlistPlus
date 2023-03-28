@@ -24,4 +24,5 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: artilleryio/artillery:latest
-          run: /home/node/artillery/bin/run run ./api/loadtest/script.yml
+          options: -v ${{ github.workspace }}:/api/loadtest
+          run: /home/node/artillery/bin/run run ./script.yml
