@@ -7,8 +7,8 @@ const host = process.env.DB_HOSTNAME || 'localhost';
 
 const connect = () => {
     const hostName = host;
-    const userName = 'postgres';
-    const password = 'password';
+    const userName = process.env.DB_USERNAME;
+    const password = process.env.DB_PASSWORD;
     const database = 'watchlist';
     const dialect = 'postgres';
 
