@@ -1,3 +1,5 @@
+name: Load Test
+
 on:
   workflow_dispatch:
 
