@@ -1,6 +1,6 @@
 import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Title, Watched } from '../App';
+import { Title, Watched } from '../interfaces';
 import EditWatchlist from '../components/edit-watchlist/edit-watchlist';
 import WatchlistListElement from '../components/watchlist-list-element/watchlist-list-element';
 import Watchlist from '../components/watchlist/watchlist';

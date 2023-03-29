@@ -1,10 +1,10 @@
-import styles from './browse-view.module.scss';
 import classNames from 'classnames';
-import React from 'react';
+import React, { ReactElement } from 'react';
+import styles from './browse-view.module.scss';
 import TitleListElement from '../title-list-element/title-list-element';
 import TitleView from '../title-view/title-view';
 import PageController from '../page-controller/page-controller';
-import { Title } from '../../App';
+import { Title } from '../../interfaces';
 import EditWatchlist from '../edit-watchlist/edit-watchlist';
 import UserContext, { User } from '../../context';
 
@@ -15,28 +15,31 @@ type BrowseViewProps = {
 };
 
 type BrowseViewState = {
-    listItems: any;
-    sortOptions: any;
+    listItems?: React.ReactNode;
+    sortOptions?: React.ReactNode;
     searchInput: string;
     sortColumn: string;
     page: number;
-    timeout?: any;
-    titleView?: any;
-    editView?: any;
+    timeout?: NodeJS.Timeout;
+    titleView?: ReactElement<TitleView>;
+    editView?: ReactElement<EditWatchlist>;
     user?: User;
 };
 
 class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
     static contextType = UserContext;
+
     context!: React.ContextType<typeof UserContext>;
 
-    state: BrowseViewState = {
-        listItems: undefined,
-        sortOptions: undefined,
-        searchInput: ' ',
-        sortColumn: 'tmdbPopularity',
-        page: 1,
-    };
+    constructor(props: BrowseViewProps | Readonly<BrowseViewProps>) {
+        super(props);
+
+        this.state = {
+            searchInput: ' ',
+            sortColumn: 'tmdbPopularity',
+            page: 1,
+        };
+    }
 
     componentDidMount(): void {
         const sortColumns = [
@@ -69,13 +72,13 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
     handleNextPage: React.MouseEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault();
 
-        this.setState({ page: this.state.page + 1 }, this.getCurrentPage);
+        this.setState(prevState => ({ page: prevState.page + 1 }), this.getCurrentPage);
     };
 
     handlePrevPage: React.MouseEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault();
 
-        this.setState({ page: this.state.page - 1 }, this.getCurrentPage);
+        this.setState(prevState => ({ page: prevState.page - 1 }), this.getCurrentPage);
     };
 
     handleFirstPage: React.MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -87,8 +90,10 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
     handleSearchUpdate: React.ChangeEventHandler<HTMLInputElement> = (e) => {
         e.preventDefault();
 
-        if (this.state.timeout) {
-            clearTimeout(this.state.timeout);
+        const { state } = this;
+
+        if (state.timeout) {
+            clearTimeout(state.timeout);
         }
 
         const search = e.currentTarget.value
@@ -101,16 +106,17 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
     };
 
     getCurrentPage() {
-        let items = 0;
+        const { props, state } = this;
+
         const requestOptions = {
             method: 'GET',
         };
         let path: string;
 
-        if (this.props.loggedIn) {
-            path = '/api/titles/page/withWatched/' + this.state.user!.id +  '/50/' + this.state.page + '/' + this.state.sortColumn + '/' + this.state.searchInput + '/';
+        if (props.loggedIn && state.user) {
+            path = `/api/titles/page/withWatched/${state.user.id}/50/${state.page}/${state.sortColumn}/${state.searchInput}/`;
         } else {
-            path = '/api/titles/page/50/' + this.state.page + '/' + this.state.sortColumn + '/' + this.state.searchInput + '/';
+            path = `/api/titles/page/50/${state.page}/${state.sortColumn}/${state.searchInput}/`;
         }
 
         fetch(path, requestOptions)
@@ -120,9 +126,9 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
                     listItems: data.map(
                         (title: Title) => (
                             <TitleListElement
-                                key={items++}
+                                key={title.id}
                                 title={title}
-                                loggedIn={this.props.loggedIn}
+                                loggedIn={props.loggedIn}
                                 displayTitle={this.displayTitle}
                                 displayEdit={this.displayEdit}
                             />
@@ -135,16 +141,18 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
     };
 
     displayTitle = (title: Title) => {
+        const { props } = this;
+
         document.body.style.overflow = 'hidden';
         this.setState({
-            titleView: <TitleView title={title} loggedIn={this.props.loggedIn} closeTitle={this.closeTitle}/>
+            titleView: <TitleView title={title} loggedIn={props.loggedIn} closeTitle={this.closeTitle} />
         });
     };
 
     displayEdit = (title: Title) => {
         document.body.style.overflow = 'hidden';
         this.setState({
-            editView: <EditWatchlist title={title} closeEdit={this.closeEdit}/>
+            editView: <EditWatchlist title={title} closeEdit={this.closeEdit} />
         });
     };
 
@@ -163,10 +171,12 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
     };
 
     render() {
+        const { props, state } = this;
+
         return (
-            <div className={classNames(styles.root, this.props.className)}>
-                {this.state.titleView}
-                {this.state.editView}
+            <div className={classNames(styles.root, props.className)}>{props.children}
+                {state.titleView}
+                {state.editView}
                 <div className={styles.searchBar}>
                     <input className={styles.searchInput} onChange={this.handleSearchUpdate} />
                 </div>
@@ -178,18 +188,18 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
                                 <div>Title</div>
                                 <div>Year</div>
                                 <div>Rating</div>
-                                {this.props.loggedIn && <div>Add To List</div>}
+                                {props.loggedIn && <div>Add To List</div>}
                             </div>
-                            {this.state.listItems}
+                            {state.listItems}
                         </ul>
                         <div className={styles.bottomBar}>
-                            <PageController page={this.state.page} onNextPage={this.handleNextPage} onPrevPage={this.handlePrevPage} onFirstPage={this.handleFirstPage}/>
+                            <PageController page={state.page} onNextPage={this.handleNextPage} onPrevPage={this.handlePrevPage} onFirstPage={this.handleFirstPage} />
                         </div>
                     </div>
                     <div className={styles.listSortOptions}>
                         Sort By
                         <select onChange={this.handleDropdownChange}>
-                            {this.state.sortOptions}
+                            {state.sortOptions}
                         </select>
                     </div>
                 </div>

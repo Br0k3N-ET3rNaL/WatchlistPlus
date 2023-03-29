@@ -1,10 +1,10 @@
-import styles from './watchlist.module.scss';
 import classNames from 'classnames';
-import React from 'react';
+import React, { ReactElement } from 'react';
+import styles from './watchlist.module.scss';
 import WatchlistListElement from '../watchlist-list-element/watchlist-list-element';
 import PageController from '../page-controller/page-controller';
 import TitleView from '../title-view/title-view';
-import { Title, Watched } from '../../App';
+import { Title, Watched } from '../../interfaces';
 import UserContext, { User } from '../../context';
 import EditWatchlist from '../edit-watchlist/edit-watchlist';
 
@@ -14,29 +14,31 @@ type WatchlistProps = {
 }
 
 type WatchlistState = {
-    listItems: any;
-    sortOptions: any;
+    listItems?: React.ReactNode;
+    sortOptions?: React.ReactNode;
     sortColumn: string;
     page: number;
-    titleView?: any;
-    editView?: any;
+    titleView?: ReactElement<TitleView>;
+    editView?: ReactElement<EditWatchlist>;
     user?: User;
-    statusOptions: any;
+    statusOptions?: React.ReactNode;
     statusFilter: string;
 }
 
 class Watchlist extends React.Component<WatchlistProps, WatchlistState> {
     static contextType = UserContext;
+
     context!: React.ContextType<typeof UserContext>;
 
-    state: WatchlistState = {
-        listItems: undefined,
-        sortOptions: undefined,
-        sortColumn: 'status',
-        statusOptions: undefined,
-        statusFilter: 'All',
-        page: 1,
-    };
+    constructor(props: WatchlistProps | Readonly<WatchlistProps>) {
+        super(props);
+
+        this.state = {
+            sortColumn: 'status',
+            statusFilter: 'All',
+            page: 1,
+        };
+    }
 
     componentDidMount(): void {
         const sortColumns = [
@@ -44,7 +46,7 @@ class Watchlist extends React.Component<WatchlistProps, WatchlistState> {
             { key: 'Rating', column: 'rating' },
         ];
         const options = [
-            { status: 'All'},
+            { status: 'All' },
             { status: 'Plan To Watch' },
             { status: 'Watching' },
             { status: 'Completed' },
@@ -57,7 +59,7 @@ class Watchlist extends React.Component<WatchlistProps, WatchlistState> {
                     {key}
                 </option>
             )),
-            statusOptions: options.map(({status}) => (
+            statusOptions: options.map(({ status }) => (
                 <option key={status} value={status}>
                     {status}
                 </option>
@@ -84,13 +86,13 @@ class Watchlist extends React.Component<WatchlistProps, WatchlistState> {
     handleNextPage: React.MouseEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault();
 
-        this.setState({ page: this.state.page + 1 }, this.getCurrentPage);
+        this.setState(prevState => ({ page: prevState.page + 1 }), this.getCurrentPage);
     };
 
     handlePrevPage: React.MouseEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault();
 
-        this.setState({ page: this.state.page - 1 }, this.getCurrentPage);
+        this.setState(prevState => ({ page: prevState.page - 1 }), this.getCurrentPage);
     };
 
     handleFirstPage: React.MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -100,18 +102,19 @@ class Watchlist extends React.Component<WatchlistProps, WatchlistState> {
     };
 
     getCurrentPage() {
-        var items = 0;
+        const { state } = this;
+
         const requestOptions = {
             method: 'GET',
         };
-        fetch('/api/watchlist/' + this.state.user!.id + '/50/' + this.state.page + '/' + this.state.sortColumn + '/' + this.state.statusFilter + '/', requestOptions)
+        fetch(`/api/watchlist/${state.user?.id}/50/${state.page}/${state.sortColumn}/${state.statusFilter}/`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
                 this.setState({
                     listItems: data.map(
                         (watched: Watched) => (
                             <WatchlistListElement
-                                key={items++}
+                                key={watched.title?.id}
                                 watched={watched}
                                 displayTitle={this.displayTitle}
                                 displayEdit={this.displayEdit}
@@ -125,9 +128,9 @@ class Watchlist extends React.Component<WatchlistProps, WatchlistState> {
     };
 
     displayTitle = (title: Title) => {
-        this.setState({
-            titleView: <TitleView title={title} loggedIn={this.state.user?.id !== undefined} closeTitle={this.closeTitle} />
-        });
+        this.setState(prevState => ({
+            titleView: <TitleView title={title} loggedIn={prevState.user?.id !== undefined} closeTitle={this.closeTitle} />
+        }));
     };
 
     displayEdit = (watched: Watched) => {
@@ -149,10 +152,12 @@ class Watchlist extends React.Component<WatchlistProps, WatchlistState> {
     };
 
     render() {
+        const { props, state } = this;
+
         return (
-            <div className={classNames(styles.root, this.props.className)}>{this.props.children}
-                {this.state.titleView}
-                {this.state.editView}
+            <div className={classNames(styles.root, props.className)}>{props.children}
+                {state.titleView}
+                {state.editView}
                 <div className={styles.watchlist}>
                     <div className={styles.watchlistList}>
                         <ul className={styles.unorderedList}>
@@ -164,22 +169,22 @@ class Watchlist extends React.Component<WatchlistProps, WatchlistState> {
                                 <div>Rating</div>
                                 <div>Edit</div>
                             </div>
-                            {this.state.listItems}
+                            {state.listItems}
                         </ul>
                         <div className={styles.bottomBar}>
-                            <PageController page={this.state.page} onNextPage={this.handleNextPage} onPrevPage={this.handlePrevPage} onFirstPage={this.handleFirstPage} />
+                            <PageController page={state.page} onNextPage={this.handleNextPage} onPrevPage={this.handlePrevPage} onFirstPage={this.handleFirstPage} />
                         </div>
                     </div>
                     <div className={styles.listSortOptions}>
                         Sort By
-                        <select onChange={this.handleSortChange} aria-label={'sort'}>
-                            {this.state.sortOptions}
+                        <select onChange={this.handleSortChange} aria-label="sort">
+                            {state.sortOptions}
                         </select>
                     </div>
                     <div className={styles.listSortOptions}>
                         Status
-                        <select onChange={this.handleFilterChange} aria-label={'status'}>
-                            {this.state.statusOptions}
+                        <select onChange={this.handleFilterChange} aria-label="status">
+                            {state.statusOptions}
                         </select>
                     </div>
                 </div>

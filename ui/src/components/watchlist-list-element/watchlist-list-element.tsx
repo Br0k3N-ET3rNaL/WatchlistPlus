@@ -1,37 +1,42 @@
-import styles from './watchlist-list-element.module.scss';
 import classNames from 'classnames';
 import React from 'react';
-import { Title, Watched } from '../../App';
+import styles from './watchlist-list-element.module.scss';
+import { Title, Watched } from '../../interfaces';
 
 type WatchlistListElementProps = {
     className?: string;
     children?: React.ReactNode;
-    key: number;
     watched: Watched;
     displayTitle?: (title: Title) => void;
     displayEdit?: (watched: Watched) => void;
 }
 
-class WatchlistListElement extends React.Component<WatchlistListElementProps> {
-    render() {
-        return (
-            <div className={classNames(styles.root, this.props.className)}>{this.props.children}
-                <div />
-                <div className={styles.title} onClick={() => {
-                    if (this.props.displayTitle !== undefined)
-                        this.props.displayTitle(this.props.watched.title!)
-                }}> {this.props.watched.title!.title} </div>
-                <div> {this.props.watched.status} </div>
-                <div> {this.props.watched.title!.releaseYear} </div>
-                <div> {this.props.watched.rating} </div>
-                <button onClick={() => {
-                    if (this.props.displayEdit)
-                        this.props.displayEdit(this.props.watched);
-                }}> edit </button>
-            </div>
-        );
-    }
+function WatchlistListElement(props: WatchlistListElementProps) {
+    const { className, children, watched, displayTitle, displayEdit } = props;
 
+    return (
+        <div className={classNames(styles.root, className)}>{children}
+            <div />
+            <div role="button" tabIndex={-1} className={styles.title}
+                onClick={() => {
+                    if (displayTitle !== undefined && watched.title !== undefined)
+                        displayTitle(watched.title)
+                }}
+                onKeyDown={() => {
+                    if (displayTitle !== undefined && watched.title !== undefined)
+                        displayTitle(watched.title)
+                }}
+
+            > {watched.title?.title} </div>
+            <div> {watched.status} </div>
+            <div> {watched.title?.releaseYear} </div>
+            <div> {watched.rating} </div>
+            <button type="button" onClick={() => {
+                if (displayEdit)
+                    displayEdit(watched);
+            }}> edit </button>
+        </div>
+    );
 };
 
 export default WatchlistListElement;

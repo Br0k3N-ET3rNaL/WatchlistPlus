@@ -1,6 +1,6 @@
-import LogIn from '../components/log-in/log-in';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import LogIn from '../components/log-in/log-in';
 
 describe('log-in', () => {
     test('no user with email', async () => {

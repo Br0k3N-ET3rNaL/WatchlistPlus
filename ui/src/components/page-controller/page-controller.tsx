@@ -1,5 +1,5 @@
-import styles from './page-controller.module.scss';
 import React from 'react';
+import styles from './page-controller.module.scss';
 
 type PageControllerProps = {
     className?: string;
@@ -10,54 +10,61 @@ type PageControllerProps = {
     onFirstPage?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
-/**
- * This component was generated using Codux's built-in Default new component template.
- * For details on how to create custom new component templates, see https://help.codux.com/kb/en/article/configuration-for-page-controllers-and-templates
- */
 class PageController extends React.Component<PageControllerProps> {
     handleNextPage: React.MouseEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault();
 
-        this.props.onNextPage?.(e);
+        const { props } = this;
+
+        props.onNextPage?.(e);
     };
 
     handlePrevPage: React.MouseEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault();
 
-        this.props.onPrevPage?.(e);
+        const { props } = this;
+
+        props.onPrevPage?.(e);
     };
 
     handleFirstPage: React.MouseEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault();
 
-        this.props.onFirstPage?.(e);
+        const { props } = this;
+
+        props.onFirstPage?.(e);
     };
 
     render() {
+        const { props } = this;
+
         return (
-            <div className={this.props.className}>{this.props.children}
+            <div className={props.className}>{props.children}
                 <div className={styles.pageButtons}>
                     <button
+                        type="button"
                         onClick={this.handleFirstPage}
                         className={styles.pageButton}
-                        aria-label={'first'}
-                        disabled={this.props.page <= 2}
+                        aria-label="first"
+                        disabled={props.page <= 2}
                     >
                         &lt;&lt;
                     </button>
                     <button
+                        type="button"
                         onClick={this.handlePrevPage}
                         className={styles.pageButton}
-                        aria-label={'prev'}
-                        disabled={this.props.page === 1}
+                        aria-label="prev"
+                        disabled={props.page === 1}
                     >
                         &lt;
                     </button>
-                    <div className={styles.pageButton}>{this.props.page}</div>
+                    <div className={styles.pageButton}>{props.page}</div>
                     <button
+                        type="button"
                         onClick={this.handleNextPage}
                         className={styles.pageButton}
-                        aria-label={'next'}
+                        aria-label="next"
                         disabled={false}
                     >
                         &gt;

@@ -1,6 +1,6 @@
-import styles from './create-review.module.scss';
 import classNames from 'classnames';
 import React from 'react';
+import styles from './create-review.module.scss';
 import UserContext, { User } from '../../context';
 
 type CreateReviewProps = {
@@ -18,6 +18,7 @@ type CreateReviewState = {
 
 class CreateReview extends React.Component<CreateReviewProps, CreateReviewState> {
     static contextType = UserContext;
+
     context!: React.ContextType<typeof UserContext>;
 
     componentDidMount(): void {
@@ -38,33 +39,37 @@ class CreateReview extends React.Component<CreateReviewProps, CreateReviewState>
     handleSubmit: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
         e.preventDefault();
 
-        if (this.state.review) {
+        const { props, state } = this;
+
+        if (state.review) {
             const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     review: {
-                        username: this.state.user!.username,
-                        review: this.state.review,
-                        titleId: this.props.titleId,
-                        userId: this.state.user!.id,
+                        username: state.user?.username,
+                        review: state.review,
+                        titleId: props.titleId,
+                        userId: state.user?.id,
                     },
                 }),
             };
             await fetch('/api/reviews/', requestOptions).then(() => {
-                this.props.closeCreate?.();
+                props.closeCreate?.();
             });
         }
     };
 
     render() {
+        const { props } = this;
+
         return (
-            <div className={classNames(styles.root, this.props.className)}>
-                {this.props.children}
+            <div className={classNames(styles.root, props.className)}>
+                {props.children}
                 <div className={styles.review}>
                     <span className={styles.titleBar}>
-                        <h2 className={styles.title}> Write a Review for {this.props.title} : </h2>
-                        <button className={styles.closeButton} onClick={this.props.closeCreate}>
+                        <h2 className={styles.title}> Write a Review for {props.title} : </h2>
+                        <button type="button" className={styles.closeButton} onClick={props.closeCreate}>
                             X
                         </button>
                     </span>
@@ -76,8 +81,8 @@ class CreateReview extends React.Component<CreateReviewProps, CreateReviewState>
                         <textarea name="review" className={styles.input} required />
                     </form>
                     <span className={styles.bottomBar}>
-                        <button onClick={this.handleSubmit}> Submit </button>
-                        <button onClick={this.props.closeCreate}> Cancel </button>
+                        <button type="button" onClick={this.handleSubmit}> Submit </button>
+                        <button type="button" onClick={props.closeCreate}> Cancel </button>
                     </span>
                 </div>
             </div>

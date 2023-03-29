@@ -1,6 +1,6 @@
-import BrowseView from '../components/browse-view/browse-view';
 import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import BrowseView from '../components/browse-view/browse-view';
 
 const stubTitle = { title: 'Title', type: 'MOVIE', description: 'Description', releaseYear: 2023, ageGuidance: 'R', runtime: 120, rating: 8.5, genres: ['drama', 'thriller'] };
 
