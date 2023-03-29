@@ -16,7 +16,7 @@ type TitleViewProps = {
 };
 
 type TitleViewState = {
-    genres: React.ReactNode;
+    genres?: React.ReactNode;
     reviewView?: ReactElement<ReviewView>;
     createReview?: ReactElement<CreateReview>;
     recommendationView?: ReactElement<RecommendationView>;
@@ -24,6 +24,12 @@ type TitleViewState = {
 }
 
 class TitleView extends React.Component<TitleViewProps, TitleViewState> {
+    constructor(props: TitleViewProps | Readonly<TitleViewProps>) {
+        super(props);
+
+        this.state = {};
+    }
+
     componentDidMount(): void {
         const { props } = this;
 
