@@ -99,7 +99,7 @@ class LogIn extends React.Component<LogInProps, LogInState> {
                                 aria-label="password"
                             />
                         </div>
-                        <button type="button" className={styles.loginButton} aria-label="log in">
+                        <button type="submit" className={styles.loginButton} aria-label="log in">
                             Log In
                         </button>
                     </form>
