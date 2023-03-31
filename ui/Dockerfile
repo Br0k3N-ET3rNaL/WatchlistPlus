@@ -2,8 +2,7 @@ FROM node:18
 
 WORKDIR /app/ui
 
-ARG REACT_APP_TARGET
-ENV REACT_APP_TARGET=$REACT_APP_TARGET
+ENV REACT_APP_TARGET="api"
 
 ENV PATH /app/ui/node_modules/.bin:$PATH
 
