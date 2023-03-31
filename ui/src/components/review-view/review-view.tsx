@@ -77,12 +77,12 @@ class ReviewView extends React.Component<ReviewViewProps, ReviewViewState> {
                 {props.children}
                 <div className={styles.view}>
                     <ul className={styles.unorderedList}>
-                        <span hidden={(state.listItems && state.listItems.length > 0) || state.page > 0}> No reviews yet </span>
-                        <span hidden={(state.listItems && state.listItems.length > 0) || state.page === 0}> No more reviews </span>
+                        <span hidden={(state.listItems && state.listItems.length > 0) || state.page > 1}> No reviews yet </span>
+                        <span hidden={(state.listItems && state.listItems.length > 0) || state.page === 1}> No more reviews </span>
                         {state.listItems}
                     </ul>
                     <div className={styles.bottomBar}>
-                        {(state.listItems?.length !== 0 || state.page > 0) && <PageController
+                        {(state.listItems?.length !== 0 || state.page > 1) && <PageController
                             page={state.page}
                             onNextPage={this.handleNextPage}
                             onPrevPage={this.handlePrevPage}

@@ -76,12 +76,12 @@ class RecommendationView extends React.Component<RecommendationViewProps, Recomm
             <div className={classNames(styles.root, props.className)}>{props.children}
                 <div className={styles.view}>
                     <ul className={styles.unorderedList}>
-                        {(state.listItems?.length === 0 && state.page === 0) && <span> No recommendations yet </span>}
-                        {(state.listItems?.length === 0 && state.page > 0) && <span> No more recommendations </span>}
+                        {(state.listItems?.length === 0 && state.page === 1) && <span> No recommendations yet </span>}
+                        {(state.listItems?.length === 0 && state.page > 1) && <span> No more recommendations </span>}
                         {state.listItems}
                     </ul>
                     <div className={styles.bottomBar}>
-                        {(state.listItems?.length !== 0 || state.page > 0) && <PageController
+                        {(state.listItems?.length !== 0 || state.page > 1) && <PageController
                             page={state.page}
                             onNextPage={this.handleNextPage}
                             onPrevPage={this.handlePrevPage}
