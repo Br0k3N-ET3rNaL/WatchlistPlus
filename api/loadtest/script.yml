@@ -3,7 +3,7 @@ config:
   plugins:
     expect: { outputFormat: "prettyError" }
   phases:
-    - duration: 1
+    - duration: 6
       arrivalCount: 100
   processor: "./processor.js"
 
@@ -37,7 +37,6 @@ scenarios:
   - flow:
       - loop:
           - function: "selectRequest"
-          # - log: "{{ request }}"
           - get: # Browse
               url: "/api/titles/page/withWatched/{{ userId }}/50/1/tmdbPopularity/ /"
               expect:
