@@ -33,7 +33,7 @@ class LogIn extends React.Component<LogInProps, LogInState> {
         const email = formData.get('email')?.toString();
         const password = formData.get('password')?.toString();
 
-        if (email !== undefined && password !== undefined) {
+        if (email && password) {
             const requestOptions = {
                 method: 'GET',
             };

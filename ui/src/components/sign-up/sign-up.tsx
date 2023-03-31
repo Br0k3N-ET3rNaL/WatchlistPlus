@@ -19,10 +19,6 @@ type SignUpState = {
     passwordsMatch: boolean;
 };
 
-/**
- * This component was generated using Codux's built-in Default new component template.
- * For details on how to create custom new component templates, see https://help.codux.com/kb/en/article/configuration-for-sign-ups-and-templates
- */
 class SignUp extends React.Component<SignUpProps, SignUpState> {
     constructor(props: SignUpProps | Readonly<SignUpProps>) {
         super(props);
@@ -40,7 +36,7 @@ class SignUp extends React.Component<SignUpProps, SignUpState> {
         const formData = new FormData(e.currentTarget);
         const username = formData.get('username')?.toString();
 
-        if (username !== undefined) {
+        if (username) {
             const requestOptions = {
                 method: 'GET',
             };
@@ -64,7 +60,7 @@ class SignUp extends React.Component<SignUpProps, SignUpState> {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         const email = formData.get('email')?.toString();
-        if (email !== undefined) {
+        if (email) {
             const requestOptions = {
                 method: 'GET',
             };
@@ -89,7 +85,7 @@ class SignUp extends React.Component<SignUpProps, SignUpState> {
         e.preventDefault();
         const data = new FormData(e.currentTarget);
         const password = data.get('password')?.toString();
-        if (password !== undefined) {
+        if (password) {
             this.setState({ password }, this.passwordsMatch);
         }
     };
@@ -99,7 +95,7 @@ class SignUp extends React.Component<SignUpProps, SignUpState> {
         const data = new FormData(e.currentTarget);
         const passwordRepeat = data.get('passwordRepeat')?.toString();
 
-        if (passwordRepeat !== undefined) {
+        if (passwordRepeat) {
             this.setState({ passwordRepeat }, this.passwordsMatch);
         }
     };
@@ -134,8 +130,8 @@ class SignUp extends React.Component<SignUpProps, SignUpState> {
 
         if (
             state.password === state.passwordRepeat &&
-            state.password !== undefined &&
-            state.passwordRepeat !== undefined
+            state.password &&
+            state.passwordRepeat
         ) {
             this.setState({ passwordsMatch: true });
         } else if (state.password !== state.passwordRepeat) {
