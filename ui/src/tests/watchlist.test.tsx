@@ -1,20 +1,20 @@
 import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Title, Watched } from '../App';
+import { Title, Watched } from '../interfaces';
 import EditWatchlist from '../components/edit-watchlist/edit-watchlist';
 import WatchlistListElement from '../components/watchlist-list-element/watchlist-list-element';
 import Watchlist from '../components/watchlist/watchlist';
 import UserContext, { User } from '../context';
 
 const testUser: User = { id: 1, username: 'TestUser' };
-const testTitle1: Title = { id: 'testId', title: 'Title1', type: 'MOVIE', description: 'Description', releaseYear: 2023, ageGuidance: 'R', runtime: 120, rating: 8.5, genres: ['drama', 'thriller'] };
-const testTitle2: Title = { id: 'testId', title: 'Title2', type: 'MOVIE', description: 'Description', releaseYear: 2023, ageGuidance: 'R', runtime: 120, rating: 8.5, genres: ['drama', 'thriller'] };
-const testTitle3: Title = { id: 'testId', title: 'Title3', type: 'MOVIE', description: 'Description', releaseYear: 2023, ageGuidance: 'R', runtime: 120, rating: 8.5, genres: ['drama', 'thriller'] };
+const testTitle1: Title = { id: 'testId1', title: 'Title1', type: 'MOVIE', description: 'Description', releaseYear: 2023, ageGuidance: 'R', runtime: 120, rating: 8.5, genres: ['drama', 'thriller'] };
+const testTitle2: Title = { id: 'testId2', title: 'Title2', type: 'MOVIE', description: 'Description', releaseYear: 2023, ageGuidance: 'R', runtime: 120, rating: 8.5, genres: ['drama', 'thriller'] };
+const testTitle3: Title = { id: 'testId3', title: 'Title3', type: 'MOVIE', description: 'Description', releaseYear: 2023, ageGuidance: 'R', runtime: 120, rating: 8.5, genres: ['drama', 'thriller'] };
 const testWatched1: Watched = { rating: 10, status: 'Completed', title: testTitle1 };
 const testWatched2: Watched = { rating: 0, status: 'Plan To Watch', title: testTitle2 };
 const testWatched3: Watched = { rating: 0, status: 'Watching', title: testTitle3 };
 const testTitleWithWatched: Title = {
-    id: 'testId', title: 'Title1', type: 'MOVIE', description: 'Description', releaseYear: 2023, ageGuidance: 'R', runtime: 120, rating: 8.5, genres: ['drama', 'thriller'],
+    id: 'testId4', title: 'Title1', type: 'MOVIE', description: 'Description', releaseYear: 2023, ageGuidance: 'R', runtime: 120, rating: 8.5, genres: ['drama', 'thriller'],
     watched: { rating: 10, status: 'Completed' }
 };
 

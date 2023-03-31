@@ -1,6 +1,6 @@
-import styles from './create-recommendation.module.scss';
 import classNames from 'classnames';
 import React from 'react';
+import styles from './create-recommendation.module.scss';
 import UserContext, { User } from '../../context';
 
 type CreateRecommendationProps = {
@@ -23,13 +23,18 @@ type CreateRecommendationState = {
 
 class CreateRecommendation extends React.Component<CreateRecommendationProps, CreateRecommendationState> {
     static contextType = UserContext;
+
     context!: React.ContextType<typeof UserContext>;
 
-    state: CreateRecommendationState = {
-        exists: true,
-        duplicates: false,
-        checked: false,
-        checkedDuplicate: false,
+    constructor(props: CreateRecommendationProps | Readonly<CreateRecommendationProps>) {
+        super(props);
+
+        this.state = {
+            exists: true,
+            duplicates: false,
+            checked: false,
+            checkedDuplicate: false,
+        };
     }
 
     componentDidMount(): void {
@@ -39,15 +44,16 @@ class CreateRecommendation extends React.Component<CreateRecommendationProps, Cr
     handleSubmitText: React.FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
 
-        const data = new FormData(e.currentTarget);
-        const title = data.get('title')?.toString();
+        const { state } = this;
+        const formData = new FormData(e.currentTarget);
+        const title = formData.get('title')?.toString();
 
-        if (title && (!this.state.checked || !this.state.exists)) {
+        if (title && (!state.checked || !state.exists)) {
             this.setState({ otherTitle: title });
             const requestOptions = {
                 method: 'GET',
             };
-            fetch('/api/titles/verify/' + title + '/', requestOptions)
+            fetch(`/api/titles/verify/${title}/`, requestOptions)
                 .then((response) => response.json())
                 .then((data) => {
                     this.setState({
@@ -63,16 +69,17 @@ class CreateRecommendation extends React.Component<CreateRecommendationProps, Cr
     handleSubmitExtra: React.FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
 
-        const data = new FormData(e.currentTarget);
-        const type = data.get('type')?.toString();
-        const releaseYear = Number(data.get('year')?.toString());
+        const { state } = this;
+        const formData = new FormData(e.currentTarget);
+        const type = formData.get('type')?.toString();
+        const releaseYear = Number(formData.get('year')?.toString());
 
         if (type && releaseYear) {
 
             const requestOptions = {
                 method: 'GET',
             };
-            fetch('/api/titles/verify/' + this.state.otherTitle + '/' + type + '/' + releaseYear + '/', requestOptions)
+            fetch(`/api/titles/verify/${state.otherTitle}/${type}/${releaseYear}/`, requestOptions)
                 .then((response) => response.json())
                 .then((data) => {
                     this.setState({
@@ -92,50 +99,54 @@ class CreateRecommendation extends React.Component<CreateRecommendationProps, Cr
     };
 
     async createIfValid() {
-        if (this.state.checked && this.state.exists && !this.state.duplicates) {
+        const { props, state } = this;
+
+        if (state.checked && state.exists && !state.duplicates) {
             const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     recommendation: {
-                        title1Id: this.props.titleId,
-                        title2Id: this.state.otherTitleId,
-                        userId: this.state.user!.id,
+                        title1Id: props.titleId,
+                        title2Id: state.otherTitleId,
+                        userId: state.user?.id,
                     }
                 }),
             };
             await fetch('/api/recommendations/', requestOptions).then(() => {
-                this.props.closeCreate?.();
+                props.closeCreate?.();
             });
         }
     }
 
     render() {
+        const { props, state } = this;
+
         return (
-            <div className={classNames(styles.root, this.props.className)}>{this.props.children}
+            <div className={classNames(styles.root, props.className)}>{props.children}
                 <span className={styles.titleBar}>
-                    <h2 className={styles.title}> Recommend Title Based On {this.props.title} </h2>
-                    <button className={styles.closeButton} onClick={this.props.closeCreate}> X </button>
+                    <h2 className={styles.title}> Recommend Title Based On {props.title} </h2>
+                    <button type="button" className={styles.closeButton} onClick={props.closeCreate}> X </button>
                 </span>
                 <div className={styles.bottomBar}>
                     <form className={styles.form} onSubmit={this.handleSubmitText} onBlur={this.handleSubmitText}>
-                        {(!this.state.exists && !this.state.checkedDuplicate) && <label className={styles.error}> * Title does not exist </label>}
-                        <input name={'title'} className={styles.input} aria-label={'title'} />
+                        {(!state.exists && !state.checkedDuplicate) && <label className={styles.error}> * Title does not exist </label>}
+                        <input name="title" className={styles.input} aria-label="title" />
                     </form>
-                    <div className={styles.extra} hidden={!this.state.duplicates && (!this.state.checkedDuplicate || this.state.exists)}>
+                    <div className={styles.extra} hidden={!state.duplicates && (!state.checkedDuplicate || state.exists)}>
                         <label> Duplicate titles, please enter extra info </label>
-                        {(this.state.checkedDuplicate && (!this.state.exists || this.state.duplicates)) && <label className={styles.error}> * Incorrect info </label>}
+                        {(state.checkedDuplicate && (!state.exists || state.duplicates)) && <label className={styles.error}> * Incorrect info </label>}
                         <form onSubmit={this.handleSubmitExtra} onBlur={this.handleSubmitExtra} className={styles.form}>
                             <label> Movie/Show </label>
-                            <input name={'type'} aria-label={'type'} />
+                            <input name="type" aria-label="type" />
                             <label> Release Year </label>
-                            <input name={'year'} aria-label={'year'} />
+                            <input name="year" aria-label="year" />
                             <input type="submit" hidden />
                         </form>
                     </div>
                     <span>
-                        <button onClick={this.handleSubmit}> Submit </button>
-                        <button onClick={this.props.closeCreate}> Cancel </button>
+                        <button type="button" onClick={this.handleSubmit}> Submit </button>
+                        <button type="button" onClick={props.closeCreate}> Cancel </button>
                     </span>
                 </div>
             </div>

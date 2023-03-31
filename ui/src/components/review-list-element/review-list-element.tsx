@@ -1,7 +1,7 @@
-import styles from './review-list-element.module.scss';
 import classNames from 'classnames';
 import React from 'react';
-import { Review } from '../../App';
+import styles from './review-list-element.module.scss';
+import { Review } from '../../interfaces';
 
 type ReviewListElementProps = {
     className?: string;
@@ -9,18 +9,18 @@ type ReviewListElementProps = {
     review: Review;
 };
 
-class ReviewListElement extends React.Component<ReviewListElementProps> {
-    render() {
-        return (
-            <div className={classNames(styles.root, this.props.className)}>
-                {this.props.children}
-                <span className={styles.titleBar}>
-                    <h2 className={styles.username}>{this.props.review.username}</h2>
-                </span>
-                <p className={styles.review}> {this.props.review.review} </p>
-            </div>
-        );
-    }
+function ReviewListElement(props: ReviewListElementProps) {
+    const { className, children, review } = props;
+
+    return (
+        <div className={classNames(styles.root, className)}>
+            {children}
+            <span className={styles.titleBar}>
+                <h2 className={styles.username}>{review.username}</h2>
+            </span>
+            <p className={styles.review}> {review.review} </p>
+        </div>
+    );
 }
 
 export default ReviewListElement;

@@ -1,6 +1,6 @@
-import styles from './sign-up.module.scss';
 import classNames from 'classnames';
 import React from 'react';
+import styles from './sign-up.module.scss';
 
 type SignUpProps = {
     className?: string;
@@ -9,48 +9,44 @@ type SignUpProps = {
 };
 
 type SignUpState = {
-    username: string | undefined;
+    username?: string;
     validUsername: boolean;
     checkedUsername: boolean;
-    email: string | undefined;
+    email?: string;
     validEmail: boolean;
-    password: string | undefined;
-    passwordRepeat: string | undefined;
+    password?: string;
+    passwordRepeat?: string;
     passwordsMatch: boolean;
 };
 
-/**
- * This component was generated using Codux's built-in Default new component template.
- * For details on how to create custom new component templates, see https://help.codux.com/kb/en/article/configuration-for-sign-ups-and-templates
- */
 class SignUp extends React.Component<SignUpProps, SignUpState> {
-    state: SignUpState = {
-        username: undefined,
-        validUsername: false,
-        checkedUsername: false,
-        email: undefined,
-        validEmail: false,
-        password: undefined,
-        passwordRepeat: undefined,
-        passwordsMatch: false,
-    };
+    constructor(props: SignUpProps | Readonly<SignUpProps>) {
+        super(props);
+
+        this.state = {
+            validUsername: false,
+            checkedUsername: false,
+            validEmail: false,
+            passwordsMatch: false,
+        };
+    }
 
     handleSubmitUsername: React.FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
-        const data = new FormData(e.currentTarget);
-        const username = data.get('username')?.toString();
+        const formData = new FormData(e.currentTarget);
+        const username = formData.get('username')?.toString();
 
-        if (username !== undefined) {
+        if (username) {
             const requestOptions = {
                 method: 'GET',
             };
-            fetch('/api/users/exists/username/' + username, requestOptions)
+            fetch(`/api/users/exists/username/${username}`, requestOptions)
                 .then((response) => response.json())
                 .then((data) => {
                     const exists = data.usernameExists;
 
                     if (!exists) {
-                        this.setState({ username: username, validUsername: true, checkedUsername: true });
+                        this.setState({ username, validUsername: true, checkedUsername: true });
                     } else {
                         this.setState({ validUsername: false, checkedUsername: true });
                     }
@@ -62,24 +58,24 @@ class SignUp extends React.Component<SignUpProps, SignUpState> {
 
     handleSubmitEmail: React.FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
-        const data = new FormData(e.currentTarget);
-        const email = data.get('email')?.toString();
-        if (email !== undefined) {
+        const formData = new FormData(e.currentTarget);
+        const email = formData.get('email')?.toString();
+        if (email) {
             const requestOptions = {
                 method: 'GET',
             };
-            fetch('/api/users/exists/email/' + email, requestOptions)
+            fetch(`/api/users/exists/email/${email}`, requestOptions)
                 .then((response) => response.json())
                 .then((data) => {
                     const exists = data.emailExists;
 
                     if (!exists) {
-                        this.setState({ email: email, validEmail: true });
+                        this.setState({ email, validEmail: true });
                     } else {
                         this.setState({ validEmail: false });
                     }
                 });
-            this.setState({ email: email, validEmail: true });
+            this.setState({ email, validEmail: true });
         } else {
             this.setState({ validEmail: false });
         }
@@ -89,8 +85,8 @@ class SignUp extends React.Component<SignUpProps, SignUpState> {
         e.preventDefault();
         const data = new FormData(e.currentTarget);
         const password = data.get('password')?.toString();
-        if (password !== undefined) {
-            this.setState({ password: password }, this.passwordsMatch);
+        if (password) {
+            this.setState({ password }, this.passwordsMatch);
         }
     };
 
@@ -99,49 +95,55 @@ class SignUp extends React.Component<SignUpProps, SignUpState> {
         const data = new FormData(e.currentTarget);
         const passwordRepeat = data.get('passwordRepeat')?.toString();
 
-        if (passwordRepeat !== undefined) {
-            this.setState({ passwordRepeat: passwordRepeat }, this.passwordsMatch);
+        if (passwordRepeat) {
+            this.setState({ passwordRepeat }, this.passwordsMatch);
         }
     };
-
-    passwordsMatch() {
-        if (
-            this.state.password === this.state.passwordRepeat &&
-            this.state.password !== undefined &&
-            this.state.passwordRepeat !== undefined
-        ) {
-            this.setState({ passwordsMatch: true });
-        } else if (this.state.password !== this.state.passwordRepeat) {
-            this.setState({ passwordsMatch: false });
-        }
-    }
 
     handleSignUp: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
         e.preventDefault();
 
-        if (this.state.validUsername && this.state.validEmail && this.state.passwordsMatch) {
+        const { props, state } = this;
+
+        if (state.validUsername && state.validEmail && state.passwordsMatch) {
             const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     user: {
-                        username: this.state.username,
-                        email: this.state.email,
-                        password: this.state.password,
+                        username: state.username,
+                        email: state.email,
+                        password: state.password,
                     },
                 }),
             };
             const response = fetch('/api/users/', requestOptions);
             await response;
-            if (this.props.login !== undefined) {
-                this.props.login();
+            if (props.login !== undefined) {
+                props.login();
             }
         }
     };
 
+    passwordsMatch() {
+        const { state } = this;
+
+        if (
+            state.password === state.passwordRepeat &&
+            state.password &&
+            state.passwordRepeat
+        ) {
+            this.setState({ passwordsMatch: true });
+        } else if (state.password !== state.passwordRepeat) {
+            this.setState({ passwordsMatch: false });
+        }
+    }
+
     render() {
+        const { props, state } = this;
+
         return (
-            <div className={classNames(styles.root, this.props.className)}>
+            <div className={classNames(styles.root, props.className)}>{props.children}
                 <div className={classNames('signupContainer', styles.signupContainer)}>
                     <div className={classNames('username', styles.signupElement)}>
                         <form
@@ -149,13 +151,13 @@ class SignUp extends React.Component<SignUpProps, SignUpState> {
                             onBlurCapture={this.handleSubmitUsername}
                         >
                             <label> Username: </label>
-                            <label className={styles.signupError} hidden={this.state.validUsername || !this.state.checkedUsername}>
+                            <label className={styles.signupError} hidden={state.validUsername || !state.checkedUsername}>
                                 * Username already exists
                             </label>
                             <input
                                 name="username"
                                 className={styles.signupInput}
-                                aria-label={'username'}
+                                aria-label="username"
                             />
                         </form>
                     </div>
@@ -165,12 +167,12 @@ class SignUp extends React.Component<SignUpProps, SignUpState> {
                             onBlurCapture={this.handleSubmitEmail}
                         >
                             <label> Email: </label>
-                            <label className={styles.signupError} hidden={this.state.validEmail || this.state.email === undefined}>* Email already exists</label>
+                            <label className={styles.signupError} hidden={state.validEmail || state.email === undefined}>* Email already exists</label>
                             <input
                                 name="email"
                                 type="email"
                                 className={styles.signupInput}
-                                aria-label={'email'}
+                                aria-label="email"
                             />
                         </form>
                     </div>
@@ -182,21 +184,21 @@ class SignUp extends React.Component<SignUpProps, SignUpState> {
                             <label> Password: </label>
                             <label
                                 className={styles.signupError}
-                                aria-label={'error'}
+                                aria-label="error"
                                 hidden={
-                                    this.state.passwordsMatch ||
-                                    this.state.password === undefined ||
-                                    this.state.passwordRepeat === undefined
+                                    state.passwordsMatch ||
+                                    state.password === undefined ||
+                                    state.passwordRepeat === undefined
                                 }
                             >
-                                * Passwords don't match
+                                * Passwords don&apos;t match
                             </label>
                             <input
                                 name="password"
                                 type="password"
                                 className={styles.signupInput}
-                                aria-label={'password'}
-                                title={'password'}
+                                aria-label="password"
+                                title="password"
                             />
                         </form>
                     </div>
@@ -210,14 +212,15 @@ class SignUp extends React.Component<SignUpProps, SignUpState> {
                                 name="passwordRepeat"
                                 type="password"
                                 className={styles.signupInput}
-                                aria-label={'repeat'}
+                                aria-label="repeat"
                             />
                         </form>
                     </div>
                     <button
+                        type="button"
                         onClick={this.handleSignUp}
                         className={styles.signupButton}
-                        aria-label={'sign up'}
+                        aria-label="sign up"
                     >
                         Sign Up
                     </button>

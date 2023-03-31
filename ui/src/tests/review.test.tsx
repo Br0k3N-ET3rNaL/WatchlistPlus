@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Review } from '../App';
+import { Review } from '../interfaces';
 import UserContext, { User } from '../context';
 import ReviewListElement from '../components/review-list-element/review-list-element';
 import ReviewView from '../components/review-view/review-view';

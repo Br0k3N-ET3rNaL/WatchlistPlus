@@ -1,7 +1,6 @@
-/* eslint-disable testing-library/no-debugging-utils */
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Recommendation, Recommendations } from '../App';
+import { Recommendation, Recommendations } from '../interfaces';
 import CreateRecommendation from '../components/create-recommendation/create-recommendation';
 import RecommendationListElement from '../components/recommendation-list-element/recommendation-list-element';
 import RecommendationView from '../components/recommendation-view/recommendation-view';

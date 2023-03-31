@@ -1,0 +1,108 @@
+config:
+  target: "http://localhost:3070"
+  plugins:
+    expect: { outputFormat: "prettyError" }
+  phases:
+    - duration: 1
+      arrivalCount: 100
+  processor: "./processor.js"
+
+before:
+    beforeScenario: "generateSignupData"
+    flow:
+      - get:
+          url: "/api/users/exists/username/{{ username }}/"
+      - think: 1
+      - get:
+          url: "/api/users/exists/email/{{ email }}/"
+      - think: 1
+      - post:
+          url: "/api/users/"
+          headers:
+            Content-Type: application/json
+          json:
+            user: {
+              username: "{{ username }}",
+              email: "{{ email }}",
+              password: "{{ password }}"
+            }
+      - think: 1
+      - get:
+          url: "/api/users/verify/{{ email }}/{{ password }}/"
+          capture: 
+            json: "$.user.id"
+            as: "userId"
+
+scenarios:
+  - flow:
+      - loop:
+          - function: "selectRequest"
+          # - log: "{{ request }}"
+          - get: # Browse
+              url: "/api/titles/page/withWatched/{{ userId }}/50/1/tmdbPopularity/ /"
+              expect:
+                - statusCode: 200
+              ifTrue: "request == 0"
+          - get: # View watchlist
+              url: "/api/watchlist/{{ userId }}/50/1/status/All/"
+              expect:
+                - statusCode: 200
+              ifTrue: "request == 1"
+          - post: # Add to watchlist
+              url: "/api/watchlist/"
+              beforeRequest: "generateWatchedData"
+              headers:
+                Content-Type: application/json
+              json:
+                watched: {
+                  rating: "{{ rating }}",
+                  status: "{{ status }}",
+                  titleId: "{{ titleId }}",
+                  userId: "{{ userId }}",
+                }
+              expect:
+                - statusCode: 200
+              ifTrue: "request == 2"
+          - get: # View reviews
+              url: "/api/reviews/{{ titleId }}/50/1/"
+              beforeRequest: "generateTitleData"
+              expect:
+                - statusCode: 200
+              ifTrue: "request == 3"
+          - post: # Leave review
+              url: "/api/reviews/"
+              beforeRequest: "generateReviewData"
+              headers:
+                Content-Type: application/json
+              json:
+                review: {
+                  username: "{{ username }}",
+                  review: "{{ review }}",
+                  titleId: "{{ titleId }}",
+                  userId: "{{ userId }}"
+                }
+              expect:
+                - statusCode: 200
+              ifTrue: "request == 4"
+          - get: # View recommendations
+              url: "/api/recommendations/{{ titleId }}/50/1/"
+              beforeRequest: "generateTitleData"
+              expect:
+                - statusCode: 200
+              ifTrue: "request == 5"
+          - post: # Leave a recommendation
+              url: "/api/recommendations/"
+              beforeRequest: "generateRecommendationData"
+              headers:
+                Content-Type: application/json
+              json:
+                recommendation: {
+                  title1Id: "{{ title1Id }}",
+                  title2Id: "{{ title2Id }}",
+                  userId: "{{ userId }}"
+                }
+              expect:
+                - statusCode: 200
+              ifTrue: "request == 6"
+          - think: 6
+        count: 10

@@ -1,6 +1,6 @@
-import SignUp from "../components/sign-up/sign-up";
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import SignUp from "../components/sign-up/sign-up";
 
 describe('sign-up', () => {
     test('invalid username', async () => {
@@ -64,7 +64,7 @@ describe('sign-up', () => {
             Promise.resolve({ json: async () => Promise.resolve({ usernameExists: false }) })
         ) as jest.Mock;
 
-        await userEvent.type(screen.getByRole('textbox', { name: /username/i }), testUser.username + '{enter}');
+        await userEvent.type(screen.getByRole('textbox', { name: /username/i }), `${testUser.username  }{enter}`);
 
         await waitFor(() => expect(fetchMock).toHaveBeenCalled());
         await waitFor(() => expect(screen.getByText('* Username already exists').hidden).toBeTruthy());
@@ -73,13 +73,13 @@ describe('sign-up', () => {
             Promise.resolve({ json: async () => Promise.resolve({ emailExists: false }) })
         ) as jest.Mock;
 
-        await userEvent.type(screen.getByRole('textbox', { name: /email/i }), testUser.email + '{enter}');
+        await userEvent.type(screen.getByRole('textbox', { name: /email/i }), `${testUser.email  }{enter}`);
 
         await waitFor(() => expect(fetchMock).toHaveBeenCalled());
         await waitFor(() => expect(screen.getByText('* Email already exists').hidden).toBeTruthy());
 
-        await userEvent.type(screen.getByLabelText(/password/i), testUser.password + '{enter}');
-        await userEvent.type(screen.getByLabelText(/repeat/i), testUser.password + '{enter}');
+        await userEvent.type(screen.getByLabelText(/password/i), `${testUser.password  }{enter}`);
+        await userEvent.type(screen.getByLabelText(/repeat/i), `${testUser.password  }{enter}`);
 
         await waitFor(() => expect(screen.getByText('* Passwords don\'t match').hidden).toBeTruthy());
 

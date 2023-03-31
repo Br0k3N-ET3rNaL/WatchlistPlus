@@ -1,51 +1,12 @@
+/* eslint-disable @typescript-eslint/no-shadow */
+import React from "react";
 import TopBar from "./components/top-bar/top-bar";
 import BrowseView from "./components/browse-view/browse-view";
 import SignUp from "./components/sign-up/sign-up";
 import LogIn from "./components/log-in/log-in";
-import React from "react";
 import './colors.scss'
 import Watchlist from "./components/watchlist/watchlist";
 import UserContext, { User } from "./context";
-
-interface Title {
-    id: string,
-    title: string,
-    type: string,
-    description: string,
-    releaseYear: number,
-    ageGuidance: string,
-    runtime: number,
-    rating: number,
-    genres: string[],
-    watched?: Watched,
-}
-
-interface Watched {
-    rating: number,
-    status: string,
-    title?: Title,
-}
-
-interface Review {
-    username: string,
-    review: string,
-    titleId: string,
-    userId: number,
-}
-
-interface Recommendation {
-    title1Id: string,
-    title2Id: string,
-    userId: number,
-}
-
-interface Recommendations {
-    title1Id: string,
-    title1Title: string,
-    title2Id: string,
-    title2Title: string,
-    count: number,
-}
 
 enum Views {
     Home,
@@ -54,7 +15,7 @@ enum Views {
     Watchlist
 }
 
-type AppProps = {};
+type AppProps = Record<string, never>;
 
 type AppState = {
     view: Views;
@@ -63,10 +24,14 @@ type AppState = {
 };
 
 class App extends React.Component<AppProps, AppState> {
-    state: AppState = {
-        view: Views.Home,
-        loggedIn: false
-    };
+    constructor(props: AppProps | Readonly<AppProps>) {
+        super(props);
+
+        this.state = {
+            view: Views.Home,
+            loggedIn: false
+        };
+    }
 
     signup = (): void => {
         this.setState({ view: Views.SignUp });
@@ -80,7 +45,7 @@ class App extends React.Component<AppProps, AppState> {
         if (user?.id && user?.username) {
             this.setState({ user, loggedIn: true });
         }
-        this.setState({ view: Views.Home});
+        this.setState({ view: Views.Home });
     }
 
     watchlist = (): void => {
@@ -88,24 +53,26 @@ class App extends React.Component<AppProps, AppState> {
     }
 
     render() {
+        const { user } = this.state;
+        const { view } = this.state;
+        const { loggedIn } = this.state;
         return (
-            <UserContext.Provider value={this.state.user}>
+            <UserContext.Provider value={user}>
                 <div>
-                    {(this.state.view === Views.Home) && <div>
-                        <TopBar home={true} loggedIn={this.state.loggedIn} signup={this.signup} login={this.login} watchlist={this.watchlist} />
-                        <BrowseView loggedIn={this.state.loggedIn} />
+                    {(view === Views.Home) && <div>
+                        <TopBar home loggedIn={loggedIn} signup={this.signup} login={this.login} watchlist={this.watchlist} />
+                        <BrowseView loggedIn={loggedIn} />
                     </div>}
-                    {(this.state.view !== Views.Home) && <div>
+                    {(view !== Views.Home) && <div>
                         <TopBar home={false} back={this.back} />
                     </div>}
-                    {(this.state.view === Views.SignUp) && <SignUp login={this.login} />}
-                    {(this.state.view === Views.LogIn) && <LogIn home={this.back} />}
-                    {(this.state.view === Views.Watchlist) && <Watchlist />}
+                    {(view === Views.SignUp) && <SignUp login={this.login} />}
+                    {(view === Views.LogIn) && <LogIn home={this.back} />}
+                    {(view === Views.Watchlist) && <Watchlist />}
                 </div>
             </UserContext.Provider>
         );
     }
 }
 
-export { App };
-export type { Title, Watched, Review, Recommendation, Recommendations };
+export default App;

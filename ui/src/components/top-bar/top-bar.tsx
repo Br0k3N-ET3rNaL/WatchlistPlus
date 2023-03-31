@@ -1,8 +1,6 @@
-import styles from './top-bar.module.scss';
 import classNames from 'classnames';
 import React from 'react';
-
-// Test Commit
+import styles from './top-bar.module.scss';
 
 type TopBarProps = {
     className?: string;
@@ -15,50 +13,58 @@ type TopBarProps = {
     loggedIn?: boolean;
 }
 
-/**
- * This component was generated using Codux's built-in Default new component template.
- * For details on how to create custom new component templates, see https://help.codux.com/kb/en/article/configuration-for-top-bars-and-templates
- */
-class TopBar extends React.Component<TopBarProps> {
-    render() {
-        return (
-            <div className={classNames(styles.root, this.props.className)}>
-                <div className={classNames('topbarLeft', styles.topbarLeft)}>
-                    <span className={classNames('logo', styles.logo)}></span>
-                </div>
-                <span className={classNames('logo', styles.logo)}></span>
-                <div className={classNames('topbarCenter', styles.topbarCenter)}></div>
-                <div className={classNames('topbarRight', styles.topbarRight)}>
-                    {(this.props.home && !this.props.loggedIn) && <div className={'topbarLinks'}>
-                        <span
-                            className={classNames('topbarLink', styles.topbarLink)}
-                            onClick={this.props.signup}
-                        >
-                            Sign Up
-                        </span>
-                        <span
-                            className={classNames('topbarLink', styles.topbarLink)}
-                            onClick={this.props.login}
-                        >
-                            Log In
-                        </span>
-                    </div>}
-                    {(!this.props.home && !this.props.loggedIn) && <span
-                        className={classNames('topbarLink', styles.topbarLink)}
-                        onClick={this.props.back}
-                    >
-                        Go Back
-                    </span>}
-                    {this.props.loggedIn && <span
-                        className={classNames('topbarLink', styles.topbarLink)}
-                        onClick={this.props.watchlist}
-                    >
-                        Watchlist
-                    </span>}
-                </div>
+function TopBar(props: TopBarProps) {
+    const { className, children, signup, login, back, watchlist, home, loggedIn } = props;
+
+    return (
+        <div className={classNames(styles.root, className)}>{children}
+            <div className={classNames('topbarLeft', styles.topbarLeft)}>
+                <span className={classNames('logo', styles.logo)} />
             </div>
-        );
-    }
+            <span className={classNames('logo', styles.logo)} />
+            <div className={classNames('topbarCenter', styles.topbarCenter)} />
+            <div className={classNames('topbarRight', styles.topbarRight)}>
+                {(home && !loggedIn) && <div className="topbarLinks">
+                    <span
+                        role="button"
+                        tabIndex={-1}
+                        className={classNames('topbarLink', styles.topbarLink)}
+                        onClick={signup}
+                        onKeyDown={signup}
+                    >
+                        Sign Up
+                    </span>
+                    <span
+                        role="button"
+                        tabIndex={-1}
+                        className={classNames('topbarLink', styles.topbarLink)}
+                        onClick={login}
+                        onKeyDown={login}
+                    >
+                        Log In
+                    </span>
+                </div>}
+                {(!home && !loggedIn) && <span
+                    role="button"
+                    tabIndex={-1}
+                    className={classNames('topbarLink', styles.topbarLink)}
+                    onClick={back}
+                    onKeyDown={back}
+                >
+                    Go Back
+                </span>}
+                {loggedIn && <span
+                    role="button"
+                    tabIndex={-1}
+                    className={classNames('topbarLink', styles.topbarLink)}
+                    onClick={watchlist}
+                    onKeyDown={watchlist}
+                >
+                    Watchlist
+                </span>}
+            </div>
+        </div>
+    );
 };
 
 export default TopBar;

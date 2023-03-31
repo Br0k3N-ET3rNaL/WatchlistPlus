@@ -1,7 +1,7 @@
-import styles from './recommendation-list-element.module.scss';
 import classNames from 'classnames';
 import React from 'react';
-import { Recommendations } from '../../App';
+import styles from './recommendation-list-element.module.scss';
+import { Recommendations } from '../../interfaces';
 
 type RecommendationListElementProps = {
     className?: string;
@@ -9,15 +9,16 @@ type RecommendationListElementProps = {
     recommendation: Recommendations;
 }
 
-class RecommendationListElement extends React.Component<RecommendationListElementProps> {
-    render() {
-        return (
-            <div className={classNames(styles.root, this.props.className)}>{this.props.children}
-                <span> {this.props.recommendation.title2Title} </span>
-                <span> recommended by {this.props.recommendation.count} users </span>
-            </div>
-        );
-    }
+function RecommendationListElement(props: RecommendationListElementProps) {
+    const { className, children, recommendation } = props;
+
+    return (
+        <div className={classNames(styles.root, className)}>{children}
+            <span> {recommendation.title2Title} </span>
+            <span> recommended by {recommendation.count} users </span>
+        </div>
+    );
+
 
 };
 

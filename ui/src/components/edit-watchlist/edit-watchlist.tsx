@@ -1,7 +1,7 @@
-import styles from './edit-watchlist.module.scss';
 import classNames from 'classnames';
 import React from 'react';
-import { Title, Watched } from '../../App';
+import styles from './edit-watchlist.module.scss';
+import { Title, Watched } from '../../interfaces';
 import UserContext, { User } from '../../context';
 
 type EditWatchlistProps = {
@@ -20,19 +20,26 @@ type EditWatchlistState = {
 
 class EditWatchlist extends React.Component<EditWatchlistProps, EditWatchlistState> {
     static contextType = UserContext;
+
     context!: React.ContextType<typeof UserContext>;
 
-    state: EditWatchlistState = {
-        status: 'Plan To Watch',
-    };
+    constructor(props: EditWatchlistProps | Readonly<EditWatchlistProps>) {
+        super(props);
+
+        this.state = {
+            status: 'Plan To Watch',
+        };
+    }
 
     componentDidMount(): void {
         this.setState({ user: this.context });
 
-        if (this.props.watched) {
-            this.setState({ status: this.props.watched.status, rating: this.props.watched.rating });
-        } else if (this.props.title?.watched?.status) {
-            this.setState({ status: this.props.title.watched.status, rating: this.props.title.watched.rating });
+        const { props } = this;
+
+        if (props.watched) {
+            this.setState({ status: props.watched.status, rating: props.watched.rating });
+        } else if (props.title?.watched?.status) {
+            this.setState({ status: props.title.watched.status, rating: props.title.watched.rating });
         }
     }
 
@@ -47,7 +54,7 @@ class EditWatchlist extends React.Component<EditWatchlistProps, EditWatchlistSta
     handleRatingDropdownChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
         e.preventDefault();
 
-        let rating = Number(e.currentTarget.value);
+        const rating = Number(e.currentTarget.value);
 
         if (typeof rating === 'number') {
             this.setState({ rating });
@@ -57,13 +64,15 @@ class EditWatchlist extends React.Component<EditWatchlistProps, EditWatchlistSta
     handleSubmit: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
         e.preventDefault();
 
-        if (this.props.watched || this.props.title?.watched?.status) {
+        const { props, state } = this;
+
+        if (props.watched || props.title?.watched?.status) {
             let titleId;
 
-            if (this.props.watched) {
-                titleId = this.props.watched.title!.id;
+            if (props.watched) {
+                titleId = props.watched.title?.id;
             } else {
-                titleId = this.props.title!.id;
+                titleId = props.title?.id;
             }
 
             const requestOptions = {
@@ -71,70 +80,73 @@ class EditWatchlist extends React.Component<EditWatchlistProps, EditWatchlistSta
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     watched: {
-                        rating: this.state.rating,
-                        status: this.state.status,
+                        rating: state.rating,
+                        status: state.status,
                         titleId,
-                        userId: this.state.user!.id,
+                        userId: state.user?.id,
                     }
                 }),
             };
             await fetch('/api/watchlist/', requestOptions).then(() => {
-                this.props.closeEdit?.();
+                props.closeEdit?.();
             }
             );
         }
-        else if (this.props.title) {
+        else if (props.title) {
             const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     watched: {
-                        rating: this.state.rating,
-                        status: this.state.status,
-                        titleId: this.props.title.id,
-                        userId: this.state.user!.id,
+                        rating: state.rating,
+                        status: state.status,
+                        titleId: props.title.id,
+                        userId: state.user?.id,
                     }
                 }),
             };
             await fetch('/api/watchlist/', requestOptions).then(() => {
-                this.props.closeEdit?.();
+                props.closeEdit?.();
             }
             );
         }
-
     }
 
     handleDelete: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
         e.preventDefault();
 
+        const { props, state } = this;
+
         let titleId;
 
-        if (this.props.watched) {
-            titleId = this.props.watched.title!.id;
+        if (props.watched) {
+            titleId = props.watched.title?.id;
         } else {
-            titleId = this.props.title!.id;
+            titleId = props.title?.id;
         }
 
         const requestOptions = {
             method: 'DELETE',
         };
-        await fetch('/api/watchlist/' + this.state.user!.id + '/' + titleId + '/', requestOptions).then(() => {
-            this.props.closeEdit?.();
+        await fetch(`/api/watchlist/${state.user?.id}/${titleId}/`, requestOptions).then(() => {
+            props.closeEdit?.();
         })
     }
 
     render() {
+        const { props, state } = this;
+
         return (
-            <div className={classNames(styles.root, this.props.className)}>
-                {this.props.children}
+            <div className={classNames(styles.root, props.className)}>
+                {props.children}
                 <div className={styles.editView}>
                     <span className={styles.editElement}>
                         <label> Title: </label>
-                        {this.props.title?.title}
+                        {props.title?.title}
                     </span>
                     <span className={styles.editElement}>
                         <label> Status: </label>
-                        <select value={this.state.status} onChange={this.handleStatusDropdownChange} aria-label={'status'}>
+                        <select value={state.status} onChange={this.handleStatusDropdownChange} aria-label="status">
                             <option> Plan To Watch </option>
                             <option> Watching </option>
                             <option> Completed </option>
@@ -142,7 +154,7 @@ class EditWatchlist extends React.Component<EditWatchlistProps, EditWatchlistSta
                     </span>
                     <span className={styles.editElement}>
                         <label> Rating: </label>
-                        <select value={String(this.state.rating)} onChange={this.handleRatingDropdownChange} aria-label={'rating'}>
+                        <select value={String(state.rating)} onChange={this.handleRatingDropdownChange} aria-label="rating">
                             <option> Select Rating </option>
                             <option> 0 </option>
                             <option> 1 </option>
@@ -158,9 +170,9 @@ class EditWatchlist extends React.Component<EditWatchlistProps, EditWatchlistSta
                         </select>
                     </span>
                     <div className={styles.bottomBar}>
-                        <button onClick={this.handleSubmit} aria-label={'submit'}> Submit </button>
-                        {(this.props.watched || this.props.title?.watched?.status) && <button onClick={this.handleDelete}> Delete </button>}
-                        <button onClick={this.props.closeEdit} aria-label={'cancel'}> Cancel </button>
+                        <button type="button" onClick={this.handleSubmit} aria-label="submit"> Submit </button>
+                        {(props.watched || props.title?.watched?.status) && <button type="button" onClick={this.handleDelete}> Delete </button>}
+                        <button type="button" onClick={props.closeEdit} aria-label="cancel"> Cancel </button>
                     </div>
                 </div>
             </div>
