@@ -37,3 +37,12 @@ Watchlist+ is a web-application that will help you keep track of movies and TV s
 ### Account Management
 - As a user, I want to be able to create an account, so that I can access my watchlist and other features.
 - As a user with an existing account, I want to be able to log in to my account, so that I can access my watchlist and other features.
+
+## Naming Conventions
+- **Classes, Interfaces & Types** : PascalCase
+- **Variables & Functions**: camelCase
+
+## Coding Style
+- Airbnb enforced with ESLint
+  - **Frontend**: `eslint-config-airbnb-typescript`
+  - **Backend**: `eslint-config-airbnb`
