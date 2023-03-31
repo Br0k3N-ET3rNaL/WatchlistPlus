@@ -1,7 +1,7 @@
 services:
   db:
     container_name: watchlistdb
-    build: ./db
+    image: br0k3n/watchlistdb:main
     networks:
       - private
     ports:
@@ -11,7 +11,7 @@ services:
       POSTGRES_DB: watchlist
   api:
     container_name: watchlistapi
-    build: ./api
+    image: br0k3n/watchlistapi:main
     volumes:
       - './api:/app/api'
       - '/api/node_modules'
@@ -25,10 +25,7 @@ services:
      - db
   ui:
     container_name: watchlistui
-    build: 
-      context: ./ui
-      args: 
-        REACT_APP_TARGET: api
+    image: br0k3n/watchlistui:main
     volumes:
       - './ui:/app/ui'
       - '/ui/node_modules'
