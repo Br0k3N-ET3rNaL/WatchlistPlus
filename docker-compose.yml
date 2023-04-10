@@ -12,9 +12,6 @@ services:
   api:
     container_name: watchlistapi
     image: br0k3n/watchlistapi:main
-    volumes:
-      - './api:/app/api'
-      - '/api/node_modules'
     networks:
       - private
     ports:
@@ -26,9 +23,6 @@ services:
   ui:
     container_name: watchlistui
     image: br0k3n/watchlistui:main
-    volumes:
-      - './ui:/app/ui'
-      - '/ui/node_modules'
     networks:
       - public
       - private
