@@ -9,23 +9,13 @@ class UserRepository {
     }
 
     async getUserByUsername(username) {
-        try {
-            const user = await this.db.user.findOne({ where: { username } });
-            return user;
-        } catch (err) {
-            logger.error(`Error::${err}`);
-            return [];
-        }
+        const user = await this.db.user.findOne({ where: { username } });
+        return user;
     }
 
     async getUserByEmail(email) {
-        try {
-            const user = await this.db.user.findOne({ where: { email } });
-            return user;
-        } catch (err) {
-            logger.error(`Error::${err}`);
-            return [];
-        }
+        const user = await this.db.user.findOne({ where: { email } });
+        return user;
     }
 
     async createUser(user) {

@@ -9,13 +9,8 @@ class TitleRepository {
     }
 
     async getTitlesByTitle(title) {
-        try {
-            const titles = await this.db.title.findAll({ where: { title: { [this.db.Op.iLike]: title } } });
-            return titles;
-        } catch (err) {
-            logger.error(`Error::${err}`);
-            return undefined;
-        }
+        const titles = await this.db.title.findAll({ where: { title: { [this.db.Op.iLike]: title } } });
+        return titles;
     }
 
     async getTitle(title, titleType, releaseYear) {
