@@ -14,13 +14,15 @@ class TitleService {
         let duplicates = false;
         let id;
 
-        if (titles.length > 0 && titles[0]) {
-            exists = true;
-        }
-        if (titles.length > 1) {
-            duplicates = true;
-        } else if (titles.length === 1 && titles[0]) {
-            id = titles[0].id;
+        if (titles) {
+            if (titles.length > 0 && titles[0]) {
+                exists = true;
+            }
+            if (titles.length > 1) {
+                duplicates = true;
+            } else if (titles.length === 1 && titles[0]) {
+                id = titles[0].id;
+            }
         }
 
         return { exists, duplicates, id };
