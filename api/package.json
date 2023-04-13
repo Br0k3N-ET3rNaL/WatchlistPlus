@@ -9,7 +9,7 @@
     "test": "jest",
     "test:unit": "jest unit --coverage --coverageDirectory='./coverage/unit' && istanbul-merge --out ./coverage/coverage-total.json ./coverage/*/coverage-final.json && nyc report -t ./coverage",
     "test:integration": "jest integration --runInBand --coverage --coverageDirectory='./coverage/integration' && istanbul-merge --out ./coverage/coverage-total.json ./coverage/*/coverage-final.json && nyc report -t ./coverage",
-    "test:debug": "jest --testTimeout=100000000"
+    "test:debug": "jest --testTimeout=100000000 --runInBand"
   },
   "author": "",
   "license": "ISC",

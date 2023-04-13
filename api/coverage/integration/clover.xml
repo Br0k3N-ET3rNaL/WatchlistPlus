@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1681404157142" clover="3.2.0">
-  <project timestamp="1681404157142" name="All files">
-    <metrics statements="327" coveredstatements="278" conditionals="49" coveredconditionals="32" methods="97" coveredmethods="85" elements="473" coveredelements="395" complexity="0" loc="327" ncloc="327" packages="7" files="23" classes="23"/>
+<coverage generated="1681414298013" clover="3.2.0">
+  <project timestamp="1681414298013" name="All files">
+    <metrics statements="316" coveredstatements="316" conditionals="51" coveredconditionals="39" methods="95" coveredmethods="95" elements="462" coveredelements="450" complexity="0" loc="316" ncloc="316" packages="7" files="23" classes="23"/>
     <package name="api">
-      <metrics statements="48" coveredstatements="45" conditionals="0" coveredconditionals="0" methods="33" coveredmethods="28"/>
+      <metrics statements="46" coveredstatements="46" conditionals="0" coveredconditionals="0" methods="32" coveredmethods="32"/>
       <file name="server.js" path="F:\Homework\Winter 2023\COMP 4350\Project\WatchlistPlus\api\server.js">
-        <metrics statements="48" coveredstatements="45" conditionals="0" coveredconditionals="0" methods="33" coveredmethods="28"/>
+        <metrics statements="46" coveredstatements="46" conditionals="0" coveredconditionals="0" methods="32" coveredmethods="32"/>
         <line num="2" count="5" type="stmt"/>
         <line num="3" count="5" type="stmt"/>
         <line num="5" count="5" type="stmt"/>
@@ -17,43 +17,41 @@
         <line num="13" count="5" type="stmt"/>
         <line num="14" count="5" type="stmt"/>
         <line num="16" count="5" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
         <line num="20" count="5" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
+        <line num="21" count="2" type="stmt"/>
         <line num="24" count="5" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
         <line num="28" count="5" type="stmt"/>
-        <line num="29" count="1" type="stmt"/>
+        <line num="29" count="2" type="stmt"/>
         <line num="32" count="5" type="stmt"/>
-        <line num="33" count="1" type="stmt"/>
-        <line num="36" count="5" type="stmt"/>
-        <line num="37" count="1" type="stmt"/>
-        <line num="39" count="1" type="stmt"/>
-        <line num="42" count="5" type="stmt"/>
-        <line num="43" count="1" type="stmt"/>
-        <line num="45" count="1" type="stmt"/>
+        <line num="33" count="3" type="stmt"/>
+        <line num="35" count="3" type="stmt"/>
+        <line num="38" count="5" type="stmt"/>
+        <line num="39" count="3" type="stmt"/>
+        <line num="41" count="3" type="stmt"/>
+        <line num="44" count="5" type="stmt"/>
+        <line num="45" count="2" type="stmt"/>
         <line num="48" count="5" type="stmt"/>
         <line num="49" count="2" type="stmt"/>
         <line num="52" count="5" type="stmt"/>
-        <line num="53" count="1" type="stmt"/>
+        <line num="53" count="2" type="stmt"/>
         <line num="56" count="5" type="stmt"/>
-        <line num="57" count="1" type="stmt"/>
+        <line num="57" count="2" type="stmt"/>
         <line num="60" count="5" type="stmt"/>
-        <line num="61" count="1" type="stmt"/>
-        <line num="64" count="5" type="stmt"/>
-        <line num="65" count="2" type="stmt"/>
+        <line num="61" count="4" type="stmt"/>
+        <line num="63" count="4" type="stmt"/>
+        <line num="66" count="5" type="stmt"/>
         <line num="67" count="2" type="stmt"/>
         <line num="70" count="5" type="stmt"/>
-        <line num="71" count="1" type="stmt"/>
+        <line num="71" count="2" type="stmt"/>
         <line num="74" count="5" type="stmt"/>
-        <line num="75" count="1" type="stmt"/>
+        <line num="75" count="2" type="stmt"/>
         <line num="78" count="5" type="stmt"/>
-        <line num="79" count="1" type="stmt"/>
+        <line num="79" count="2" type="stmt"/>
         <line num="82" count="5" type="stmt"/>
-        <line num="83" count="1" type="stmt"/>
+        <line num="83" count="3" type="stmt"/>
         <line num="86" count="5" type="stmt"/>
-        <line num="87" count="2" type="stmt"/>
-        <line num="90" count="5" type="stmt"/>
       </file>
     </package>
     <package name="api.config">
@@ -83,80 +81,79 @@
       </file>
     </package>
     <package name="api.controller">
-      <metrics statements="45" coveredstatements="41" conditionals="0" coveredconditionals="0" methods="15" coveredmethods="13"/>
+      <metrics statements="45" coveredstatements="45" conditionals="0" coveredconditionals="0" methods="15" coveredmethods="15"/>
       <file name="recommendation.controller.js" path="F:\Homework\Winter 2023\COMP 4350\Project\WatchlistPlus\api\controller\recommendation.controller.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="5" type="stmt"/>
         <line num="2" count="5" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="14" count="2" type="stmt"/>
-        <line num="15" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="14" count="3" type="stmt"/>
+        <line num="15" count="3" type="stmt"/>
         <line num="19" count="5" type="stmt"/>
       </file>
       <file name="review.controller.js" path="F:\Homework\Winter 2023\COMP 4350\Project\WatchlistPlus\api\controller\review.controller.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="5" type="stmt"/>
         <line num="2" count="5" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
         <line num="16" count="5" type="stmt"/>
       </file>
       <file name="title.controller.js" path="F:\Homework\Winter 2023\COMP 4350\Project\WatchlistPlus\api\controller\title.controller.js">
         <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
         <line num="1" count="5" type="stmt"/>
         <line num="2" count="5" type="stmt"/>
-        <line num="6" count="3" type="stmt"/>
-        <line num="7" count="3" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="16" count="1" type="stmt"/>
-        <line num="17" count="1" type="stmt"/>
+        <line num="6" count="4" type="stmt"/>
+        <line num="7" count="4" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
+        <line num="16" count="3" type="stmt"/>
+        <line num="17" count="3" type="stmt"/>
         <line num="21" count="5" type="stmt"/>
       </file>
       <file name="user.controller.js" path="F:\Homework\Winter 2023\COMP 4350\Project\WatchlistPlus\api\controller\user.controller.js">
-        <metrics statements="11" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="2"/>
-        <line num="1" count="5" type="stmt"/>
-        <line num="2" count="5" type="stmt"/>
-        <line num="6" count="0" type="stmt"/>
-        <line num="7" count="0" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="16" count="1" type="stmt"/>
-        <line num="17" count="1" type="stmt"/>
-        <line num="21" count="1" type="stmt"/>
-        <line num="22" count="1" type="stmt"/>
-        <line num="26" count="5" type="stmt"/>
-      </file>
-      <file name="watchlist.controller.js" path="F:\Homework\Winter 2023\COMP 4350\Project\WatchlistPlus\api\controller\watchlist.controller.js">
         <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
         <line num="1" count="5" type="stmt"/>
         <line num="2" count="5" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
         <line num="16" count="1" type="stmt"/>
         <line num="17" count="1" type="stmt"/>
         <line num="21" count="2" type="stmt"/>
         <line num="22" count="2" type="stmt"/>
         <line num="26" count="5" type="stmt"/>
       </file>
+      <file name="watchlist.controller.js" path="F:\Homework\Winter 2023\COMP 4350\Project\WatchlistPlus\api\controller\watchlist.controller.js">
+        <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="16" count="2" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
+        <line num="21" count="4" type="stmt"/>
+        <line num="22" count="4" type="stmt"/>
+        <line num="26" count="5" type="stmt"/>
+      </file>
     </package>
     <package name="api.logger">
-      <metrics statements="8" coveredstatements="6" conditionals="2" coveredconditionals="1" methods="3" coveredmethods="1"/>
+      <metrics statements="7" coveredstatements="7" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="2"/>
       <file name="api.logger.js" path="F:\Homework\Winter 2023\COMP 4350\Project\WatchlistPlus\api\logger\api.logger.js">
-        <metrics statements="8" coveredstatements="6" conditionals="2" coveredconditionals="1" methods="3" coveredmethods="1"/>
+        <metrics statements="7" coveredstatements="7" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="2"/>
         <line num="1" count="5" type="stmt"/>
         <line num="3" count="5" type="stmt"/>
         <line num="4" count="5" type="stmt"/>
         <line num="8" count="5" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="17" count="17" type="cond" truecount="1" falsecount="1"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="25" count="5" type="stmt"/>
+        <line num="12" count="36" type="cond" truecount="1" falsecount="1"/>
+        <line num="16" count="15" type="stmt"/>
+        <line num="20" count="5" type="stmt"/>
       </file>
     </package>
     <package name="api.model">
@@ -206,191 +203,183 @@
       </file>
     </package>
     <package name="api.repository">
-      <metrics statements="110" coveredstatements="76" conditionals="11" coveredconditionals="7" methods="20" coveredmethods="19"/>
+      <metrics statements="101" coveredstatements="101" conditionals="11" coveredconditionals="11" methods="20" coveredmethods="20"/>
       <file name="recommendation.repository.js" path="F:\Homework\Winter 2023\COMP 4350\Project\WatchlistPlus\api\repository\recommendation.repository.js">
-        <metrics statements="15" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+        <metrics statements="15" coveredstatements="15" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
         <line num="1" count="5" type="stmt"/>
         <line num="2" count="5" type="stmt"/>
         <line num="5" count="5" type="stmt"/>
         <line num="8" count="5" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="14" count="1" type="stmt"/>
-        <line num="15" count="1" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="20" count="1" type="stmt"/>
-        <line num="24" count="2" type="stmt"/>
-        <line num="25" count="2" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="20" count="2" type="stmt"/>
+        <line num="24" count="3" type="stmt"/>
+        <line num="25" count="3" type="stmt"/>
         <line num="45" count="2" type="stmt"/>
-        <line num="47" count="0" type="stmt"/>
-        <line num="48" count="0" type="stmt"/>
+        <line num="47" count="1" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
         <line num="53" count="5" type="stmt"/>
       </file>
       <file name="review.repository.js" path="F:\Homework\Winter 2023\COMP 4350\Project\WatchlistPlus\api\repository\review.repository.js">
-        <metrics statements="15" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+        <metrics statements="15" coveredstatements="15" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
         <line num="1" count="5" type="stmt"/>
         <line num="2" count="5" type="stmt"/>
         <line num="5" count="5" type="stmt"/>
         <line num="8" count="5" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="14" count="1" type="stmt"/>
-        <line num="15" count="1" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="20" count="1" type="stmt"/>
-        <line num="24" count="1" type="stmt"/>
-        <line num="25" count="1" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="20" count="2" type="stmt"/>
+        <line num="24" count="2" type="stmt"/>
+        <line num="25" count="2" type="stmt"/>
         <line num="36" count="1" type="stmt"/>
-        <line num="38" count="0" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="39" count="1" type="stmt"/>
         <line num="44" count="5" type="stmt"/>
       </file>
       <file name="title.repository.js" path="F:\Homework\Winter 2023\COMP 4350\Project\WatchlistPlus\api\repository\title.repository.js">
-        <metrics statements="31" coveredstatements="19" conditionals="4" coveredconditionals="2" methods="5" coveredmethods="5"/>
+        <metrics statements="28" coveredstatements="28" conditionals="4" coveredconditionals="4" methods="5" coveredmethods="5"/>
         <line num="1" count="5" type="stmt"/>
         <line num="2" count="5" type="stmt"/>
         <line num="5" count="5" type="stmt"/>
         <line num="8" count="5" type="stmt"/>
         <line num="12" count="2" type="stmt"/>
         <line num="13" count="2" type="stmt"/>
-        <line num="14" count="2" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="22" count="1" type="stmt"/>
-        <line num="23" count="1" type="stmt"/>
-        <line num="30" count="1" type="stmt"/>
-        <line num="32" count="0" type="stmt"/>
-        <line num="33" count="0" type="stmt"/>
-        <line num="39" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="40" count="1" type="stmt"/>
-        <line num="41" count="1" type="stmt"/>
-        <line num="48" count="1" type="stmt"/>
-        <line num="50" count="0" type="stmt"/>
-        <line num="51" count="0" type="stmt"/>
-        <line num="54" count="0" type="stmt"/>
-        <line num="55" count="0" type="stmt"/>
-        <line num="61" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="62" count="1" type="stmt"/>
-        <line num="63" count="1" type="stmt"/>
-        <line num="76" count="1" type="stmt"/>
-        <line num="78" count="0" type="stmt"/>
-        <line num="79" count="0" type="stmt"/>
-        <line num="82" count="0" type="stmt"/>
-        <line num="83" count="0" type="stmt"/>
-        <line num="88" count="5" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="34" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="35" count="2" type="stmt"/>
+        <line num="36" count="2" type="stmt"/>
+        <line num="43" count="1" type="stmt"/>
+        <line num="45" count="1" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="56" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="57" count="2" type="stmt"/>
+        <line num="58" count="2" type="stmt"/>
+        <line num="71" count="1" type="stmt"/>
+        <line num="73" count="1" type="stmt"/>
+        <line num="74" count="1" type="stmt"/>
+        <line num="77" count="1" type="stmt"/>
+        <line num="78" count="1" type="stmt"/>
+        <line num="83" count="5" type="stmt"/>
       </file>
       <file name="user.repository.js" path="F:\Homework\Winter 2023\COMP 4350\Project\WatchlistPlus\api\repository\user.repository.js">
-        <metrics statements="20" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
+        <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
         <line num="1" count="5" type="stmt"/>
         <line num="2" count="5" type="stmt"/>
         <line num="5" count="5" type="stmt"/>
         <line num="8" count="5" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="22" count="1" type="stmt"/>
-        <line num="23" count="1" type="stmt"/>
-        <line num="24" count="1" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="32" count="5" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="13" count="2" type="stmt"/>
+        <line num="17" count="3" type="stmt"/>
+        <line num="18" count="3" type="stmt"/>
+        <line num="22" count="6" type="stmt"/>
+        <line num="24" count="6" type="stmt"/>
+        <line num="25" count="6" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="30" count="6" type="stmt"/>
         <line num="34" count="5" type="stmt"/>
-        <line num="35" count="5" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
-        <line num="40" count="5" type="stmt"/>
-        <line num="44" count="5" type="stmt"/>
       </file>
       <file name="watchlist.repository.js" path="F:\Homework\Winter 2023\COMP 4350\Project\WatchlistPlus\api\repository\watchlist.repository.js">
-        <metrics statements="29" coveredstatements="21" conditionals="7" coveredconditionals="5" methods="5" coveredmethods="5"/>
+        <metrics statements="29" coveredstatements="29" conditionals="7" coveredconditionals="7" methods="5" coveredmethods="5"/>
         <line num="1" count="5" type="stmt"/>
         <line num="2" count="5" type="stmt"/>
         <line num="5" count="5" type="stmt"/>
         <line num="8" count="5" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="14" count="1" type="stmt"/>
-        <line num="15" count="1" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="20" count="1" type="stmt"/>
-        <line num="24" count="1" type="stmt"/>
-        <line num="26" count="1" type="stmt"/>
-        <line num="27" count="1" type="stmt"/>
-        <line num="29" count="0" type="stmt"/>
-        <line num="32" count="1" type="stmt"/>
-        <line num="36" count="1" type="stmt"/>
-        <line num="37" count="1" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
-        <line num="44" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="45" count="2" type="stmt"/>
-        <line num="47" count="2" type="cond" truecount="4" falsecount="1"/>
-        <line num="48" count="0" type="stmt"/>
-        <line num="51" count="2" type="stmt"/>
-        <line num="52" count="2" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="20" count="2" type="stmt"/>
+        <line num="24" count="2" type="stmt"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="27" count="2" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="32" count="2" type="stmt"/>
+        <line num="36" count="2" type="stmt"/>
+        <line num="37" count="2" type="stmt"/>
+        <line num="39" count="1" type="stmt"/>
+        <line num="44" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="45" count="3" type="stmt"/>
+        <line num="47" count="3" type="cond" truecount="5" falsecount="0"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="51" count="3" type="stmt"/>
+        <line num="52" count="3" type="stmt"/>
         <line num="81" count="2" type="stmt"/>
-        <line num="83" count="0" type="stmt"/>
-        <line num="84" count="0" type="stmt"/>
-        <line num="87" count="0" type="stmt"/>
-        <line num="88" count="0" type="stmt"/>
+        <line num="83" count="1" type="stmt"/>
+        <line num="84" count="1" type="stmt"/>
+        <line num="87" count="1" type="stmt"/>
+        <line num="88" count="1" type="stmt"/>
         <line num="93" count="5" type="stmt"/>
       </file>
     </package>
     <package name="api.service">
-      <metrics statements="68" coveredstatements="62" conditionals="34" coveredconditionals="22" methods="20" coveredmethods="18"/>
+      <metrics statements="69" coveredstatements="69" conditionals="36" coveredconditionals="25" methods="20" coveredmethods="20"/>
       <file name="recommendation.service.js" path="F:\Homework\Winter 2023\COMP 4350\Project\WatchlistPlus\api\service\recommendation.service.js">
         <metrics statements="7" coveredstatements="7" conditionals="2" coveredconditionals="1" methods="3" coveredmethods="3"/>
         <line num="1" count="5" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="9" count="2" type="stmt"/>
-        <line num="12" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="13" count="2" type="stmt"/>
-        <line num="22" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
+        <line num="12" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="13" count="3" type="stmt"/>
+        <line num="22" count="3" type="stmt"/>
         <line num="26" count="5" type="stmt"/>
       </file>
       <file name="review.service.js" path="F:\Homework\Winter 2023\COMP 4350\Project\WatchlistPlus\api\service\review.service.js">
         <metrics statements="7" coveredstatements="7" conditionals="2" coveredconditionals="1" methods="3" coveredmethods="3"/>
         <line num="1" count="5" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="12" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="13" count="1" type="stmt"/>
-        <line num="19" count="1" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="12" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="13" count="2" type="stmt"/>
+        <line num="19" count="2" type="stmt"/>
         <line num="23" count="5" type="stmt"/>
       </file>
       <file name="title.service.js" path="F:\Homework\Winter 2023\COMP 4350\Project\WatchlistPlus\api\service\title.service.js">
-        <metrics statements="24" coveredstatements="24" conditionals="18" coveredconditionals="14" methods="5" coveredmethods="5"/>
+        <metrics statements="25" coveredstatements="25" conditionals="20" coveredconditionals="16" methods="5" coveredmethods="5"/>
         <line num="1" count="5" type="stmt"/>
-        <line num="7" count="3" type="cond" truecount="4" falsecount="0"/>
-        <line num="8" count="1" type="stmt"/>
+        <line num="7" count="4" type="cond" truecount="4" falsecount="0"/>
+        <line num="8" count="2" type="stmt"/>
         <line num="10" count="2" type="stmt"/>
-        <line num="13" count="3" type="stmt"/>
-        <line num="14" count="3" type="stmt"/>
-        <line num="17" count="3" type="cond" truecount="3" falsecount="1"/>
-        <line num="18" count="3" type="stmt"/>
-        <line num="20" count="3" type="cond" truecount="2" falsecount="0"/>
-        <line num="21" count="1" type="stmt"/>
-        <line num="22" count="2" type="cond" truecount="3" falsecount="1"/>
-        <line num="23" count="2" type="stmt"/>
-        <line num="26" count="3" type="stmt"/>
-        <line num="30" count="1" type="stmt"/>
-        <line num="32" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="33" count="1" type="stmt"/>
-        <line num="34" count="50" type="stmt"/>
-        <line num="38" count="1" type="stmt"/>
-        <line num="42" count="1" type="stmt"/>
-        <line num="44" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="45" count="1" type="stmt"/>
-        <line num="46" count="50" type="stmt"/>
-        <line num="50" count="1" type="stmt"/>
-        <line num="54" count="5" type="stmt"/>
+        <line num="13" count="4" type="stmt"/>
+        <line num="14" count="4" type="stmt"/>
+        <line num="17" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="18" count="3" type="cond" truecount="3" falsecount="1"/>
+        <line num="19" count="3" type="stmt"/>
+        <line num="21" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="23" count="2" type="cond" truecount="3" falsecount="1"/>
+        <line num="24" count="2" type="stmt"/>
+        <line num="28" count="4" type="stmt"/>
+        <line num="32" count="3" type="stmt"/>
+        <line num="34" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="35" count="3" type="stmt"/>
+        <line num="36" count="50" type="stmt"/>
+        <line num="40" count="3" type="stmt"/>
+        <line num="44" count="3" type="stmt"/>
+        <line num="46" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="47" count="3" type="stmt"/>
+        <line num="48" count="50" type="stmt"/>
+        <line num="52" count="3" type="stmt"/>
+        <line num="56" count="5" type="stmt"/>
       </file>
       <file name="user.service.js" path="F:\Homework\Winter 2023\COMP 4350\Project\WatchlistPlus\api\service\user.service.js">
-        <metrics statements="21" coveredstatements="15" conditionals="10" coveredconditionals="5" methods="4" coveredmethods="2"/>
+        <metrics statements="21" coveredstatements="21" conditionals="10" coveredconditionals="6" methods="4" coveredmethods="4"/>
         <line num="1" count="5" type="stmt"/>
-        <line num="5" count="0" type="stmt"/>
-        <line num="7" count="0" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="13" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="13" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
         <line num="21" count="1" type="stmt"/>
         <line num="23" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="24" count="1" type="stmt"/>
@@ -402,20 +391,20 @@
         <line num="35" count="1" type="cond" truecount="3" falsecount="1"/>
         <line num="36" count="1" type="stmt"/>
         <line num="39" count="1" type="stmt"/>
-        <line num="43" count="1" type="stmt"/>
-        <line num="47" count="1" type="stmt"/>
+        <line num="43" count="2" type="stmt"/>
+        <line num="47" count="3" type="stmt"/>
         <line num="51" count="5" type="stmt"/>
       </file>
       <file name="watchlist.service.js" path="F:\Homework\Winter 2023\COMP 4350\Project\WatchlistPlus\api\service\watchlist.service.js">
         <metrics statements="9" coveredstatements="9" conditionals="2" coveredconditionals="1" methods="5" coveredmethods="5"/>
         <line num="1" count="5" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="13" count="1" type="stmt"/>
-        <line num="17" count="2" type="stmt"/>
-        <line num="19" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="20" count="2" type="stmt"/>
-        <line num="36" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="13" count="2" type="stmt"/>
+        <line num="17" count="4" type="stmt"/>
+        <line num="19" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="20" count="4" type="stmt"/>
+        <line num="36" count="4" type="stmt"/>
         <line num="40" count="5" type="stmt"/>
       </file>
     </package>

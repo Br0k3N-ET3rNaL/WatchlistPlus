@@ -2,8 +2,10 @@ const request = require('supertest');
 const app = require('../server');
 const titleRepository = require('../repository/title.repository');
 const userRepository = require('../repository/user.repository');
+const logger = require('../logger/api.logger');
 
 describe('title', () => {
+    const loggerSpy = jest.spyOn(logger, 'error');
     let testUser;
 
     beforeAll(async () => {
@@ -13,6 +15,10 @@ describe('title', () => {
 
     afterAll(async () => {
         userRepository.db.user.truncate({ cascade: true, restartIdentity: true });
+    });
+
+    afterEach(async () => {
+        jest.clearAllMocks();
     });
 
     test('verify title', async () => {
@@ -66,18 +72,45 @@ describe('title', () => {
                 expect(res.body.id).not.toBe(testTitle2.id);
                 expect(res.body.id).toBe(testTitle1.id);
             });
+
+        await request(app)
+            .get(`/api/titles/verify/${testTitle1.title}/${testTitle1.type}/test`)
+            .send()
+            .expect(200)
+            .then(() => {
+                expect(spy).toHaveReturned();
+                expect(loggerSpy).toHaveBeenCalledWith('Error::SequelizeDatabaseError: invalid input syntax for type integer: "test"');
+            });
     });
 
     test('get titles', async () => {
         const spy = jest.spyOn(titleRepository, 'getPageOfTitles');
 
         await request(app)
-            .get('/api/titles/page/50/1/tmdbScore/ /')
+            .get('/api/titles/page/50/1/tmdbPopularity/ /')
             .send()
             .expect(200)
             .then((res) => {
                 expect(spy).toHaveReturned();
                 expect(res.body).toHaveLength(50);
+            });
+
+        await request(app)
+            .get('/api/titles/page/50/1/notAColumn/ /')
+            .send()
+            .expect(200)
+            .then(() => {
+                expect(spy).toHaveReturned();
+                expect(loggerSpy).toHaveBeenCalledWith('Error::notAColumn does not exists in titles');
+            });
+
+        await request(app)
+            .get('/api/titles/page/50/test/tmdbPopularity/ /')
+            .send()
+            .expect(200)
+            .then(() => {
+                expect(spy).toHaveReturned();
+                expect(loggerSpy).toHaveBeenCalledWith('Error::SequelizeDatabaseError: column "nan" does not exist');
             });
     });
 
@@ -85,12 +118,30 @@ describe('title', () => {
         const spy = jest.spyOn(titleRepository, 'getPageOfTitlesWithWatched');
 
         await request(app)
-            .get(`/api/titles/page/withWatched/${testUser.id}/50/1/tmdbScore/ /`)
+            .get(`/api/titles/page/withWatched/${testUser.id}/50/1/tmdbPopularity/ /`)
             .send()
             .expect(200)
             .then((res) => {
                 expect(spy).toHaveReturned();
                 expect(res.body).toHaveLength(50);
+            });
+
+        await request(app)
+            .get(`/api/titles/page/withWatched/${testUser.id}/50/1/notAColumn/ /`)
+            .send()
+            .expect(200)
+            .then(() => {
+                expect(spy).toHaveReturned();
+                expect(loggerSpy).toHaveBeenCalledWith('Error::notAColumn does not exists in titles');
+            });
+
+        await request(app)
+            .get('/api/titles/page/withWatched/test/50/1/tmdbPopularity/ /')
+            .send()
+            .expect(200)
+            .then(() => {
+                expect(spy).toHaveReturned();
+                expect(loggerSpy).toHaveBeenCalledWith('Error::SequelizeDatabaseError: invalid input syntax for type integer: "test"');
             });
     });
 });
