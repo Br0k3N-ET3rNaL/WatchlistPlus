@@ -13,10 +13,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-    res.send('App works!!');
-});
-
 app.get('/api/users/exists/username/:username', (req, res) => {
     userController.usernameExists(req.params.username).then((data) => res.json(data));
 });
