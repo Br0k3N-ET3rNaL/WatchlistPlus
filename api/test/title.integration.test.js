@@ -1,8 +1,20 @@
 const request = require('supertest');
 const app = require('../server');
 const titleRepository = require('../repository/title.repository');
+const userRepository = require('../repository/user.repository');
 
 describe('title', () => {
+    let testUser;
+
+    beforeAll(async () => {
+        userRepository.db.user.truncate({ cascade: true, restartIdentity: true });
+        testUser = await userRepository.createUser({ email: 'test@gmail.com', username: 'TestUser', password: 'password' });
+    });
+
+    afterAll(async () => {
+        userRepository.db.user.truncate({ cascade: true, restartIdentity: true });
+    });
+
     test('verify title', async () => {
         const testTitle = {
             id: 'tm1143265', title: 'Incantation', type: 'MOVIE', releaseYear: 2022,
@@ -61,6 +73,19 @@ describe('title', () => {
 
         await request(app)
             .get('/api/titles/page/50/1/tmdbScore/ /')
+            .send()
+            .expect(200)
+            .then((res) => {
+                expect(spy).toHaveReturned();
+                expect(res.body).toHaveLength(50);
+            });
+    });
+
+    test('get titles with watched', async () => {
+        const spy = jest.spyOn(titleRepository, 'getPageOfTitlesWithWatched');
+
+        await request(app)
+            .get(`/api/titles/page/withWatched/${testUser.id}/50/1/tmdbScore/ /`)
             .send()
             .expect(200)
             .then((res) => {
