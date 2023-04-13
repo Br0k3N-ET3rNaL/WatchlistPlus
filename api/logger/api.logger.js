@@ -8,11 +8,6 @@ const myWinstonOptions = {
 const logger = new winston.createLogger(myWinstonOptions);
 
 class APILogger {
-    info(message) {
-        logger.info(message);
-    }
-
-    // eslint-disable-next-line no-dupe-class-members
     info(message, data) {
         logger.info(`${message}   ${undefined !== data ? JSON.stringify(data) : ''}`);
     }
