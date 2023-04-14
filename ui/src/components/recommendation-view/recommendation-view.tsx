@@ -33,7 +33,6 @@ class RecommendationView extends React.Component<RecommendationViewProps, Recomm
     handleNextPage: React.MouseEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault();
 
-
         this.setState(prevState => ({ page: prevState.page + 1 }), this.getCurrentPage);
     };
 
