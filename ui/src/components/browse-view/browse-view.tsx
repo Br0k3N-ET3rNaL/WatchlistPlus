@@ -96,7 +96,7 @@ class BrowseView extends React.Component<BrowseViewProps, BrowseViewState> {
             clearTimeout(state.timeout);
         }
 
-        let search = e.currentTarget.value
+        let search = e.currentTarget.value;
 
         if (search === '') search = ' ';
 
