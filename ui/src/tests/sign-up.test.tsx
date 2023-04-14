@@ -6,6 +6,8 @@ describe('sign-up', () => {
     test('invalid username', async () => {
         render(<SignUp />);
 
+        await userEvent.type(screen.getByRole('textbox', { name: /username/i }), '{enter}');
+
         const fetchMock = global.fetch = jest.fn(async () =>
             Promise.resolve({ json: async () => Promise.resolve({ usernameExists: true }) })
         ) as jest.Mock;
@@ -21,6 +23,8 @@ describe('sign-up', () => {
 
     test('invalid email', async () => {
         render(<SignUp />);
+
+        await userEvent.type(screen.getByRole('textbox', { name: /email/i }), '{enter}');
 
         const fetchMock = global.fetch = jest.fn(async () =>
             Promise.resolve({ json: async () => Promise.resolve({ emailExists: true }) })

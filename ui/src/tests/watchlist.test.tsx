@@ -112,6 +112,19 @@ describe('edit-watchlist', () => {
         expect(fetchMock.mock.lastCall[1].method).toBe('DELETE');
     });
 
+    test('remove from watchlist from browse-view', async () => {
+        render(
+            <UserContext.Provider value={testUser}>
+                <EditWatchlist title={testTitleWithWatched} closeEdit={closeEdit} />
+            </UserContext.Provider>
+        );
+
+        await userEvent.click(screen.getByText('Delete'));
+        await waitFor(() => expect(fetchMock).toHaveBeenCalled());
+        expect(fetchMock.mock.lastCall[0]).toBe('/api/watchlist/' + testUser.id + '/' + testTitleWithWatched.id + '/');
+        expect(fetchMock.mock.lastCall[1].method).toBe('DELETE');
+    });
+
     test('close edit', async () => {
         render(
             <UserContext.Provider value={testUser}>
@@ -155,6 +168,41 @@ describe('watchlist', () => {
         expect(within(screen.getByRole('list')).getByText(testWatched1.status)).toBeDefined();
     });
 
+    test('switch pages', async () => {
+        render(
+            <UserContext.Provider value={testUser}>
+                <Watchlist />
+            </UserContext.Provider>
+        );
+
+        await waitFor(() => expect(fetchMock).toHaveBeenCalled());
+        expect(fetchMock.mock.lastCall[0]).toBe('/api/watchlist/' + testUser.id + '/50/1/status/All/');
+        expect(fetchMock.mock.lastCall[1].method).toBe('GET');
+
+        expect(await screen.findByText(testWatched1.title!.title)).toBeDefined();
+        expect(within(screen.getByRole('list')).getByText(testWatched1.status)).toBeDefined();
+
+        await userEvent.click(screen.getByRole('button', { name: /next/i }));
+
+        expect(fetchMock.mock.calls).toHaveLength(2);
+        expect(screen.getByText('2')).toBeDefined();
+
+        await userEvent.click(screen.getByRole('button', { name: /prev/i }));
+
+        expect(fetchMock.mock.calls).toHaveLength(3);
+        expect(screen.getByText('1')).toBeDefined();
+
+        await userEvent.click(screen.getByRole('button', { name: /next/i }));
+        await userEvent.click(screen.getByRole('button', { name: /next/i }));
+
+        expect(screen.getByText('3')).toBeDefined();
+
+        await userEvent.click(screen.getByRole('button', { name: /first/i }));
+
+        expect(fetchMock.mock.calls).toHaveLength(6);
+        expect(screen.getByText('1')).toBeDefined();
+    });
+
     test('filter watchlist', async () => {
         render(
             <UserContext.Provider value={testUser}>
@@ -194,6 +242,45 @@ describe('watchlist', () => {
         await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(2));
         expect(fetchMock.mock.lastCall[0]).toBe('/api/watchlist/' + testUser.id + '/50/1/rating/All/');
     });
+
+    test('open & close title', async () => {
+        render(
+            <UserContext.Provider value={testUser}>
+                <Watchlist />
+            </UserContext.Provider>
+        );
+
+        await waitFor(() => expect(fetchMock).toHaveReturned());
+        const title = await screen.findByText(testTitle1.title);
+
+        await userEvent.click(title);
+
+        expect(await screen.findByText(testTitle1.description)).toBeDefined();
+
+        await userEvent.click(screen.getByText('X'));
+
+        await waitFor(() => expect(screen.queryByText(testTitle1.description)).toBeNull());
+    });
+
+    test('open & close edit', async () => {
+        render(
+            <UserContext.Provider value={testUser}>
+                <Watchlist />
+            </UserContext.Provider>
+        );
+
+        await waitFor(() => expect(fetchMock).toHaveReturned());
+
+        const editButton = (await screen.findAllByText('edit'))[0];
+
+        await userEvent.click(editButton);
+
+        expect(await screen.findByText('Status:')).toBeDefined();
+
+        await userEvent.click(screen.getByText('Cancel'));
+
+        await waitFor(() => expect(screen.queryByText('Status:')).toBeNull());
+    });
 });
 
 describe('watchlist-list-element', () => {
@@ -212,12 +299,22 @@ describe('watchlist-list-element', () => {
 
         render(<WatchlistListElement key={1} watched={testWatched1} displayTitle={displayTitle} displayEdit={displayEdit} />);
 
-        await userEvent.click(screen.getByText(testWatched1.title!.title));
+        const title = screen.getByText(testWatched1.title!.title)
 
+        await userEvent.click(title);
         expect(displayTitle).toHaveBeenCalled();
 
-        await userEvent.click(screen.getByText('edit'));
+        title.focus();
+        await userEvent.keyboard('{enter}');
+        expect(displayTitle).toHaveBeenCalledTimes(2);
 
+        const edit = screen.getByText('edit');
+
+        await userEvent.click(edit);
         expect(displayEdit).toHaveBeenCalled();
+
+        edit.focus();
+        await userEvent.keyboard('{enter}');
+        expect(displayEdit).toHaveBeenCalledTimes(2);
     });
 });

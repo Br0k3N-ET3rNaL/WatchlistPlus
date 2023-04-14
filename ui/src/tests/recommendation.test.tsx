@@ -48,6 +48,37 @@ describe('recommendation-view', () => {
         expect(screen.getByText('recommended by ' + testRecommendations.count.toString() + ' users')).toBeDefined();
     });
 
+    test('switch pages', async () => {
+        render(<RecommendationView titleId={testRecommendations.title1Id} />);
+
+        await waitFor(() => expect(fetchMock).toHaveBeenCalled());
+        expect(fetchMock.mock.lastCall[0]).toBe('/api/recommendations/' + testRecommendations.title1Id + '/50/1/');
+        expect(fetchMock.mock.lastCall[1].method).toBe('GET');
+
+        expect(await screen.findByText(testRecommendations.title2Title)).toBeDefined();
+        expect(screen.getByText('recommended by ' + testRecommendations.count.toString() + ' users')).toBeDefined();
+
+        await userEvent.click(screen.getByRole('button', { name: /next/i }));
+
+        expect(fetchMock.mock.calls).toHaveLength(2);
+        expect(screen.getByText('2')).toBeDefined();
+
+        await userEvent.click(screen.getByRole('button', { name: /prev/i }));
+
+        expect(fetchMock.mock.calls).toHaveLength(3);
+        expect(screen.getByText('1')).toBeDefined();
+
+        await userEvent.click(screen.getByRole('button', { name: /next/i }));
+        await userEvent.click(screen.getByRole('button', { name: /next/i }));
+
+        expect(screen.getByText('3')).toBeDefined();
+
+        await userEvent.click(screen.getByRole('button', { name: /first/i }));
+
+        expect(fetchMock.mock.calls).toHaveLength(6);
+        expect(screen.getByText('1')).toBeDefined();
+    });
+
     test('close recommendations', async () => {
         const closeRecommendations = jest.fn();
 
@@ -81,7 +112,8 @@ describe('create-recommendation', () => {
             Promise.resolve({ json: async () => Promise.resolve({ exists: true, duplicates: false, id: testRecommendations.title2Id }) })
         ) as jest.Mock;
 
-        await userEvent.type(screen.getByRole('textbox', { name: /title/i }), testRecommendations.title2Title + '{enter}');
+        await userEvent.type(screen.getByRole('textbox', { name: /title/i }), testRecommendations.title2Title);
+        await userEvent.click(screen.getByText('Submit'));
 
         await waitFor(() => expect(fetchMock).toHaveBeenCalled());
         expect(fetchMock.mock.calls[0][0]).toBe('/api/titles/verify/' + testRecommendations.title2Title + '/');

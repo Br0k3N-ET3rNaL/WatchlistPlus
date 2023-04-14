@@ -67,6 +67,36 @@ describe('review-view', () => {
         expect(screen.getByText('No reviews yet').hidden).toBeTruthy();
     });
 
+    test('switch pages', async () => {
+        render(
+            <UserContext.Provider value={testUser}>
+                <ReviewView titleId={testReview.titleId} />
+            </UserContext.Provider>
+        );
+
+        await waitFor(() => expect(fetchMock).toHaveBeenCalled());
+
+        await userEvent.click(screen.getByRole('button', { name: /next/i }));
+
+        expect(fetchMock.mock.calls).toHaveLength(2);
+        expect(screen.getByText('2')).toBeDefined();
+
+        await userEvent.click(screen.getByRole('button', { name: /prev/i }));
+
+        expect(fetchMock.mock.calls).toHaveLength(3);
+        expect(screen.getByText('1')).toBeDefined();
+
+        await userEvent.click(screen.getByRole('button', { name: /next/i }));
+        await userEvent.click(screen.getByRole('button', { name: /next/i }));
+
+        expect(screen.getByText('3')).toBeDefined();
+
+        await userEvent.click(screen.getByRole('button', { name: /first/i }));
+
+        expect(fetchMock.mock.calls).toHaveLength(6);
+        expect(screen.getByText('1')).toBeDefined();
+    });
+
     test('close reviews', async () => {
         const closeReviews = jest.fn();
 

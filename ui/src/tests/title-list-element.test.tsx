@@ -16,7 +16,12 @@ test('list element click title', async () => {
     const displayTitle = jest.fn();
     render(<TitleListElement key={1} title={stubTitle} loggedIn={false} displayTitle={displayTitle}/>);
 
-    await userEvent.click(screen.getByText('Title'));
+    const title = screen.getByText('Title');
 
+    await userEvent.click(title);
     expect(displayTitle.mock.calls).toHaveLength(1);
+
+    title.focus();
+    await userEvent.keyboard('{enter}');
+    expect(displayTitle.mock.calls).toHaveLength(2);
 });
