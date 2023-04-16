@@ -2,7 +2,7 @@
 ## Project Summary and Vision
 For both casual watchers and avid cinephiles, Watchlist+ aims to make keeping track of your watch history, and more, simple and straightforward.
 
-Watchlist+ is a web-application that will help you keep track of movies and TV shows that you've watched or those you plan to. With dynamic recommendations and reviews from other users, Watchlist+ will help you expand your watching horizons. Not sure if a TV show or movie is for you? Check out reviews from other users to help you decide. After a quick sign-up, all this and more can be at your fingertips.
+Watchlist+ is a web-application that will help you keep track of movies and TV shows that you've watched or those you plan to. With recommendations and reviews from other users, Watchlist+ will help you expand your watching horizons. Not sure if a TV show or movie is for you? Check out reviews from other users to help you decide. After a quick sign-up, all this and more can be at your fingertips.
 
 ## Core Features
 - Watchlist
